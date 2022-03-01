@@ -1,0 +1,33 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    istio-injection: disabled
+  name: neuvector
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: GitRepository
+metadata:
+  name: neuvector
+  namespace: neuvector
+spec:
+  url: https://repo1.dso.mil/platform-one/big-bang/apps/sandbox/neuvector.git
+  ref:
+    branch: main
+  interval: 10m
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: neuvector
+  namespace: neuvector
+spec:
+  chart:
+    spec:
+      chart: ./chart
+      sourceRef:
+        kind: GitRepository
+        name: neuvector
+  interval: 1m0s
+---
