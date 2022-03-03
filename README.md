@@ -1,8 +1,5 @@
 # Neuvector
 
-
-
-
 ## Install Without Flux
 
 ```bash

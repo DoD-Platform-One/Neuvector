@@ -1,0 +1,25 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/defenseunicorns/zarf/v0.15.0/zarf.schema.json
+kind: ZarfPackageConfig
+metadata:
+  name: neuvector-all-in-one
+  description: "All-In-One deployment of Neuvector"
+  # Iron Bank doesn't support ARM
+  architecture: amd64
+
+components:
+  - name: neuvector
+    required: true
+    charts:
+      - name: "core"
+        url: "https://repo1.dso.mil/platform-one/big-bang/apps/sandbox/neuvector.git"
+        version: "1.9.1-bb.0"
+        namespace: "neuvector"
+        gitPath: "chart"
+        valuesFiles:
+          - "values/neuvector-values.yaml"
+    images:
+      - "docker.io/neuvector/controller.preview:5.0.0-preview.1"
+      - "docker.io/neuvector/enforcer.preview:5.0.0-preview.1"
+      - "docker.io/neuvector/manager.preview:5.0.0-preview.1"
+      - "docker.io/neuvector/updater.preview:latest"
+      - "docker.io/neuvector/scanner.preview:latest"
