@@ -14,7 +14,7 @@ metadata:
 spec:
   url: https://repo1.dso.mil/platform-one/big-bang/apps/sandbox/neuvector.git
   ref:
-    branch: main
+    branch: neuvector-initial-package
   interval: 10m
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
