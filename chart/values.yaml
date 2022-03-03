@@ -179,7 +179,7 @@ manager:
   env:
     ssl: true
   svc:
-    type: NodePort
+    type: ClusterIP
     loadBalancerIP:
     annotations: {}
       # azure
