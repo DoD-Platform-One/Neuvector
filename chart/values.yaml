@@ -4,7 +4,7 @@
 
 openshift: false
 
-registry: docker.io
+registry: registry.dso.mil
 tag: 5.0.0-preview.1
 oem:
 imagePullSecrets:
@@ -20,7 +20,7 @@ controller:
       maxSurge: 1
       maxUnavailable: 0
   image:
-    repository: registry.dso.mil/neuvector/controller.preview
+    repository: neuvector/controller.preview
     hash:
   replicas: 3
   disruptionbudget: 0
@@ -155,7 +155,7 @@ enforcer:
   # If false, enforcer will not be installed
   enabled: true
   image:
-    repository: registry.dso.mil/neuvector/enforcer.preview
+    repository: neuvector/enforcer.preview
     hash:
   priorityClassName:
   tolerations:
@@ -173,7 +173,7 @@ manager:
   # If false, manager will not be installed
   enabled: true
   image:
-    repository: registry.dso.mil/neuvector/manager.preview
+    repository: neuvector/manager.preview
     hash:
   priorityClassName:
   env:
@@ -226,7 +226,7 @@ cve:
     enabled: true
     secure: false
     image:
-      repository: registry.dso.mil/neuvector/updater.preview
+      repository: neuvector/updater.preview
       tag: latest
       hash:
     schedule: "0 0 * * *"
@@ -241,7 +241,7 @@ cve:
         maxSurge: 1
         maxUnavailable: 0
     image:
-      repository: registry.dso.mil/neuvector/scanner.preview
+      repository: neuvector/scanner.preview
       tag: latest
       hash:
     priorityClassName:
