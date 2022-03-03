@@ -307,3 +307,15 @@ networkPolicies:
     app: istio-ingressgateway
     istio: ingressgateway
   controlPlaneCidr: 0.0.0.0/0
+
+# Bigbang helm test values default disabled
+bbtests:
+  enabled: false
+  cypress:
+    artifacts: true
+    envs:
+      cypress_url: "https://neuvector-service-webui.{{ .Release.Namespace }}.svc.cluster.local:8443"
+  scripts:
+    envs:
+      URL: "https://neuvector-service-webui.{{ .Release.Namespace }}.svc.cluster.local:8443"
+
