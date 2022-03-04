@@ -316,6 +316,8 @@ networkPolicies:
     app: istio-ingressgateway
     istio: ingressgateway
   controlPlaneCidr: 0.0.0.0/0
+  egressHttps:
+    enabled: true
 
 # Bigbang helm test values default disabled
 bbtests:
