@@ -1,0 +1,17 @@
+{{- if and .Values.networkPolicies.enabled .Values.networkPolicies.egressHttps.enabled }}
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-https-egress
+  namespace: {{ .Release.Namespace }}
+spec:
+  policyTypes:
+  - Egress
+  egress:
+  - ports:
+    - port: 443
+      protocol: TCP
+  podSelector:
+    matchLabels:
+      app: neuvector-manager-pod
+{{- end }}
