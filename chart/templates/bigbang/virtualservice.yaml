@@ -1,0 +1,27 @@
+{{- if .Values.istio.enabled -}}
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: {{ template "neuvector.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    helm.sh/chart: {{ include "neuvector.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    app.kubernetes.io/part-of: neuvector
+spec:
+  gateways:
+  {{- range .Values.istio.neuvector.gateways }}
+    - {{ . }}
+  {{- end }}
+  hosts:
+  {{- range .Values.istio.neuvector.hosts }}
+    - {{ tpl . $}}
+  {{- end }}
+  http:
+    - route:
+        - destination:
+            port:
+              number: 8443
+            host: neuvector-service-webui
+{{- end }}

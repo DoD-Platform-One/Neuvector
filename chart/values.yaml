@@ -291,8 +291,17 @@ crdwebhook:
   enabled: true
   type: ClusterIP
 
+domain: bigbang.dev
 istio:
   enabled: false
+  neuvector:
+    enabled: true
+    annotations: {}
+    labels: {}
+    gateways:
+      - istio-system/main
+    hosts:
+      - neuvector.{{ .Values.domain }}
   # -- Default neuvector peer authentication
   mtls:
     # -- STRICT = Allow only mutual TLS traffic,
