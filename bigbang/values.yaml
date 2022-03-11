@@ -1,0 +1,87 @@
+neuvector:
+  enabled: true
+  git:
+    repo: https://repo1.dso.mil/platform-one/big-bang/apps/sandbox/neuvector
+    branch: neuvector-initial-package
+    path: chart
+  flux: {}
+  ingress:
+    gateway: ""
+  values:
+    bbtests:
+      enabled: true
+
+# Toggle for network polocies
+networkPolicies:
+  enabled: false
+
+# Toggle for Bigbang Core packages set true to install
+jaeger:
+  enabled: true
+
+kiali:
+  enabled: true
+
+clusterAuditor:
+  enabled: true
+
+gatekeeper:
+  enabled: true
+
+kyverno:
+  enabled: false
+
+tempo:
+  enabled: false
+
+promtail:
+  enabled: false
+
+loki:
+  enabled: false
+
+eckoperator:
+  enabled: false
+
+logging:
+  enabled: true
+
+fluentbit:
+  enabled: false
+
+monitoring:
+  enabled: true
+
+twistlock:
+  enabled: false
+
+# Toggle for Bigbang Addon packages set true to install
+addons:
+  argocd:
+    enabled: false
+  authservice:
+    enabled: false
+  gitlab:
+    enabled: false
+  gitlabRunner:
+    enabled: false
+  anchore:
+    enabled: false
+  sonarqube:
+    enabled: false
+  minioOperator:
+    enabled: false
+  minio:
+    enabled: false
+  mattermostoperator:
+    enabled: false
+  mattermost:
+    enabled: false
+  nexus:
+    enabled: false
+  velero:
+    enabled: false
+  keycloak:
+    enabled: false
+  vault:
+    enabled: false

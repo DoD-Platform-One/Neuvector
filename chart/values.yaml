@@ -4,7 +4,7 @@
 
 openshift: false
 
-registry: docker.io
+registry: registry.dso.mil
 tag: 5.0.0-preview.1
 oem:
 imagePullSecrets:
@@ -20,7 +20,7 @@ controller:
       maxSurge: 1
       maxUnavailable: 0
   image:
-    repository: neuvector/controller.preview
+    repository: platform-one/big-bang/apps/sandbox/neuvector/controller.preview
     hash:
   replicas: 3
   disruptionbudget: 0
@@ -155,7 +155,7 @@ enforcer:
   # If false, enforcer will not be installed
   enabled: true
   image:
-    repository: neuvector/enforcer.preview
+    repository: platform-one/big-bang/apps/sandbox/neuvector/enforcer.preview
     hash:
   priorityClassName:
   tolerations:
@@ -173,13 +173,13 @@ manager:
   # If false, manager will not be installed
   enabled: true
   image:
-    repository: neuvector/manager.preview
+    repository: platform-one/big-bang/apps/sandbox/neuvector/manager.preview
     hash:
   priorityClassName:
   env:
     ssl: true
   svc:
-    type: NodePort
+    type: ClusterIP
     loadBalancerIP:
     annotations: {}
       # azure
@@ -226,7 +226,7 @@ cve:
     enabled: true
     secure: false
     image:
-      repository: neuvector/updater.preview
+      repository: platform-one/big-bang/apps/sandbox/neuvector/updater.preview
       tag: latest
       hash:
     schedule: "0 0 * * *"
@@ -241,7 +241,7 @@ cve:
         maxSurge: 1
         maxUnavailable: 0
     image:
-      repository: neuvector/scanner.preview
+      repository: platform-one/big-bang/apps/sandbox/neuvector/scanner.preview
       tag: latest
       hash:
     priorityClassName:
@@ -290,3 +290,43 @@ admissionwebhook:
 crdwebhook:
   enabled: true
   type: ClusterIP
+
+domain: bigbang.dev
+istio:
+  enabled: false
+  neuvector:
+    enabled: true
+    annotations: {}
+    labels: {}
+    gateways:
+      - istio-system/main
+    hosts:
+      - neuvector.{{ .Values.domain }}
+  # -- Default neuvector peer authentication
+  mtls:
+    # -- STRICT = Allow only mutual TLS traffic,
+    # PERMISSIVE = Allow both plain text and mutual TLS traffic
+    mode: STRICT
+monitoring:
+  enabled: false
+
+networkPolicies:
+  enabled: false
+  ingressLabels: 
+    app: istio-ingressgateway
+    istio: ingressgateway
+  controlPlaneCidr: 0.0.0.0/0
+  egressHttps:
+    enabled: true
+
+# Bigbang helm test values default disabled
+bbtests:
+  enabled: false
+  cypress:
+    artifacts: true
+    envs:
+      cypress_url: "https://neuvector-service-webui.{{ .Release.Namespace }}.svc.cluster.local:8443"
+  scripts:
+    envs:
+      URL: "https://neuvector-service-webui.{{ .Release.Namespace }}.svc.cluster.local:8443"
+
