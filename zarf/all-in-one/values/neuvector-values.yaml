@@ -1,3 +1,0 @@
-registry: "###ZARF_REGISTRY###"
-k3s:
-  enabled: true

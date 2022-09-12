@@ -1,4 +1,4 @@
-name: core
+name: neuvector
 apiVersion: v1
 version: 1.9.1-bb.0
 appVersion: 4.4.4
@@ -11,6 +11,5 @@ maintainers:
 engine: gotpl
 dependencies:
   - name: gluon
-    version: "0.2.5" # See https://repo1.dso.mil/platform-one/big-bang/pipeline-templates/pipeline-templates/-/blob/master/bb-test-lib/Chart.yaml#L18 for latest
+    version: "0.3.0"
     repository: "oci://registry.dso.mil/platform-one/big-bang/apps/library-charts/gluon"
-
