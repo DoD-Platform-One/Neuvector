@@ -1,2 +1,5 @@
 bb-tests:
   enabled: true
+
+k3s:
+  enabled: true

@@ -49,7 +49,7 @@ $ kubectl patch deployment tiller-deploy -p '{"spec":{"template":{"spec":{"servi
 Because the CRD (Custom Resource Definition) policies can be deployed before NeuVector's core product, a new 'crd' helm chart is created. The crd template in the 'core' chart is kept for the backward compatibility. Please set 'crdwebhook.enabled' to false, if you use the new 'crd' chart.
 
 ## Choosing container runtime
-NeuVector platform support docker, cri-o and containerd as the container runtime. For the k3s or bottlerocket cluster, they have their own runtime socket path. You should enable their runtime, k3s.enabled and bottlerocket.enabled, respectively. 
+The NeuVector platform supports docker, cri-o and containerd as the container runtime. For a k3s/rke2, or bottlerocket cluster, they have their own runtime socket path. You should enable their runtime options, k3s.enabled and bottlerocket.enabled, respectively.
 
 ## Configuration
 
@@ -62,6 +62,7 @@ Parameter | Description | Default | Notes
 `tag` | image tag for controller enforcer manager | `latest` |
 `oem` | OEM release name | `nil` |
 `imagePullSecrets` | image pull secret | `nil` |
+`rbac` | NeuVector RBAC manifests are installed when rbac is enabled | `true` |
 `psp` | NeuVector Pod Security Policy when psp policy is enabled | `false` |
 `serviceAccount` | Service account name for NeuVector components | `default` |
 `controller.enabled` | If true, create controller | `true` |
@@ -76,6 +77,7 @@ Parameter | Description | Default | Notes
 `controller.disruptionbudget` | controller PodDisruptionBudget. 0 to disable. Recommended value: 2. | `0` |
 `controller.priorityClassName` | controller priorityClassName. Must exist prior to helm deployment. Leave empty to disable. | `nil` |
 `controller.env` | User-defined environment variables for controller. | `[]` |
+`controller.ranchersso.enabled` | If true, enable Rancher single sign on | `false` | Rancher server address auto configured.|
 `controller.pvc.enabled` | If true, enable persistence for controller using PVC | `false` | Require persistent volume type RWX, and storage 1Gi
 `controller.pvc.storageClass` | Storage Class to be used | `default` |
 `controller.pvc.capacity` | Storage capacity | `1Gi` |
@@ -87,35 +89,52 @@ Parameter | Description | Default | Notes
 `controller.apisvc.route.enabled` | If true, create a OpenShift route to expose the Controller REST API service | `false` |
 `controller.apisvc.route.termination` | Specify TLS termination for OpenShift route for Controller REST API service. Possible passthrough, edge, reencrypt | `passthrough` |
 `controller.apisvc.route.host` | Set controller REST API service hostname | `nil` |
+`controller.apisvc.route.tls.key` | Set controller REST API service PEM format key file | `nil` |
+`controller.apisvc.route.tls.certificate` | Set controller REST API service PEM format certificate file | `nil` |
+`controller.apisvc.route.tls.caCertificate` | Set controller REST API service CA certificate may be required to establish a certificate chain for validation | `nil` |
+`controller.apisvc.route.tls.destinationCACertificate` | Set controller REST API service CA certificate to validate the endpoint certificate | `nil` |
 `controller.certificate.secret` | Replace controller REST API certificate using secret if secret name is specified | `nil` |
 `controller.certificate.keyFile` | Replace controller REST API certificate key file | `tls.key` |
 `controller.certificate.pemFile` | Replace controller REST API certificate pem file | `tls.pem` |
 `controller.federation.mastersvc.type` | Multi-cluster primary cluster service type. If specified, the deployment will be used to manage other clusters. Possible values include NodePort, LoadBalancer and ClusterIP.  | `nil` |
+`controller.federation.mastersvc.annotations` | Add annotations to Multi-cluster primary cluster REST API service | `{}` |
 `controller.federation.mastersvc.route.enabled` | If true, create a OpenShift route to expose the Multi-cluster primary cluster service | `false` |
 `controller.federation.mastersvc.route.host` | Set OpenShift route host for primary cluster service | `nil` |
 `controller.federation.mastersvc.route.termination` | Specify TLS termination for OpenShift route for Multi-cluster primary cluster service. Possible passthrough, edge, reencrypt | `passthrough` |
+`controller.federation.mastersvc.route.tls.key` | Set PEM format key file for OpenShift route for Multi-cluster primary cluster service | `nil` |
+`controller.federation.mastersvc.route.tls.certificate` | Set PEM format key certificate file for OpenShift route for Multi-cluster primary cluster service | `nil` |
+`controller.federation.mastersvc.route.tls.caCertificate` | Set CA certificate may be required to establish a certificate chain for validation for OpenShift route for Multi-cluster primary cluster service | `nil` |
+`controller.federation.mastersvc.route.tls.destinationCACertificate` | Set CA certificate to validate the endpoint certificate for OpenShift route for Multi-cluster primary cluster service | `nil` |
 `controller.federation.mastersvc.ingress.enabled` | If true, create ingress for federation master service, must also set ingress host value | `false` | enable this if ingress controller is installed
 `controller.federation.mastersvc.ingress.tls` | If true, TLS is enabled for controller federation master ingress service |`false` | If set, the tls-host used is the one set with `controller.federation.mastersvc.ingress.host`.
 `controller.federation.mastersvc.ingress.host` | Must set this host value if ingress is enabled | `nil` |
+`controller.federation.mastersvc.ingress.ingressClassName` | To be used instead of the ingress.class annotation if an IngressClass is provisioned | `""` |
 `controller.federation.mastersvc.ingress.secretName` | Name of the secret to be used for TLS-encryption | `nil` | Secret must be created separately (Let's encrypt, manually)
 `controller.federation.mastersvc.ingress.path` | Set ingress path |`/` | If set, it might be necessary to set a rewrite rule in annotations.
-`controller.federation.mastersvc.ingress.annotations` | Add annotations to ingress to influence behavior | `ingress.kubernetes.io/protocol: https ingress.kubernetes.io/rewrite-target: /` | see examples in [values.yaml](values.yaml)
+`controller.federation.mastersvc.ingress.annotations` | Add annotations to ingress to influence behavior | `nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"` | see examples in [values.yaml](values.yaml)
 `controller.federation.managedsvc.type` | Multi-cluster managed cluster service type. If specified, the deployment will be managed by the managed clsuter. Possible values include NodePort, LoadBalancer and ClusterIP. | `nil` |
+`controller.federation.managedsvc.annotations` | Add annotations to Multi-cluster managed cluster REST API service | `{}` |
 `controller.federation.managedsvc.route.enabled` | If true, create a OpenShift route to expose the Multi-cluster managed cluster service | `false` |
 `controller.federation.managedsvc.route.host` | Set OpenShift route host for manageed service | `nil` |
 `controller.federation.managedsvc.route.termination` | Specify TLS termination for OpenShift route for Multi-cluster managed cluster service. Possible passthrough, edge, reencrypt | `passthrough` |
+`controller.federation.managedsvc.route.tls.key` | Set PEM format key file for OpenShift route for Multi-cluster managed cluster service | `nil` |
+`controller.federation.managedsvc.route.tls.certificate` | Set PEM format certificate file for OpenShift route for Multi-cluster managed cluster service | `nil` |
+`controller.federation.managedsvc.route.tls.caCertificate` | Set CA certificate may be required to establish a certificate chain for validation for OpenShift route for Multi-cluster managed cluster service | `nil` |
+`controller.federation.managedsvc.route.tls.destinationCACertificate` | Set CA certificate to validate the endpoint certificate for OpenShift route for Multi-cluster managed cluster service | `nil` |
 `controller.federation.managedsvc.ingress.enabled` | If true, create ingress for federation managed service, must also set ingress host value | `false` | enable this if ingress controller is installed
 `controller.federation.managedsvc.ingress.tls` | If true, TLS is enabled for controller federation managed ingress service |`false` | If set, the tls-host used is the one set with `controller.federation.managedsvc.ingress.host`.
 `controller.federation.managedsvc.ingress.host` | Must set this host value if ingress is enabled | `nil` |
+`controller.federation.managedsvc.ingress.ingressClassName` | To be used instead of the ingress.class annotation if an IngressClass is provisioned | `""` |
 `controller.federation.managedsvc.ingress.secretName` | Name of the secret to be used for TLS-encryption | `nil` | Secret must be created separately (Let's encrypt, manually)
 `controller.federation.managedsvc.ingress.path` | Set ingress path |`/` | If set, it might be necessary to set a rewrite rule in annotations.
-`controller.federation.managedsvc.ingress.annotations` | Add annotations to ingress to influence behavior | `ingress.kubernetes.io/protocol: https ingress.kubernetes.io/rewrite-target: /` | see examples in [values.yaml](values.yaml)
+`controller.federation.managedsvc.ingress.annotations` | Add annotations to ingress to influence behavior | `nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"` | see examples in [values.yaml](values.yaml)
 `controller.ingress.enabled` | If true, create ingress for rest api, must also set ingress host value | `false` | enable this if ingress controller is installed
 `controller.ingress.tls` | If true, TLS is enabled for controller rest api ingress service |`false` | If set, the tls-host used is the one set with `controller.ingress.host`.
 `controller.ingress.host` | Must set this host value if ingress is enabled | `nil` |
+`controller.ingress.ingressClassName` | To be used instead of the ingress.class annotation if an IngressClass is provisioned | `""` |
 `controller.ingress.secretName` | Name of the secret to be used for TLS-encryption | `nil` | Secret must be created separately (Let's encrypt, manually)
 `controller.ingress.path` | Set ingress path |`/` | If set, it might be necessary to set a rewrite rule in annotations.
-`controller.ingress.annotations` | Add annotations to ingress to influence behavior | `ingress.kubernetes.io/protocol: https ingress.kubernetes.io/rewrite-target: /` | see examples in [values.yaml](values.yaml)
+`controller.ingress.annotations` | Add annotations to ingress to influence behavior | `nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"` | see examples in [values.yaml](values.yaml)
 `controller.configmap.enabled` | If true, configure NeuVector global settings using a ConfigMap | `false`
 `controller.configmap.data` | NeuVector configuration in YAML format | `{}`
 `controller.secret.enabled` | If true, configure NeuVector global settings using secrets | `false`
@@ -134,22 +153,28 @@ Parameter | Description | Default | Notes
 `manager.svc.type` | set manager service type for native Kubernetes | `NodePort`;<br>if it is OpenShift platform or ingress is enabled, then default is `ClusterIP` | set to LoadBalancer if using cloud providers, such as Azure, Amazon, Google
 `manager.svc.loadBalancerIP` | if manager service type is LoadBalancer, this is used to specify the load balancer's IP | `nil` |
 `manager.svc.annotations` | Add annotations to manager service | `{}` | see examples in [values.yaml](values.yaml)
-`manager.route.enabled` | If true, create a OpenShift route to expose the management consol service | `true` |
-`manager.route.host` | Set OpenShift route host for management consol service | `nil` |
-`manager.route.termination` | Specify TLS termination for OpenShift route for management consol service. Possible passthrough, edge, reencrypt | `passthrough` |
+`manager.route.enabled` | If true, create a OpenShift route to expose the management console service | `true` |
+`manager.route.host` | Set OpenShift route host for management console service | `nil` |
+`manager.route.termination` | Specify TLS termination for OpenShift route for management console service. Possible passthrough, edge, reencrypt | `passthrough` |
+`manager.route.tls.key` | Set PEM format key file for OpenShift route for management console service | `nil` |
+`manager.route.tls.certificate` | Set PEM format certificate file for OpenShift route for management console service | `nil` |
+`manager.route.tls.caCertificate` | Set CA certificate may be required to establish a certificate chain for validation for OpenShift route for management console service | `nil` |
+`manager.route.tls.destinationCACertificate` | Set controller REST API service CA certificate to validate the endpoint certificate for OpenShift route for management console service | `nil` |
 `manager.certificate.secret` | Replace manager UI certificate using secret if secret name is specified | `nil` |
 `manager.certificate.keyFile` | Replace manager UI certificate key file | `tls.key` |
 `manager.certificate.pemFile` | Replace manager UI certificate pem file | `tls.pem` |
 `manager.ingress.enabled` | If true, create ingress, must also set ingress host value | `false` | enable this if ingress controller is installed
 `manager.ingress.host` | Must set this host value if ingress is enabled | `nil` |
+`manager.ingress.ingressClassName` | To be used instead of the ingress.class annotation if an IngressClass is provisioned | `""` |
 `manager.ingress.path` | Set ingress path |`/` | If set, it might be necessary to set a rewrite rule in annotations. Currently only supports `/`
-`manager.ingress.annotations` | Add annotations to ingress to influence behavior | `{}` | see examples in [values.yaml](values.yaml)
+`manager.ingress.annotations` | Add annotations to ingress to influence behavior | `nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"` | see examples in [values.yaml](values.yaml)
 `manager.ingress.tls` | If true, TLS is enabled for manager ingress service |`false` | If set, the tls-host used is the one set with `manager.ingress.host`.
 `manager.ingress.secretName` | Name of the secret to be used for TLS-encryption | `nil` | Secret must be created separately (Let's encrypt, manually)
 `manager.resources` | Add resources requests and limits to manager deployment | `{}` | see examples in [values.yaml](values.yaml)
 `manager.affinity` | manager affinity rules  | `{}` |
 `manager.tolerations` | List of node taints to tolerate | `nil` |
 `manager.nodeSelector` | Enable and specify nodeSelector labels | `{}` |
+`manager.runAsUser` | Specify the run as User ID | `nil` |
 `cve.updater.enabled` | If true, create cve updater | `true` |
 `cve.updater.secure` | If ture, API server's certificate is validated  | `false` |
 `cve.updater.image.repository` | cve updater image repository | `neuvector/updater` |
@@ -157,6 +182,7 @@ Parameter | Description | Default | Notes
 `cve.updater.image.hash` | cve updateer image hash in the format of sha256:xxxx. If present it overwrites the image tag value. | |
 `cve.updater.priorityClassName` | cve updater priorityClassName. Must exist prior to helm deployment. Leave empty to disable. | `nil` |
 `cve.updater.schedule` | cronjob cve updater schedule | `0 0 * * *` |
+`cve.updater.runAsUser` | Specify the run as User ID | `nil` |
 `cve.scanner.enabled` | If true, cve scanners will be deployed | `true` |
 `cve.scanner.image.repository` | cve scanner image repository | `neuvector/scanner` |
 `cve.scanner.image.tag` | cve scanner image tag | `latest` |
@@ -168,12 +194,13 @@ Parameter | Description | Default | Notes
 `cve.scanner.affinity` | scanner affinity rules  | `{}` |
 `cve.scanner.tolerations` | List of node taints to tolerate | `nil` |
 `cve.scanner.nodeSelector` | Enable and specify nodeSelector labels | `{}` |
+`cve.scanner.runAsUser` | Specify the run as User ID | `nil` |
 `docker.path` | docker path | `/var/run/docker.sock` |
 `containerd.enabled` | Set to true, if the container runtime is containerd | `false` | **Note**: For k3s cluster, set k3s.enabled to true instead
 `containerd.path` | If containerd is enabled, this local containerd socket path will be used | `/var/run/containerd/containerd.sock` |
 `crio.enabled` | Set to true, if the container runtime is cri-o | `false` |
 `crio.path` | If cri-o is enabled, this local cri-o socket path will be used | `/var/run/crio/crio.sock` |
-`k3s.enabled` | Set to true for k3s | `false` |
+`k3s.enabled` | Set to true for k3s or rke2 | `false` |
 `k3s.runtimePath` | If k3s is enabled, this local containerd socket path will be used | `/run/k3s/containerd/containerd.sock` |
 `bottlerocket.enabled` | Set to true if using AWS bottlerocket | `false` |
 `bottlerocket.runtimePath` | If bottlerocket is enabled, this local containerd socket path will be used | `/run/dockershim.sock` |

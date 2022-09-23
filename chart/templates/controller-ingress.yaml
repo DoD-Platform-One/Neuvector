@@ -15,6 +15,9 @@ metadata:
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 spec:
+{{- if .Values.controller.ingress.ingressClassName }}
+  ingressClassName: {{ .Values.controller.ingress.ingressClassName | quote }}
+{{ end }}
 {{- if .Values.controller.ingress.tls }}
   tls:
   - hosts:
@@ -84,6 +87,9 @@ metadata:
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 spec:
+{{- if .Values.controller.federation.mastersvc.ingress.ingressClassName }}
+  ingressClassName: {{ .Values.controller.federation.mastersvc.ingress.ingressClassName | quote }}
+{{ end }}
 {{- if .Values.controller.federation.mastersvc.ingress.tls }}
   tls:
   - hosts:
@@ -154,6 +160,9 @@ metadata:
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 spec:
+{{- if .Values.controller.federation.managedsvc.ingress.ingressClassName }}
+  ingressClassName: {{ .Values.controller.federation.managedsvc.ingress.ingressClassName | quote }}
+{{ end }}
 {{- if .Values.controller.federation.managedsvc.ingress.tls }}
   tls:
   - hosts:

@@ -1,7 +1,7 @@
 name: neuvector
 apiVersion: v1
-version: 1.9.1-bb.0
-appVersion: 4.4.4
+version: 2.2.2-bb.0
+appVersion: 5.0.2
 description: Helm chart for NeuVector's core services
 home: https://neuvector.com
 icon: https://avatars2.githubusercontent.com/u/19367275?s=200&v=4
@@ -13,3 +13,6 @@ dependencies:
   - name: gluon
     version: "0.3.0"
     repository: "oci://registry.dso.mil/platform-one/big-bang/apps/library-charts/gluon"
+annotations:
+  bigbang.dev/applicationVersions: |
+    - NeuVector: 5.0.2
