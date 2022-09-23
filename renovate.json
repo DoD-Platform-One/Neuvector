@@ -1,0 +1,54 @@
+{
+  "baseBranches": ["main"],
+  "configWarningReuseIssue": false,
+  "dependencyDashboard": "true",
+  "dependencyDashboardHeader": "- [ ] Follow steps in [package update docs](./docs/DEVELOPMENT_MAINTENANCE.md) to upgrade the package.",
+  "dependencyDashboardTitle": "Renovate: Upgrade NeuVector Package Dependencies",
+  "draftPR": true,
+  "enabledManagers": ["regex"],
+  "ignorePaths": ["chart/charts/**"],
+  "labels": ["neuvector","Package Sustainment","kind::maintenance"],
+  "commitMessagePrefix": "SKIP UPDATE CHECK",
+  "packageRules": [
+    {
+      "matchDatasources": ["docker"],
+      "groupName": "Ironbank",
+      "registryUrls": ["https://registry1.dso.mil"]
+    }
+  ],
+  "separateMajorMinor": false,
+  "regexManagers": [
+    {
+      "fileMatch": ["^chart/values\\.yaml$"],
+      "matchStrings": [
+        "registry: registry1.dso.mil\\s+tag:\\s+(?<currentValue>.+)"
+      ],
+      "depNameTemplate": "registry1.dso.mil/ironbank/neuvector/neuvector/manager",
+      "datasourceTemplate": "docker"
+    },
+    {
+      "fileMatch": ["^chart/values\\.yaml$"],
+      "matchStrings": [
+        "image:\\s+repository:\\s+(?<depName>.+)\\s+tag:\\s+(?<currentValue>.+)"
+      ],
+      "registryUrlTemplate": "https://registry1.dso.mil",
+      "datasourceTemplate": "docker"
+    },
+    {
+      "fileMatch": ["^chart/Chart\\.yaml$"],
+      "matchStrings": [
+        "- NeuVector:\\s+(?<currentValue>.+)"
+      ],
+      "depNameTemplate": "registry1.dso.mil/ironbank/neuvector/neuvector/controller",
+      "datasourceTemplate": "docker"
+    },
+    {
+      "fileMatch": ["^chart/Chart\\.yaml$"],
+      "matchStrings": [
+        "appVersion:\\s+(?<currentValue>.+)"
+      ],
+      "depNameTemplate": "registry1.dso.mil/ironbank/neuvector/neuvector/enforcer",
+      "datasourceTemplate": "docker"
+    }
+  ]
+}
