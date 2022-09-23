@@ -12,6 +12,10 @@ metadata:
     chart: {{ template "neuvector.chart" . }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
+{{- with .Values.controller.annotations }}
+  annotations:
+{{ toYaml . | indent 4 }}
+{{- end }}
 spec:
   replicas: {{ .Values.controller.replicas }}
   minReadySeconds: 60
@@ -52,14 +56,14 @@ spec:
       serviceAccount: {{ .Values.serviceAccount }}
       containers:
         - name: neuvector-controller-pod
-          {{ if eq .Values.registry "registry.neuvector.com" }}
-          {{ if .Values.oem }}
+          {{- if eq .Values.registry "registry.neuvector.com" }}
+          {{- if .Values.oem }}
           image: "{{ .Values.registry }}/{{ .Values.oem }}/controller:{{ .Values.tag }}"
           {{- else }}
           image: "{{ .Values.registry }}/controller:{{ .Values.tag }}"
           {{- end }}
           {{- else }}
-          {{ if .Values.controller.image.hash }}
+          {{- if .Values.controller.image.hash }}
           image: "{{ .Values.registry }}/{{ .Values.controller.image.repository }}@{{ .Values.controller.image.hash }}"
           {{- else }}
           image: "{{ .Values.registry }}/{{ .Values.controller.image.repository }}:{{ .Values.tag }}"
@@ -91,6 +95,12 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: status.podIP
+          {{- if .Values.controller.ranchersso.enabled }}
+            - name: RANCHER_SSO
+              value: "1"
+            - name: RANCHER_EP
+              value: "{{ .Values.global.cattle.url }}"
+          {{- end }}
           {{- if or .Values.controller.pvc.enabled .Values.controller.azureFileShare.enabled }}
             - name: CTRL_PERSIST_CONFIG
               value: "1"

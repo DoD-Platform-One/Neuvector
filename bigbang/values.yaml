@@ -10,6 +10,8 @@ neuvector:
   values:
     bbtests:
       enabled: true
+    k3s:
+      enabled: true
 
 # Toggle for network polocies
 networkPolicies:
@@ -17,16 +19,16 @@ networkPolicies:
 
 # Toggle for Bigbang Core packages set true to install
 jaeger:
-  enabled: true
+  enabled: false
 
 kiali:
-  enabled: true
+  enabled: false
 
 clusterAuditor:
-  enabled: true
+  enabled: false
 
 gatekeeper:
-  enabled: true
+  enabled: false
 
 kyverno:
   enabled: false
@@ -44,7 +46,7 @@ eckoperator:
   enabled: false
 
 logging:
-  enabled: true
+  enabled: false
 
 fluentbit:
   enabled: false
