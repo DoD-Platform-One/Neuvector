@@ -228,7 +228,9 @@ manager:
     hash:
   priorityClassName:
   env:
-    ssl: true
+    ssl: false
+    # This setting should be enabled when in FIPS environments to prevent Java errors arising from the FIPS alignment
+    disableFipsInJava: true
   svc:
     type: ClusterIP
     loadBalancerIP:
@@ -393,8 +395,7 @@ bbtests:
   cypress:
     artifacts: true
     envs:
-      cypress_url: "https://neuvector-service-webui.{{ .Release.Namespace }}.svc.cluster.local:8443"
+      cypress_url: "http://neuvector-service-webui.{{ .Release.Namespace }}.svc.cluster.local:8443"
   scripts:
     envs:
-      URL: "https://neuvector-service-webui.{{ .Release.Namespace }}.svc.cluster.local:8443"
-
+      URL: "http://neuvector-service-webui.{{ .Release.Namespace }}.svc.cluster.local:8443"
