@@ -70,6 +70,10 @@ spec:
             - name: MANAGER_SSL
               value: "off"
             {{- end }}
+            {{- if .Values.manager.env.disableFipsInJava }}
+            - name: JDK_JAVA_OPTIONS
+              value: "-Dcom.redhat.fips=false"
+            {{- end }}
           volumeMounts:
           {{- if .Values.manager.certificate.secret }}
             - mountPath: /etc/neuvector/certs/ssl-cert.key

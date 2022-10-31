@@ -63,9 +63,20 @@ NOTE: This list may not be complete yet - it should be updated as updates are wo
 
 - Templates added to support network policies, mTLS, and Istio virtual service
 
+## chart/templates/manager-deployment.yaml
+
+- Added Java args/fips alignment support with:
+  ```yaml
+  {{- if .Values.manager.env.disableFipsInJava }}
+  - name: JDK_JAVA_OPTIONS
+    value: "-Dcom.redhat.fips=false"
+  {{- end }}
+  ```
+
 ## chart/values.yaml
 
 - Images changed to Ironbank images rather than upstream
+- Added `manager.env.disableFipsInJava`
 - Added at the bottom of the values file are changes to support Istio, monitoring, and optional network policies.
 
   ```yaml

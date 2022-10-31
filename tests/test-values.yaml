@@ -1,5 +1,9 @@
-bb-tests:
+bbtests:
   enabled: true
 
 k3s:
   enabled: true
+
+manager:
+  env:
+    ssl: false

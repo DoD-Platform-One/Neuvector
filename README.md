@@ -1,6 +1,6 @@
 # neuvector
 
-![Version: 2.2.2-bb.0](https://img.shields.io/badge/Version-2.2.2--bb--0-informational?style=flat-square) ![AppVersion: 5.0.2](https://img.shields.io/badge/AppVersion-5.0.2-informational?style=flat-square)
+![Version: 2.2.2-bb.1](https://img.shields.io/badge/Version-2.2.2--bb.1-informational?style=flat-square) ![AppVersion: 5.0.2](https://img.shields.io/badge/AppVersion-5.0.2-informational?style=flat-square)
 
 Helm chart for NeuVector's core services
 
@@ -34,10 +34,10 @@ helm install neuvector chart/
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | openshift | bool | `false` |  |
-| registry | string | `"registry.dso.mil"` |  |
+| registry | string | `"registry1.dso.mil"` |  |
 | tag | string | `"5.0.2"` |  |
 | oem | string | `nil` |  |
-| imagePullSecrets | string | `nil` |  |
+| imagePullSecrets | string | `"private-registry"` |  |
 | psp | bool | `false` |  |
 | rbac | bool | `true` |  |
 | serviceAccount | string | `"default"` |  |
@@ -46,7 +46,7 @@ helm install neuvector chart/
 | controller.strategy.type | string | `"RollingUpdate"` |  |
 | controller.strategy.rollingUpdate.maxSurge | int | `1` |  |
 | controller.strategy.rollingUpdate.maxUnavailable | int | `0` |  |
-| controller.image.repository | string | `"platform-one/big-bang/apps/sandbox/neuvector/controller"` |  |
+| controller.image.repository | string | `"ironbank/neuvector/neuvector/controller"` |  |
 | controller.image.hash | string | `nil` |  |
 | controller.replicas | int | `3` |  |
 | controller.disruptionbudget | int | `0` |  |
@@ -116,17 +116,18 @@ helm install neuvector chart/
 | controller.secret.enabled | bool | `false` |  |
 | controller.secret.data | object | `{}` |  |
 | enforcer.enabled | bool | `true` |  |
-| enforcer.image.repository | string | `"platform-one/big-bang/apps/sandbox/neuvector/enforcer"` |  |
+| enforcer.image.repository | string | `"ironbank/neuvector/neuvector/enforcer"` |  |
 | enforcer.image.hash | string | `nil` |  |
 | enforcer.priorityClassName | string | `nil` |  |
 | enforcer.tolerations[0].effect | string | `"NoSchedule"` |  |
 | enforcer.tolerations[0].key | string | `"node-role.kubernetes.io/master"` |  |
 | enforcer.resources | object | `{}` |  |
 | manager.enabled | bool | `true` |  |
-| manager.image.repository | string | `"platform-one/big-bang/apps/sandbox/neuvector/manager"` |  |
+| manager.image.repository | string | `"ironbank/neuvector/neuvector/manager"` |  |
 | manager.image.hash | string | `nil` |  |
 | manager.priorityClassName | string | `nil` |  |
-| manager.env.ssl | bool | `true` |  |
+| manager.env.ssl | bool | `false` |  |
+| manager.env.disableFipsInJava | bool | `true` |  |
 | manager.svc.type | string | `"ClusterIP"` |  |
 | manager.svc.loadBalancerIP | string | `nil` |  |
 | manager.svc.annotations | object | `{}` |  |
@@ -151,8 +152,8 @@ helm install neuvector chart/
 | manager.runAsUser | string | `nil` |  |
 | cve.updater.enabled | bool | `true` |  |
 | cve.updater.secure | bool | `false` |  |
-| cve.updater.image.repository | string | `"platform-one/big-bang/apps/sandbox/neuvector/updater"` |  |
-| cve.updater.image.tag | string | `"latest"` |  |
+| cve.updater.image.repository | string | `"ironbank/big-bang/base"` |  |
+| cve.updater.image.tag | string | `"2.0.0"` |  |
 | cve.updater.image.hash | string | `nil` |  |
 | cve.updater.schedule | string | `"0 0 * * *"` |  |
 | cve.updater.priorityClassName | string | `nil` |  |
@@ -163,7 +164,7 @@ helm install neuvector chart/
 | cve.scanner.strategy.type | string | `"RollingUpdate"` |  |
 | cve.scanner.strategy.rollingUpdate.maxSurge | int | `1` |  |
 | cve.scanner.strategy.rollingUpdate.maxUnavailable | int | `0` |  |
-| cve.scanner.image.repository | string | `"platform-one/big-bang/apps/sandbox/neuvector/scanner"` |  |
+| cve.scanner.image.repository | string | `"ironbank/neuvector/neuvector/scanner"` |  |
 | cve.scanner.image.tag | string | `"latest"` |  |
 | cve.scanner.image.hash | string | `nil` |  |
 | cve.scanner.priorityClassName | string | `nil` |  |
@@ -202,8 +203,8 @@ helm install neuvector chart/
 | networkPolicies.egressHttps.enabled | bool | `true` |  |
 | bbtests.enabled | bool | `false` |  |
 | bbtests.cypress.artifacts | bool | `true` |  |
-| bbtests.cypress.envs.cypress_url | string | `"https://neuvector-service-webui.{{ .Release.Namespace }}.svc.cluster.local:8443"` |  |
-| bbtests.scripts.envs.URL | string | `"https://neuvector-service-webui.{{ .Release.Namespace }}.svc.cluster.local:8443"` |  |
+| bbtests.cypress.envs.cypress_url | string | `"http://neuvector-service-webui.{{ .Release.Namespace }}.svc.cluster.local:8443"` |  |
+| bbtests.scripts.envs.URL | string | `"http://neuvector-service-webui.{{ .Release.Namespace }}.svc.cluster.local:8443"` |  |
 
 ## Contributing
 
