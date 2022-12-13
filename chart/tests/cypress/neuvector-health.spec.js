@@ -33,13 +33,13 @@ it('Check System Components', function() {
   cy.get('a[title="Assets"]').click()
   cy.get('a[title="System Components"]').click()
   cy.wait(1000)
-  cy.get('div[col-id="connection_state"] > span > span').contains("Connected")
+  cy.get('div[role="row"] > div[col-id="connection_state"] > span > span').contains("Connected")
   cy.get('span').contains("Scanners").click()
   cy.wait(1000)
-  cy.get('label').invoke('text').should('match', /[0-9] Scanners found/)
+  cy.get('label').invoke('text').should('match', /[1-9] Scanners found/)
   cy.get('span').contains("Enforcers").click()
   cy.wait(1000)
-  cy.get('div[col-id="connection_state"] > span > span').contains("Connected")
+  cy.get('div[role="row"] > div[col-id="connection_state"] > span > span').contains("Connected")
 })
 
 // Basic test that scans an image and validates results/success
