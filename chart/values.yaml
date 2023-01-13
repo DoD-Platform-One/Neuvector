@@ -327,7 +327,7 @@ cve:
         maxUnavailable: 0
     image:
       repository: ironbank/neuvector/neuvector/scanner
-      tag: latest
+      tag: 5
       hash:
     priorityClassName:
     resources: {}

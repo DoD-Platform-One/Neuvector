@@ -1,6 +1,6 @@
 # neuvector
 
-![Version: 2.4.0-bb.0](https://img.shields.io/badge/Version-2.4.0--bb.0-informational?style=flat-square) ![AppVersion: 5.1.0](https://img.shields.io/badge/AppVersion-5.1.0-informational?style=flat-square)
+![Version: 2.4.0-bb.1](https://img.shields.io/badge/Version-2.4.0--bb.1-informational?style=flat-square) ![AppVersion: 5.1.0](https://img.shields.io/badge/AppVersion-5.1.0-informational?style=flat-square)
 
 Helm chart for NeuVector's core services
 
@@ -52,6 +52,8 @@ helm install neuvector chart/
 | controller.disruptionbudget | int | `0` |  |
 | controller.schedulerName | string | `nil` |  |
 | controller.priorityClassName | string | `nil` |  |
+| controller.podLabels | object | `{}` |  |
+| controller.podAnnotations | object | `{}` |  |
 | controller.env | list | `[]` |  |
 | controller.affinity.podAntiAffinity.preferredDuringSchedulingIgnoredDuringExecution[0].weight | int | `100` |  |
 | controller.affinity.podAntiAffinity.preferredDuringSchedulingIgnoredDuringExecution[0].podAffinityTerm.labelSelector.matchExpressions[0].key | string | `"app"` |  |
@@ -68,6 +70,7 @@ helm install neuvector chart/
 | controller.apisvc.route.tls | string | `nil` |  |
 | controller.ranchersso.enabled | bool | `false` |  |
 | controller.pvc.enabled | bool | `false` |  |
+| controller.pvc.existingClaim | bool | `false` |  |
 | controller.pvc.accessModes[0] | string | `"ReadWriteMany"` |  |
 | controller.pvc.storageClass | string | `nil` |  |
 | controller.pvc.capacity | string | `nil` |  |
@@ -118,9 +121,14 @@ helm install neuvector chart/
 | enforcer.enabled | bool | `true` |  |
 | enforcer.image.repository | string | `"ironbank/neuvector/neuvector/enforcer"` |  |
 | enforcer.image.hash | string | `nil` |  |
+| enforcer.updateStrategy.type | string | `"RollingUpdate"` |  |
 | enforcer.priorityClassName | string | `nil` |  |
+| enforcer.podLabels | object | `{}` |  |
+| enforcer.podAnnotations | object | `{}` |  |
 | enforcer.tolerations[0].effect | string | `"NoSchedule"` |  |
 | enforcer.tolerations[0].key | string | `"node-role.kubernetes.io/master"` |  |
+| enforcer.tolerations[1].effect | string | `"NoSchedule"` |  |
+| enforcer.tolerations[1].key | string | `"node-role.kubernetes.io/control-plane"` |  |
 | enforcer.resources | object | `{}` |  |
 | manager.enabled | bool | `true` |  |
 | manager.image.repository | string | `"ironbank/neuvector/neuvector/manager"` |  |
@@ -147,6 +155,8 @@ helm install neuvector chart/
 | manager.ingress.secretName | string | `nil` |  |
 | manager.resources | object | `{}` |  |
 | manager.affinity | object | `{}` |  |
+| manager.podLabels | object | `{}` |  |
+| manager.podAnnotations | object | `{}` |  |
 | manager.tolerations | list | `[]` |  |
 | manager.nodeSelector | object | `{}` |  |
 | manager.runAsUser | string | `nil` |  |
@@ -157,6 +167,9 @@ helm install neuvector chart/
 | cve.updater.image.hash | string | `nil` |  |
 | cve.updater.schedule | string | `"0 0 * * *"` |  |
 | cve.updater.priorityClassName | string | `nil` |  |
+| cve.updater.podLabels | object | `{}` |  |
+| cve.updater.podAnnotations | object | `{}` |  |
+| cve.updater.nodeSelector | object | `{}` |  |
 | cve.updater.runAsUser | string | `nil` |  |
 | cve.scanner.enabled | bool | `true` |  |
 | cve.scanner.replicas | int | `3` |  |
@@ -165,11 +178,13 @@ helm install neuvector chart/
 | cve.scanner.strategy.rollingUpdate.maxSurge | int | `1` |  |
 | cve.scanner.strategy.rollingUpdate.maxUnavailable | int | `0` |  |
 | cve.scanner.image.repository | string | `"ironbank/neuvector/neuvector/scanner"` |  |
-| cve.scanner.image.tag | string | `"latest"` |  |
+| cve.scanner.image.tag | int | `5` |  |
 | cve.scanner.image.hash | string | `nil` |  |
 | cve.scanner.priorityClassName | string | `nil` |  |
 | cve.scanner.resources | object | `{}` |  |
 | cve.scanner.affinity | object | `{}` |  |
+| cve.scanner.podLabels | object | `{}` |  |
+| cve.scanner.podAnnotations | object | `{}` |  |
 | cve.scanner.tolerations | list | `[]` |  |
 | cve.scanner.nodeSelector | object | `{}` |  |
 | cve.scanner.runAsUser | string | `nil` |  |
