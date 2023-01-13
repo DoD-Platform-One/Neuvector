@@ -16,3 +16,19 @@ dependencies:
 annotations:
   bigbang.dev/applicationVersions: |
     - NeuVector: 5.1.0
+  helm.sh/images: |
+    - name: controller
+      condition: controller.enabled
+      image: registry1.dso.mil/ironbank/neuvector/neuvector/controller:5.1.0
+    - name: enforcer
+      condition: enforcer.enabled
+      image: registry1.dso.mil/ironbank/neuvector/neuvector/enforcer:5.1.0
+    - name: manager
+      condition: manager.enabled
+      image: registry1.dso.mil/ironbank/neuvector/neuvector/manager:5.1.0
+    - name: scanner
+      condition: cve.scanner.enabled
+      image: registry1.dso.mil/ironbank/neuvector/neuvector/scanner:latest
+    - name: updater
+      condition: cve.updater.enabled
+      image: registry1.dso.mil/ironbank/big-bang/base:2.0.0
