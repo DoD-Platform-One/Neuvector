@@ -7,3 +7,7 @@ k3s:
 manager:
   env:
     ssl: false
+
+monitoring:
+  enabled: false
+  namespace: monitoring

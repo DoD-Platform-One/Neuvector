@@ -395,8 +395,10 @@ istio:
     # -- STRICT = Allow only mutual TLS traffic,
     # PERMISSIVE = Allow both plain text and mutual TLS traffic
     mode: STRICT
+
 monitoring:
   enabled: false
+  namespace: monitoring
 
 networkPolicies:
   enabled: false

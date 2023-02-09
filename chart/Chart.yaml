@@ -1,6 +1,6 @@
 name: neuvector
 apiVersion: v1
-version: 2.4.0-bb.2
+version: 2.4.0-bb.3
 appVersion: 5.1.0
 description: Helm chart for NeuVector's core services
 home: https://neuvector.com
@@ -10,6 +10,11 @@ maintainers:
     email: support@neuvector.com
 engine: gotpl
 dependencies:
+  - name: monitor
+    version: 2.2.5
+    alias: monitor
+    condition: monitor.install
+    repository: file://./deps/monitor
   - name: gluon
     version: "0.3.2"
     repository: "oci://registry1.dso.mil/bigbang"
@@ -28,7 +33,10 @@ annotations:
       image: registry1.dso.mil/ironbank/neuvector/neuvector/manager:5.1.0
     - name: scanner
       condition: cve.scanner.enabled
-      image: registry1.dso.mil/ironbank/neuvector/neuvector/scanner:latest
+      image: registry1.dso.mil/ironbank/neuvector/neuvector/scanner:5
     - name: updater
       condition: cve.updater.enabled
       image: registry1.dso.mil/ironbank/big-bang/base:2.0.0
+    - name: exporter
+      condition: monitor.exporter.enabled
+      image: registry1.dso.mil/ironbank/neuvector/neuvector/prometheus-exporter

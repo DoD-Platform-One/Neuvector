@@ -100,3 +100,14 @@ NOTE: This list may not be complete yet - it should be updated as updates are wo
       istio: ingressgateway
     controlPlaneCidr: 0.0.0.0/0
   ```
+
+## addition of grafana dashboards
+
+- Added `chart/dashboards/neuvector-dashboard.json`
+- Added `chart/templates/bigbang/neuvector-dashboards.yaml`
+
+  ```bash
+  # To update Neuvector Dashboard
+  # Current version was pulled from https://raw.githubusercontent.com/neuvector/prometheus-exporter/2af0012979e7d53e012794547820d7c5fd172afa/nv_dashboard.json
+  curl https://raw.githubusercontent.com/neuvector/prometheus-exporter/master/nv_dashboard.json -o chart/dashboards/neuvector-dashboard.json
+  ```
