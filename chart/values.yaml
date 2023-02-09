@@ -409,6 +409,9 @@ networkPolicies:
   egressHttps:
     enabled: true
 
+monitor:
+  imagePullSecrets: private-registry
+
 # Bigbang helm test values default disabled
 bbtests:
   enabled: false
