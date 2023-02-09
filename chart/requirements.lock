@@ -1,4 +1,7 @@
 dependencies:
+- name: monitor
+  repository: file://./deps/monitor
+  version: 2.2.5
 - name: gluon
   repository: oci://registry1.dso.mil/bigbang
   version: 0.3.2

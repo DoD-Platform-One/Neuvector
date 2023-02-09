@@ -1,6 +1,6 @@
 # neuvector
 
-![Version: 2.4.0-bb.2](https://img.shields.io/badge/Version-2.4.0--bb.2-informational?style=flat-square) ![AppVersion: 5.1.0](https://img.shields.io/badge/AppVersion-5.1.0-informational?style=flat-square)
+![Version: 2.4.0-bb.3](https://img.shields.io/badge/Version-2.4.0--bb.3-informational?style=flat-square) ![AppVersion: 5.1.0](https://img.shields.io/badge/AppVersion-5.1.0-informational?style=flat-square)
 
 Helm chart for NeuVector's core services
 
@@ -211,6 +211,7 @@ helm install neuvector chart/
 | istio.mtls | object | `{"mode":"STRICT"}` | Default neuvector peer authentication |
 | istio.mtls.mode | string | `"STRICT"` | STRICT = Allow only mutual TLS traffic, PERMISSIVE = Allow both plain text and mutual TLS traffic |
 | monitoring.enabled | bool | `false` |  |
+| monitoring.namespace | string | `"monitoring"` |  |
 | networkPolicies.enabled | bool | `false` |  |
 | networkPolicies.ingressLabels.app | string | `"istio-ingressgateway"` |  |
 | networkPolicies.ingressLabels.istio | string | `"ingressgateway"` |  |
