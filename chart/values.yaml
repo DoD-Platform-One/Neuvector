@@ -382,6 +382,7 @@ crdwebhook:
 domain: bigbang.dev
 istio:
   enabled: false
+  injection: "disabled"
   neuvector:
     enabled: true
     annotations: {}
@@ -406,8 +407,6 @@ networkPolicies:
     app: istio-ingressgateway
     istio: ingressgateway
   controlPlaneCidr: 0.0.0.0/0
-  egressHttps:
-    enabled: true
 
 monitor:
   imagePullSecrets: private-registry
