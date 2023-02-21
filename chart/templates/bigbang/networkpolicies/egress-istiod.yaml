@@ -1,4 +1,4 @@
-{{- if and .Values.networkPolicies.enabled .Values.istio.enabled }}
+{{- if and .Values.networkPolicies.enabled (eq .Values.istio.injection "enabled") }}
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
@@ -15,7 +15,7 @@ spec:
           app.kubernetes.io/name: istio-controlplane
       podSelector:
         matchLabels:
-          app: istiod
+          istio: pilot
     ports:
     - port: 15012
 {{- end }}

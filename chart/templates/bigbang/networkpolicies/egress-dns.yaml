@@ -15,7 +15,7 @@ spec:
     ports:
     - port: 53
       protocol: UDP
-    {{- if .Values.OpenShift.enabled }}  
+    {{- if .Values.openshift }}  
     - port: 5353
       protocol: UDP
     {{- end }}

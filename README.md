@@ -1,6 +1,6 @@
 # neuvector
 
-![Version: 2.4.0-bb.4](https://img.shields.io/badge/Version-2.4.0--bb.4-informational?style=flat-square) ![AppVersion: 5.1.0](https://img.shields.io/badge/AppVersion-5.1.0-informational?style=flat-square)
+![Version: 2.4.0-bb.5](https://img.shields.io/badge/Version-2.4.0--bb.5-informational?style=flat-square) ![AppVersion: 5.1.0](https://img.shields.io/badge/AppVersion-5.1.0-informational?style=flat-square)
 
 Helm chart for NeuVector's core services
 
@@ -203,6 +203,7 @@ helm install neuvector chart/
 | crdwebhook.type | string | `"ClusterIP"` |  |
 | domain | string | `"bigbang.dev"` |  |
 | istio.enabled | bool | `false` |  |
+| istio.injection | string | `"disabled"` |  |
 | istio.neuvector.enabled | bool | `true` |  |
 | istio.neuvector.annotations | object | `{}` |  |
 | istio.neuvector.labels | object | `{}` |  |
@@ -216,7 +217,7 @@ helm install neuvector chart/
 | networkPolicies.ingressLabels.app | string | `"istio-ingressgateway"` |  |
 | networkPolicies.ingressLabels.istio | string | `"ingressgateway"` |  |
 | networkPolicies.controlPlaneCidr | string | `"0.0.0.0/0"` |  |
-| networkPolicies.egressHttps.enabled | bool | `true` |  |
+| monitor.imagePullSecrets | string | `"private-registry"` |  |
 | bbtests.enabled | bool | `false` |  |
 | bbtests.cypress.artifacts | bool | `true` |  |
 | bbtests.cypress.envs.cypress_url | string | `"http://neuvector-service-webui.{{ .Release.Namespace }}.svc.cluster.local:8443"` |  |
