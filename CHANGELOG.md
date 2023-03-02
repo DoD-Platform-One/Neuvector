@@ -3,6 +3,13 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
+## [2.4.2-bb.0] - 2022-02-23
+### Changed
+- Update images from `5.1.0` to `5.1.1`
+- Update chart version to `2.4.2`
+- Update monitor chart to `2.4.2`
+- Exporter image to test image list
+
 ## [2.4.0-bb.6] - 2022-02-28
 ### Added
 - Add network policy for controller egress

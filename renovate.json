@@ -51,6 +51,13 @@
       "datasourceTemplate": "docker"
     },
     {
+      "fileMatch": ["^tests/images\\.txt$"],
+      "matchStrings": [
+        "s*(?<depName>.+):(?<currentValue>.+)"
+      ],
+      "datasourceTemplate": "docker"
+    },
+    {
       "fileMatch": ["^chart/Chart\\.yaml$"],
       "matchStrings": [
         "image:[^\\S\\r\\n]+(?<depName>.+):(?<currentValue>.+)"

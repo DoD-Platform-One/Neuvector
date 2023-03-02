@@ -1,6 +1,6 @@
 # neuvector
 
-![Version: 2.4.0-bb.6](https://img.shields.io/badge/Version-2.4.0--bb.6-informational?style=flat-square) ![AppVersion: 5.1.0](https://img.shields.io/badge/AppVersion-5.1.0-informational?style=flat-square)
+![Version: 2.4.2-bb.0](https://img.shields.io/badge/Version-2.4.2--bb.0-informational?style=flat-square) ![AppVersion: 5.1.1](https://img.shields.io/badge/AppVersion-5.1.1-informational?style=flat-square)
 
 Helm chart for NeuVector's core services
 
@@ -35,7 +35,7 @@ helm install neuvector chart/
 |-----|------|---------|-------------|
 | openshift | bool | `false` |  |
 | registry | string | `"registry1.dso.mil"` |  |
-| tag | string | `"5.1.0"` |  |
+| tag | string | `"5.1.1"` |  |
 | oem | string | `nil` |  |
 | imagePullSecrets | string | `"private-registry"` |  |
 | psp | bool | `false` |  |
@@ -80,6 +80,10 @@ helm install neuvector chart/
 | controller.certificate.secret | string | `nil` |  |
 | controller.certificate.keyFile | string | `"tls.key"` |  |
 | controller.certificate.pemFile | string | `"tls.pem"` |  |
+| controller.internal.certificate.secret | string | `nil` |  |
+| controller.internal.certificate.keyFile | string | `"cert.key"` |  |
+| controller.internal.certificate.pemFile | string | `"cert.pem"` |  |
+| controller.internal.certificate.caFile | string | `"ca.cert"` |  |
 | controller.federation.mastersvc.type | string | `nil` |  |
 | controller.federation.mastersvc.ingress.enabled | bool | `false` |  |
 | controller.federation.mastersvc.ingress.host | string | `nil` |  |
@@ -130,6 +134,10 @@ helm install neuvector chart/
 | enforcer.tolerations[1].effect | string | `"NoSchedule"` |  |
 | enforcer.tolerations[1].key | string | `"node-role.kubernetes.io/control-plane"` |  |
 | enforcer.resources | object | `{}` |  |
+| enforcer.internal.certificate.secret | string | `nil` |  |
+| enforcer.internal.certificate.keyFile | string | `"cert.key"` |  |
+| enforcer.internal.certificate.pemFile | string | `"cert.pem"` |  |
+| enforcer.internal.certificate.caFile | string | `"ca.cert"` |  |
 | manager.enabled | bool | `true` |  |
 | manager.image.repository | string | `"ironbank/neuvector/neuvector/manager"` |  |
 | manager.image.hash | string | `nil` |  |
@@ -188,6 +196,10 @@ helm install neuvector chart/
 | cve.scanner.tolerations | list | `[]` |  |
 | cve.scanner.nodeSelector | object | `{}` |  |
 | cve.scanner.runAsUser | string | `nil` |  |
+| cve.scanner.internal.certificate.secret | string | `nil` |  |
+| cve.scanner.internal.certificate.keyFile | string | `"cert.key"` |  |
+| cve.scanner.internal.certificate.pemFile | string | `"cert.pem"` |  |
+| cve.scanner.internal.certificate.caFile | string | `"ca.cert"` |  |
 | docker.path | string | `"/var/run/docker.sock"` |  |
 | resources | object | `{}` |  |
 | k3s.enabled | bool | `false` |  |
