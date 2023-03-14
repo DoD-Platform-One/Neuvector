@@ -36,4 +36,11 @@ spec:
       relabelings:
         {{- toYaml .Values.exporter.serviceMonitor.relabelings | nindent 6 }}
       {{- end }}
+      {{- if .Values.exporter.serviceMonitor.scheme }}
+      scheme: {{ .Values.exporter.serviceMonitor.scheme }}
+      {{- end }}
+      {{- if .Values.exporter.serviceMonitor.tlsConfig }}
+      tlsConfig:
+        {{- toYaml .Values.exporter.serviceMonitor.tlsConfig | nindent 8 }}
+      {{- end }}
 {{- end }}

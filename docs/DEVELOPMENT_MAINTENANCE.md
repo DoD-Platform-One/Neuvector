@@ -26,15 +26,15 @@ It is important to note that NeuVector is not currently part of the BB "umbrella
 
 NOTE: In initial exploration of NeuVector we discovered that k3d/kind (dockerized clusters) are not supported by NeuVector (see [this](https://open-docs.neuvector.com/basics/requirements#not-supported)). However we have been able to successfully test with some workarounds. One of the main requirements seems to be cgroupsv2 in order to workaround a limitation in NeuVector startup code. If you are using the k3d dev script this should already be enabled by default. To validate you can use [this check](https://rootlesscontaine.rs/getting-started/common/cgroup2/#checking-whether-cgroup-v2-is-already-enabled) and if required enable cgroupsv2 following [these steps](https://rootlesscontaine.rs/getting-started/common/cgroup2/#enabling-cgroup-v2).
 
-1. Deploy Big Bang with at minimum Istio enabled. Currently Gatekeeper/Kyverno do not have the necessary exceptions to allow NeuVector to run so it's recommended to deploy without them.
-1. Create a `neuvector` namespace: `kubectl create ns neuvector`
-1. Copy the `private-registry` image pull secret to the `neuvector` namespace: `kubectl get secret private-registry -n=istio-system -o yaml | sed 's/namespace: .*/namespace: neuvector/' | kubectl apply -n=neuvector -f -`
-1. Helm install NeuVector via `helm install neuvector chart -n neuvector --set istio.enabled=true --set k3s.enabled=true --set istio.neuvector.gateways={"istio-system/public"} --set manager.env.ssl=false --set istio.mtls.mode=DISABLE`, see below for explanation of options we are setting:
-  - enable Istio interactions
-  - set the VS to the public gateway
-  - enable the k3s runtime (if on k3s/k3d)
-  - disable SSL for the manager since we are not passing in SSL certs
-  - set Istio mTLS to disabled (this is temporary until istio injection is working)
+Deploy Big Bang with at minimum Istio, Monitoring, and Neuvector enabled. For Neuvector on k3d you will need to enable the k3s runtime value:
+
+```yaml
+neuvector:
+  enabled: true
+  values:
+    k3s:
+      enabled: true
+```
 
 ## Testing NeuVector
 
@@ -58,6 +58,19 @@ NOTE: This list may not be complete yet - it should be updated as updates are wo
 - Append `-bb.x` to Chart version
 - Add gluon library dependency
 - Add BB dev application version annotation
+- Add monitor subchart dependency
+
+## chart/deps/monitor/templates/exporter-servicemonitor.yaml
+
+- Add support for scheme and tlsConfig
+
+## chart/deps/monitor/templates/exporter-service.yaml
+
+- Add `appProtocol: http` to the metrics port to support Istio protocol detection
+
+## chart/deps/monitor/values.yaml
+
+- Add empty defaults for scheme and tlsConfig
 
 ## chart/templates/bigbang/*
 
@@ -101,7 +114,7 @@ NOTE: This list may not be complete yet - it should be updated as updates are wo
     controlPlaneCidr: 0.0.0.0/0
   ```
 
-## addition of grafana dashboards
+## Grafana Dashboards
 
 - Added `chart/dashboards/neuvector-dashboard.json`
 - Added `chart/templates/bigbang/neuvector-dashboards.yaml`
