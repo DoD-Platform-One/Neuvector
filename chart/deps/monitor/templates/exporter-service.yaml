@@ -22,6 +22,7 @@ spec:
     - port: 8068
       name: metrics
       protocol: TCP
+      appProtocol: http
   selector:
     app: neuvector-prometheus-exporter-pod
 {{- end }}

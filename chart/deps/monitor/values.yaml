@@ -27,6 +27,8 @@ exporter:
 
   serviceMonitor:
     enabled: false
+    scheme: ""
+    tlsConfig: {}
     # labels for the ServiceMonitor.
     labels: {}
     # annotations for the ServiceMonitor.
