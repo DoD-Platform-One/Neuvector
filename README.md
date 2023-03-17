@@ -1,6 +1,6 @@
 # neuvector
 
-![Version: 2.4.2-bb.3](https://img.shields.io/badge/Version-2.4.2--bb.3-informational?style=flat-square) ![AppVersion: 5.1.1](https://img.shields.io/badge/AppVersion-5.1.1-informational?style=flat-square)
+![Version: 2.4.2-bb.4](https://img.shields.io/badge/Version-2.4.2--bb.4-informational?style=flat-square) ![AppVersion: 5.1.1](https://img.shields.io/badge/AppVersion-5.1.1-informational?style=flat-square)
 
 Helm chart for NeuVector's core services
 
