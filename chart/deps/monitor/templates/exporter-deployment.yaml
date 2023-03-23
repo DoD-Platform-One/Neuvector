@@ -23,6 +23,9 @@ spec:
         prometheus.io/path: /metrics
         prometheus.io/port: "8068"
         prometheus.io/scrape: "true"
+        {{- if .Values.exporter.podAnnotations }}
+        {{- toYaml .Values.exporter.podAnnotations | nindent 8 }}
+        {{- end }}
       labels:
         app: neuvector-prometheus-exporter-pod
         release: {{ .Release.Name }}
