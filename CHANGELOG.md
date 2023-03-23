@@ -3,6 +3,12 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
+## [2.4.2-bb.5] - 2023-03-22
+### Changed
+- Added support for podAnnotations on exporter
+- Added network policy for updater kube api egress
+- Add controller checksum for init config
+
 ## [2.4.2-bb.4] - 2023-03-14
 ### Changed
 - Fixed pod termination issue caused by istio sidecar injection 

@@ -17,6 +17,8 @@ exporter:
   CTRL_USERNAME: admin
   CTRL_PASSWORD: admin
 
+  podAnnotations: {}
+
   svc:
     enabled: false
     type: NodePort
