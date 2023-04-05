@@ -6,6 +6,7 @@ Cypress.on('uncaught:exception', (err, runnable) => {
 
 // Login to NeuVector before each test
 beforeEach(function () {
+  cy.viewport(1920, 1080)
   cy.visit(Cypress.env('url'))
   cy.title().should('contain', 'NeuVector')
   cy.get('input[id="Email1"]').type("admin")
@@ -51,19 +52,32 @@ it('Scan an image', function() {
   cy.get('a[title="Assets"]').click()
   cy.get('a[title="Containers"]').click()
   cy.wait(1000)
-  cy.get('div[role="rowgroup"] > div[row-index="0"]').then($row => {
-    // If a scan has already run, pick the second row
-    if ($row.find('div[role="rowgroup"] > div[row-index="0"] > div[col-id="security.scan_summary.status"] > app-containers-grid-status-cell > span').length > 0) {
-      cy.get('div[role="rowgroup"] > div[row-index="4"]').click({force:true})
-      cy.get('button[aria-label="Scan action"]').click()
-      cy.wait(6000)
-      cy.get('div[role="rowgroup"] > div[row-index="4"] > div[col-id="security.scan_summary.status"] > app-containers-grid-status-cell > span').contains("Finished")
-    // Otherwise scan the first row
-    } else {
-      cy.get('div[role="rowgroup"] > div[row-index="0"]').click({force:true})
-      cy.get('button[aria-label="Scan action"]').click()
-      cy.wait(6000)
-      cy.get('div[role="rowgroup"] > div[row-index="0"] > div[col-id="security.scan_summary.status"] > app-containers-grid-status-cell > span').contains("Finished")
-    }
-  })
+
+  // Get a container that has not been scanned
+  cy.get('div[role="rowgroup"] > div.ag-row div[col-id="security.scan_summary.status"] > app-containers-grid-status-cell:empty')
+    .first()
+    .parents('div.ag-row')
+    .click()
+    .then($row => {
+      cy.get('button[aria-label="Scan action"]')
+        .click()
+        .then(() => {
+          cy.intercept('/workload/scanned?start=0&limit=2000')
+            .as('scanned')
+
+          // When the scan is complete grid reloads, wait for that request to fire
+          cy.wait('@scanned', { timeout: 15000 })
+
+          const rowName = $row.find('app-containers-grid-name-cell')[0].innerText
+          const rowId = $row.attr('row-id');
+
+          // Type in container name to ensure row is visible
+          cy.get('app-quick-filter input').type(rowName)
+
+          // Fetch row by id
+          cy.get(`div[role='rowgroup'] > div.ag-row[row-id='${rowId}']`)
+            .find('app-containers-grid-status-cell', { timeout: 15000 })
+            .should('contain', 'Finished', { timeout: 15000 })
+        })
+    })
 })
