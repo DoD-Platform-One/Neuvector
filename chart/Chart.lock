@@ -1,9 +1,9 @@
 dependencies:
 - name: monitor
   repository: file://./deps/monitor
-  version: 2.4.2
+  version: 2.4.3
 - name: gluon
   repository: oci://registry1.dso.mil/bigbang
   version: 0.3.2
-digest: sha256:21a11b3378d655cafc8b225463f693236e8fb9c7ac7f00cb8ca12d91481ec340
-generated: "2023-03-23T07:56:29.225717-06:00"
+digest: sha256:3a30f390e6ccd632278be9afad1dcc2dd9b52ff66cee9cbe0922d8007b5583f8
+generated: "2023-04-06T01:01:03.252173-05:00"
