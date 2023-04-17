@@ -3,6 +3,12 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
+## [2.4.3-bb.7] - 2023-04-06
+### Fixed
+- Update images from `5.1.1` to `5.1.2`
+- Update chart version to `2.4.3`
+- Update monitor chart to `2.4.3`
+
 ## [2.4.2-bb.6] - 2023-04-05
 ### Fixed
 - Make cypress scan test more deterministic
