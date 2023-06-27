@@ -1,6 +1,6 @@
 # neuvector
 
-![Version: 2.4.3-bb.7](https://img.shields.io/badge/Version-2.4.3--bb.7-informational?style=flat-square) ![AppVersion: 5.1.2](https://img.shields.io/badge/AppVersion-5.1.2-informational?style=flat-square)
+![Version: 2.4.5-bb.0](https://img.shields.io/badge/Version-2.4.5--bb.0-informational?style=flat-square) ![AppVersion: 5.1.3](https://img.shields.io/badge/AppVersion-5.1.3-informational?style=flat-square)
 
 Helm chart for NeuVector's core services
 
@@ -35,7 +35,7 @@ helm install neuvector chart/
 |-----|------|---------|-------------|
 | openshift | bool | `false` |  |
 | registry | string | `"registry1.dso.mil"` |  |
-| tag | string | `"5.1.2"` |  |
+| tag | string | `"5.1.3"` |  |
 | oem | string | `nil` |  |
 | imagePullSecrets | string | `"private-registry"` |  |
 | psp | bool | `false` |  |
