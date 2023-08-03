@@ -172,6 +172,6 @@ component-definition:
         rlinks:
           - href: https://open-docs.neuvector.com/
       - uuid: b4988bfa-d4a7-4095-8523-2e298cc45473
-        title: Big Bang Prisma Cloud package
+        title: Big Bang NeuVector package
         rlinks:
           - href: https://repo1.dso.mil/platform-one/big-bang/apps/security-tools/neuvector
