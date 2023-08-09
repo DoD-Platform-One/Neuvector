@@ -72,6 +72,8 @@ spec:
           {{- end }}
           {{- end }}
           imagePullPolicy: Always
+          securityContext:
+            {{- toYaml $.Values.enforcer.containerSecurityContext | nindent 12 }}
           env:
             - name: CLUSTER_JOIN_ADDR
               value: neuvector-svc-controller.{{ .Release.Namespace }}

@@ -1,6 +1,6 @@
 # neuvector
 
-![Version: 2.4.5-bb.2](https://img.shields.io/badge/Version-2.4.5--bb.2-informational?style=flat-square) ![AppVersion: 5.1.3](https://img.shields.io/badge/AppVersion-5.1.3-informational?style=flat-square)
+![Version: 2.4.5-bb.3](https://img.shields.io/badge/Version-2.4.5--bb.3-informational?style=flat-square) ![AppVersion: 5.1.3](https://img.shields.io/badge/AppVersion-5.1.3-informational?style=flat-square)
 
 Helm chart for NeuVector's core services
 
@@ -56,6 +56,7 @@ helm install neuvector chart/
 | controller.priorityClassName | string | `nil` |  |
 | controller.podLabels | object | `{}` |  |
 | controller.podAnnotations | object | `{}` |  |
+| controller.containerSecurityContext.capabilities.drop[0] | string | `"ALL"` |  |
 | controller.env | list | `[]` |  |
 | controller.affinity.podAntiAffinity.preferredDuringSchedulingIgnoredDuringExecution[0].weight | int | `100` |  |
 | controller.affinity.podAntiAffinity.preferredDuringSchedulingIgnoredDuringExecution[0].podAffinityTerm.labelSelector.matchExpressions[0].key | string | `"app"` |  |
@@ -131,6 +132,7 @@ helm install neuvector chart/
 | enforcer.priorityClassName | string | `nil` |  |
 | enforcer.podLabels | object | `{}` |  |
 | enforcer.podAnnotations | object | `{}` |  |
+| enforcer.containerSecurityContext.capabilities.drop[0] | string | `"ALL"` |  |
 | enforcer.env | list | `[]` |  |
 | enforcer.tolerations[0].effect | string | `"NoSchedule"` |  |
 | enforcer.tolerations[0].key | string | `"node-role.kubernetes.io/master"` |  |
@@ -168,6 +170,7 @@ helm install neuvector chart/
 | manager.affinity | object | `{}` |  |
 | manager.podLabels | object | `{}` |  |
 | manager.podAnnotations | object | `{}` |  |
+| manager.containerSecurityContext.capabilities.drop[0] | string | `"ALL"` |  |
 | manager.tolerations | list | `[]` |  |
 | manager.nodeSelector | object | `{}` |  |
 | manager.runAsUser | string | `nil` |  |
@@ -204,6 +207,7 @@ helm install neuvector chart/
 | cve.scanner.internal.certificate.keyFile | string | `"tls.key"` |  |
 | cve.scanner.internal.certificate.pemFile | string | `"tls.crt"` |  |
 | cve.scanner.internal.certificate.caFile | string | `"ca.crt"` |  |
+| cve.scanner.containerSecurityContext.capabilities.drop[0] | string | `"ALL"` |  |
 | docker.path | string | `"/var/run/docker.sock"` |  |
 | resources | object | `{}` |  |
 | k3s.enabled | bool | `false` |  |

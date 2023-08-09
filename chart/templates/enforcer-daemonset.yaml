@@ -61,6 +61,7 @@ spec:
           {{- end }}
           securityContext:
             privileged: true
+
           resources:
           {{- if .Values.enforcer.resources }}
 {{ toYaml .Values.enforcer.resources | indent 12 }}

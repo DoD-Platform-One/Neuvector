@@ -35,6 +35,10 @@ controller:
   priorityClassName:
   podLabels: {}
   podAnnotations: {}
+  containerSecurityContext:
+    capabilities:
+      drop: 
+        - ALL
   env: []
   affinity:
     podAntiAffinity:
@@ -230,6 +234,10 @@ enforcer:
   priorityClassName:
   podLabels: {}
   podAnnotations: {}
+  containerSecurityContext:
+    capabilities:
+      drop: 
+        - ALL
   env: []
   tolerations:
     - effect: NoSchedule
@@ -315,6 +323,10 @@ manager:
   affinity: {}
   podLabels: {}
   podAnnotations: {}
+  containerSecurityContext:
+    capabilities:
+      drop: 
+        - ALL
   tolerations: []
   nodeSelector: {}
     # key1: value1
@@ -338,6 +350,10 @@ cve:
       # key1: value1
       # key2: value2
     runAsUser:  # MUST be set for Rancher hardened cluster
+    # containerSecurityContext:
+    #   capabilities:
+    #     drop: 
+    #       - ALL
   scanner:
     enabled: true
     replicas: 3
@@ -374,6 +390,10 @@ cve:
         keyFile: tls.key
         pemFile: tls.crt
         caFile: ca.crt # must be the same CA for all internal.
+    containerSecurityContext:
+      capabilities:
+        drop: 
+          - ALL
 
 docker:
   path: /var/run/docker.sock
