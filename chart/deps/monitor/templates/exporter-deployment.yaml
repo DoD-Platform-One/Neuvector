@@ -48,6 +48,8 @@ spec:
           image: "{{ .Values.registry }}/{{ .Values.exporter.image.repository }}:{{ .Values.exporter.image.tag }}"
           {{- end }}
           imagePullPolicy: Always
+          securityContext:
+            {{- toYaml $.Values.exporter.containerSecurityContext | nindent 12 }}
           env:
             - name: CTRL_API_SERVICE
               value: neuvector-svc-controller:10443

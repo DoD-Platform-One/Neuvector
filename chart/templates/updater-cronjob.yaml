@@ -64,6 +64,7 @@ spec:
               {{- end }}
               {{- end }}
               imagePullPolicy: Always
+
           {{- if .Values.cve.scanner.enabled }}
               command:
               - /bin/sh
