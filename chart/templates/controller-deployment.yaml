@@ -85,8 +85,7 @@ spec:
           {{- end }}
           {{- end }}
           securityContext:
-            privileged: true
-            {{- toYaml $.Values.enforcer.containerSecurityContext | nindent 12 }}
+            {{- toYaml $.Values.controller.containerSecurityContext | nindent 12 }}
           resources:
           {{- if .Values.controller.resources }}
 {{ toYaml .Values.controller.resources | indent 12 }}

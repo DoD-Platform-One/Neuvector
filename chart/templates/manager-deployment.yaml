@@ -51,9 +51,9 @@ spec:
       {{- end }}
       serviceAccountName: {{ .Values.serviceAccount }}
       serviceAccount: {{ .Values.serviceAccount }}
-      {{- if .Values.manager.runAsUser }}
+      {{- if .Values.manager.securityContext.runAsUser }}
       securityContext:
-        runAsUser: {{ .Values.manager.runAsUser }}
+        {{- toYaml $.Values.manager.securityContext | nindent 8 }}
       {{- end }}
       containers:
         - name: neuvector-manager-pod
@@ -71,7 +71,7 @@ spec:
           {{- end }}
           {{- end }}
           securityContext:
-            {{- toYaml $.Values.enforcer.containerSecurityContext | nindent 12 }}
+            {{- toYaml $.Values.manager.containerSecurityContext | nindent 12 }}
           env:
             - name: CTRL_SERVER_IP
               value: neuvector-svc-controller.{{ .Release.Namespace }}

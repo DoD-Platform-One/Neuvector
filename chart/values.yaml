@@ -36,6 +36,9 @@ controller:
   podLabels: {}
   podAnnotations: {}
   containerSecurityContext:
+    privileged: true
+    runAsUser: 1000
+    runAsNonRoot: true
     capabilities:
       drop: 
         - ALL
@@ -234,7 +237,11 @@ enforcer:
   priorityClassName:
   podLabels: {}
   podAnnotations: {}
+  securityContext:
+    runAsNonRoot: true
+    runAsUser: 1000
   containerSecurityContext:
+    privileged: true
     capabilities:
       drop: 
         - ALL
@@ -324,6 +331,8 @@ manager:
   podLabels: {}
   podAnnotations: {}
   containerSecurityContext:
+    runAsUser: 1000
+    runAsNonRoot: true
     capabilities:
       drop: 
         - ALL
@@ -331,7 +340,9 @@ manager:
   nodeSelector: {}
     # key1: value1
     # key2: value2
-  runAsUser:  # MUST be set for Rancher hardened cluster
+  securityContext:
+    runAsNonRoot: true
+    runAsUser: 1000 # MUST be set for Rancher hardened cluster
   
 cve:
   updater:
@@ -349,11 +360,15 @@ cve:
     nodeSelector: {}
       # key1: value1
       # key2: value2
-    runAsUser:  # MUST be set for Rancher hardened cluster
-    # containerSecurityContext:
-    #   capabilities:
-    #     drop: 
-    #       - ALL
+    securityContext:
+      runAsUser: 1000 # MUST be set for Rancher hardened cluster
+      runAsNonRoot: true
+    containerSecurityContext:
+      runAsUser: 1000
+      runAsNonRoot: true
+      capabilities:
+        drop: 
+          - ALL
   scanner:
     enabled: true
     replicas: 3
@@ -383,7 +398,9 @@ cve:
     nodeSelector: {}
       # key1: value1
       # key2: value2
-    runAsUser:  # MUST be set for Rancher hardened cluster
+    securityContext:
+      runAsNonRoot: true
+      runAsUser: 1000 # MUST be set for Rancher hardened cluster
     internal: # this is used for internal communication. Please use the SAME CA for all the components ( controller, scanner, and enforcer ) The cert needs to have a CN of "NeuVector"
       certificate:
         secret: neuvector-internal
@@ -391,6 +408,8 @@ cve:
         pemFile: tls.crt
         caFile: ca.crt # must be the same CA for all internal.
     containerSecurityContext:
+      runAsUser: 1000
+      runAsNonRoot: true
       capabilities:
         drop: 
           - ALL
