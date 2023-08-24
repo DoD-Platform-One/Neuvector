@@ -3,6 +3,10 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
+## [2.4.5-bb.4] - 2023-08-15
+### Added
+- Update securityContext for controller, manager, scanner,& enforcer to runAsNonRoot
+
 ## [2.4.5-bb.3] - 2023-08-04
 ### Added
 - added securityContext: capabilities: drop: ALL

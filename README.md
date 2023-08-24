@@ -1,6 +1,6 @@
 # neuvector
 
-![Version: 2.4.5-bb.3](https://img.shields.io/badge/Version-2.4.5--bb.3-informational?style=flat-square) ![AppVersion: 5.1.3](https://img.shields.io/badge/AppVersion-5.1.3-informational?style=flat-square)
+![Version: 2.4.5-bb.4](https://img.shields.io/badge/Version-2.4.5--bb.4-informational?style=flat-square) ![AppVersion: 5.1.3](https://img.shields.io/badge/AppVersion-5.1.3-informational?style=flat-square)
 
 Helm chart for NeuVector's core services
 
@@ -56,6 +56,9 @@ helm install neuvector chart/
 | controller.priorityClassName | string | `nil` |  |
 | controller.podLabels | object | `{}` |  |
 | controller.podAnnotations | object | `{}` |  |
+| controller.containerSecurityContext.privileged | bool | `true` |  |
+| controller.containerSecurityContext.runAsUser | int | `1000` |  |
+| controller.containerSecurityContext.runAsNonRoot | bool | `true` |  |
 | controller.containerSecurityContext.capabilities.drop[0] | string | `"ALL"` |  |
 | controller.env | list | `[]` |  |
 | controller.affinity.podAntiAffinity.preferredDuringSchedulingIgnoredDuringExecution[0].weight | int | `100` |  |
@@ -132,6 +135,9 @@ helm install neuvector chart/
 | enforcer.priorityClassName | string | `nil` |  |
 | enforcer.podLabels | object | `{}` |  |
 | enforcer.podAnnotations | object | `{}` |  |
+| enforcer.securityContext.runAsNonRoot | bool | `true` |  |
+| enforcer.securityContext.runAsUser | int | `1000` |  |
+| enforcer.containerSecurityContext.privileged | bool | `true` |  |
 | enforcer.containerSecurityContext.capabilities.drop[0] | string | `"ALL"` |  |
 | enforcer.env | list | `[]` |  |
 | enforcer.tolerations[0].effect | string | `"NoSchedule"` |  |
@@ -170,10 +176,13 @@ helm install neuvector chart/
 | manager.affinity | object | `{}` |  |
 | manager.podLabels | object | `{}` |  |
 | manager.podAnnotations | object | `{}` |  |
+| manager.containerSecurityContext.runAsUser | int | `1000` |  |
+| manager.containerSecurityContext.runAsNonRoot | bool | `true` |  |
 | manager.containerSecurityContext.capabilities.drop[0] | string | `"ALL"` |  |
 | manager.tolerations | list | `[]` |  |
 | manager.nodeSelector | object | `{}` |  |
-| manager.runAsUser | string | `nil` |  |
+| manager.securityContext.runAsNonRoot | bool | `true` |  |
+| manager.securityContext.runAsUser | int | `1000` |  |
 | cve.updater.enabled | bool | `true` |  |
 | cve.updater.secure | bool | `false` |  |
 | cve.updater.image.repository | string | `"ironbank/big-bang/base"` |  |
@@ -184,7 +193,11 @@ helm install neuvector chart/
 | cve.updater.podLabels | object | `{}` |  |
 | cve.updater.podAnnotations | object | `{}` |  |
 | cve.updater.nodeSelector | object | `{}` |  |
-| cve.updater.runAsUser | string | `nil` |  |
+| cve.updater.securityContext.runAsUser | int | `1000` |  |
+| cve.updater.securityContext.runAsNonRoot | bool | `true` |  |
+| cve.updater.containerSecurityContext.runAsUser | int | `1000` |  |
+| cve.updater.containerSecurityContext.runAsNonRoot | bool | `true` |  |
+| cve.updater.containerSecurityContext.capabilities.drop[0] | string | `"ALL"` |  |
 | cve.scanner.enabled | bool | `true` |  |
 | cve.scanner.replicas | int | `3` |  |
 | cve.scanner.dockerPath | string | `""` |  |
@@ -202,11 +215,14 @@ helm install neuvector chart/
 | cve.scanner.env | list | `[]` |  |
 | cve.scanner.tolerations | list | `[]` |  |
 | cve.scanner.nodeSelector | object | `{}` |  |
-| cve.scanner.runAsUser | string | `nil` |  |
+| cve.scanner.securityContext.runAsNonRoot | bool | `true` |  |
+| cve.scanner.securityContext.runAsUser | int | `1000` |  |
 | cve.scanner.internal.certificate.secret | string | `"neuvector-internal"` |  |
 | cve.scanner.internal.certificate.keyFile | string | `"tls.key"` |  |
 | cve.scanner.internal.certificate.pemFile | string | `"tls.crt"` |  |
 | cve.scanner.internal.certificate.caFile | string | `"ca.crt"` |  |
+| cve.scanner.containerSecurityContext.runAsUser | int | `1000` |  |
+| cve.scanner.containerSecurityContext.runAsNonRoot | bool | `true` |  |
 | cve.scanner.containerSecurityContext.capabilities.drop[0] | string | `"ALL"` |  |
 | docker.path | string | `"/var/run/docker.sock"` |  |
 | resources | object | `{}` |  |

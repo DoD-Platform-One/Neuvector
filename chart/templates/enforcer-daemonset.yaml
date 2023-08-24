@@ -13,6 +13,8 @@ metadata:
     heritage: {{ .Release.Service }}
     release: {{ .Release.Name }}
 spec:
+  securityContext:
+    {{- toYaml $.Values.enforcer.securityContext | nindent 4 }}
   updateStrategy: {{- toYaml .Values.enforcer.updateStrategy | nindent 4 }}
   selector:
     matchLabels:
@@ -60,8 +62,7 @@ spec:
           {{- end }}
           {{- end }}
           securityContext:
-            privileged: true
-
+            {{- toYaml $.Values.enforcer.containerSecurityContext | nindent 12 }}
           resources:
           {{- if .Values.enforcer.resources }}
 {{ toYaml .Values.enforcer.resources | indent 12 }}
