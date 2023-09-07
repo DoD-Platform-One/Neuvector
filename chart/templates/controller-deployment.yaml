@@ -173,6 +173,12 @@ spec:
               name: internal-cert
               readOnly: true
           {{- end }}
+          {{- if .Values.controller.sso.certificateAuthority.secretName }}
+            - mountPath: /etc/ssl/certs/oidc.pem
+              subPath: ca.pem
+              name: tls-ca-sso
+              readOnly: true
+          {{- end }}
       terminationGracePeriodSeconds: 300
       restartPolicy: Always
       volumes:
@@ -226,6 +232,11 @@ spec:
         - name: internal-cert
           secret:
             secretName: {{ .Values.controller.internal.certificate.secret }}
+      {{- end }}
+      {{- if .Values.controller.sso.certificateAuthority.secretName }}
+        - name: tls-ca-sso
+          secret:
+            secretName: {{ .Values.controller.sso.certificateAuthority.secretName }}
       {{- end }}
 {{- if gt (int .Values.controller.disruptionbudget) 0 }}
 ---
