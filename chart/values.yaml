@@ -83,6 +83,9 @@ controller:
         #  -----END PRIVATE KEY-----
   ranchersso:
     enabled: false
+  sso:
+    certificateAuthority:
+      secretName: ""
   pvc:
     enabled: false
     existingClaim: false
