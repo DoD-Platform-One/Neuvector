@@ -1,6 +1,6 @@
 # neuvector
 
-![Version: 2.4.5-bb.5](https://img.shields.io/badge/Version-2.4.5--bb.5-informational?style=flat-square) ![AppVersion: 5.1.3](https://img.shields.io/badge/AppVersion-5.1.3-informational?style=flat-square)
+![Version: 2.4.5-bb.6](https://img.shields.io/badge/Version-2.4.5--bb.6-informational?style=flat-square) ![AppVersion: 5.1.3](https://img.shields.io/badge/AppVersion-5.1.3-informational?style=flat-square)
 
 Helm chart for NeuVector's core services
 
@@ -75,7 +75,7 @@ helm install neuvector chart/
 | controller.apisvc.route.host | string | `nil` |  |
 | controller.apisvc.route.tls | string | `nil` |  |
 | controller.ranchersso.enabled | bool | `false` |  |
-| controller.sso.certificateAuthority.secretName | string | `""` | Name of a secret containing a pem-encoded CA certificate. |
+| controller.sso.certificateAuthority.secretName | string | `""` |  |
 | controller.pvc.enabled | bool | `false` |  |
 | controller.pvc.existingClaim | bool | `false` |  |
 | controller.pvc.accessModes[0] | string | `"ReadWriteMany"` |  |
