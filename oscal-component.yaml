@@ -4,7 +4,7 @@ component-definition:
     title: NeuVector
     last-modified: "2023-07-18T16:53:23Z"
     version: "20230718"
-    oscal-version: 1.0.0
+    oscal-version: 1.1.1
     parties:
       # Should be consistent across all of the packages, but where is ground truth?
       - uuid: 72134592-08C2-4A77-ABAD-C880F109367A
