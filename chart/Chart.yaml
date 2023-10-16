@@ -1,7 +1,7 @@
 name: neuvector
 apiVersion: v2
-version: 2.4.5-bb.7
-appVersion: 5.1.3
+version: 2.6.3-bb.0
+appVersion: 5.2.2
 description: Helm chart for NeuVector's core services
 home: https://neuvector.com
 icon: https://avatars2.githubusercontent.com/u/19367275?s=200&v=4
@@ -11,7 +11,7 @@ maintainers:
 engine: gotpl
 dependencies:
   - name: monitor
-    version: 2.4.5
+    version: 2.6.3
     alias: monitor
     condition: monitor.install
     repository: file://./deps/monitor
@@ -20,17 +20,17 @@ dependencies:
     repository: "oci://registry1.dso.mil/bigbang"
 annotations:
   bigbang.dev/applicationVersions: |
-    - NeuVector: 5.1.3
+    - NeuVector: 5.2.2
   helm.sh/images: |
     - name: controller
       condition: controller.enabled
-      image: registry1.dso.mil/ironbank/neuvector/neuvector/controller:5.1.3
+      image: registry1.dso.mil/ironbank/neuvector/neuvector/controller:5.2.2
     - name: enforcer
       condition: enforcer.enabled
-      image: registry1.dso.mil/ironbank/neuvector/neuvector/enforcer:5.1.3
+      image: registry1.dso.mil/ironbank/neuvector/neuvector/enforcer:5.2.2
     - name: manager
       condition: manager.enabled
-      image: registry1.dso.mil/ironbank/neuvector/neuvector/manager:5.1.3
+      image: registry1.dso.mil/ironbank/neuvector/neuvector/manager:5.2.2
     - name: scanner
       condition: cve.scanner.enabled
       image: registry1.dso.mil/ironbank/neuvector/neuvector/scanner:5
