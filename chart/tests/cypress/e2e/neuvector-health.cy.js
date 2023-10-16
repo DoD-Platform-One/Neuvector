@@ -35,8 +35,8 @@ it('Check Dashboard Panels', function() {
 
 // Basic test that validates system component health
 it('Check System Components', function() {
-  cy.get('a[title="Assets"]').click()
-  cy.get('a[title="System Components"]').click()
+  cy.get('nav.sidebar > ul').contains("Assets").click()
+  cy.get('nav.sidebar > ul').contains("System Components").click()
   cy.wait(1000)
   cy.get('div[role="row"] > div[col-id="connection_state"] > app-controllers-grid-status-cell > span').contains("Connected")
   cy.get('div[role="tablist"]').contains("Scanners").click()
@@ -49,8 +49,8 @@ it('Check System Components', function() {
 
 // Basic test that scans an image and validates results/success
 it('Scan an image', function() {
-  cy.get('a[title="Assets"]').click()
-  cy.get('a[title="Containers"]').click()
+  cy.get('nav.sidebar > ul').contains("Assets").click()
+  cy.get('nav.sidebar > ul').contains("Containers").click()
   cy.wait(1000)
 
   // Get a container that has not been scanned

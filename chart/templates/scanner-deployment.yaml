@@ -50,14 +50,22 @@ spec:
       {{- if .Values.cve.scanner.priorityClassName }}
       priorityClassName: {{ .Values.cve.scanner.priorityClassName }}
       {{- end }}
+      {{- if .Values.leastPrivilege }}
+      serviceAccountName: basic
+      serviceAccount: basic
+      {{- else }}
       serviceAccountName: {{ .Values.serviceAccount }}
       serviceAccount: {{ .Values.serviceAccount }}
+      {{- end }}
       {{- if .Values.cve.scanner.securityContext.runAsUser }}
       securityContext:
         {{- toYaml $.Values.cve.scanner.securityContext | nindent 8 }}
       {{- end }}
       containers:
         - name: neuvector-scanner-pod
+          {{- if .Values.global.azure.enabled }}
+          image: "{{ .Values.global.azure.images.scanner.registry }}/{{ .Values.global.azure.images.scanner.image }}@{{ .Values.global.azure.images.scanner.digest }}"
+          {{- else }}
           {{- if eq .Values.registry "registry.neuvector.com" }}
           {{- if .Values.oem }}
           image: "{{ .Values.registry }}/{{ .Values.oem }}/scanner:{{ .Values.cve.scanner.image.tag }}"
@@ -67,8 +75,11 @@ spec:
           {{- else }}
           {{- if .Values.cve.scanner.image.hash }}
           image: "{{ .Values.registry }}/{{ .Values.cve.scanner.image.repository }}@{{ .Values.cve.scanner.image.hash }}"
+          {{- else if .Values.cve.scanner.image.registry }}
+          image: "{{ .Values.cve.scanner.image.registry }}/{{ .Values.cve.scanner.image.repository }}:{{ .Values.cve.scanner.image.tag }}"
           {{- else }}
           image: "{{ .Values.registry }}/{{ .Values.cve.scanner.image.repository }}:{{ .Values.cve.scanner.image.tag }}"
+          {{- end }}
           {{- end }}
           {{- end }}
           imagePullPolicy: Always
