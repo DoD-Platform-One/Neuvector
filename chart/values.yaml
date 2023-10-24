@@ -27,7 +27,7 @@ global: # required for rancher authentication (https://<Rancher_URL>/)
     imagePullSecrets:
     images:
       neuvector_csp_pod:
-        digest: 
+        digest:
         image: neuvector-billing-azure-by-suse-llc
         registry: susellcforazuremarketplace.azurecr.io
         imagePullPolicy: IfNotPresent
@@ -93,7 +93,7 @@ controller:
     runAsUser: 1000
     runAsNonRoot: true
     capabilities:
-      drop: 
+      drop:
         - ALL
   env: []
   affinity:
@@ -298,13 +298,11 @@ enforcer:
   priorityClassName:
   podLabels: {}
   podAnnotations: {}
-  securityContext:
-    runAsNonRoot: true
-    runAsUser: 1000
   containerSecurityContext:
     privileged: true
+    runAsGroup: 1000
     capabilities:
-      drop: 
+      drop:
         - ALL
   env: []
   tolerations:
@@ -398,9 +396,10 @@ manager:
   podAnnotations: {}
   containerSecurityContext:
     runAsUser: 1000
+    runAsGroup: 1000
     runAsNonRoot: true
     capabilities:
-      drop: 
+      drop:
         - ALL
   tolerations: []
   nodeSelector:
@@ -410,7 +409,9 @@ manager:
   securityContext:
     runAsNonRoot: true
     runAsUser: 1000 # MUST be set for Rancher hardened cluster
-  
+    runAsGroup: 1000
+    fsGroup: 1000
+
 cve:
   adapter:
     enabled: false
@@ -512,12 +513,15 @@ cve:
       # key2: value2
     securityContext:
       runAsUser: 1000 # MUST be set for Rancher hardened cluster
+      runAsGroup: 1000
+      fsGroup: 1000
       runAsNonRoot: true
     containerSecurityContext:
       runAsUser: 1000
+      runAsGroup: 1000
       runAsNonRoot: true
       capabilities:
-        drop: 
+        drop:
           - ALL
   scanner:
     enabled: true
@@ -553,6 +557,8 @@ cve:
     securityContext:
       runAsNonRoot: true
       runAsUser: 1000 # MUST be set for Rancher hardened cluster
+      runAsGroup: 1000
+      fsGroup: 1000
     internal: # this is used for internal communication. Please use the SAME CA for all the components ( controller, scanner, and enforcer ) The cert needs to have a CN of "NeuVector"
       certificate:
         secret: neuvector-internal
@@ -561,9 +567,10 @@ cve:
         caFile: ca.crt # must be the same CA for all internal.
     containerSecurityContext:
       runAsUser: 1000
+      runAsGroup: 1000
       runAsNonRoot: true
       capabilities:
-        drop: 
+        drop:
           - ALL
 
 docker:
@@ -625,7 +632,7 @@ monitoring:
 
 networkPolicies:
   enabled: false
-  ingressLabels: 
+  ingressLabels:
     app: istio-ingressgateway
     istio: ingressgateway
   controlPlaneCidr: 0.0.0.0/0

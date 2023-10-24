@@ -1,6 +1,6 @@
 # neuvector
 
-![Version: 2.6.3-bb.0](https://img.shields.io/badge/Version-2.6.3--bb.0-informational?style=flat-square) ![AppVersion: 5.2.2](https://img.shields.io/badge/AppVersion-5.2.2-informational?style=flat-square)
+![Version: 2.6.3-bb.1](https://img.shields.io/badge/Version-2.6.3--bb.1-informational?style=flat-square) ![AppVersion: 5.2.2](https://img.shields.io/badge/AppVersion-5.2.2-informational?style=flat-square)
 
 Helm chart for NeuVector's core services
 
@@ -174,9 +174,8 @@ helm install neuvector chart/
 | enforcer.priorityClassName | string | `nil` |  |
 | enforcer.podLabels | object | `{}` |  |
 | enforcer.podAnnotations | object | `{}` |  |
-| enforcer.securityContext.runAsNonRoot | bool | `true` |  |
-| enforcer.securityContext.runAsUser | int | `1000` |  |
 | enforcer.containerSecurityContext.privileged | bool | `true` |  |
+| enforcer.containerSecurityContext.runAsGroup | int | `1000` |  |
 | enforcer.containerSecurityContext.capabilities.drop[0] | string | `"ALL"` |  |
 | enforcer.env | list | `[]` |  |
 | enforcer.tolerations[0].effect | string | `"NoSchedule"` |  |
@@ -217,12 +216,15 @@ helm install neuvector chart/
 | manager.podLabels | object | `{}` |  |
 | manager.podAnnotations | object | `{}` |  |
 | manager.containerSecurityContext.runAsUser | int | `1000` |  |
+| manager.containerSecurityContext.runAsGroup | int | `1000` |  |
 | manager.containerSecurityContext.runAsNonRoot | bool | `true` |  |
 | manager.containerSecurityContext.capabilities.drop[0] | string | `"ALL"` |  |
 | manager.tolerations | list | `[]` |  |
 | manager.nodeSelector | object | `{}` |  |
 | manager.securityContext.runAsNonRoot | bool | `true` |  |
 | manager.securityContext.runAsUser | int | `1000` |  |
+| manager.securityContext.runAsGroup | int | `1000` |  |
+| manager.securityContext.fsGroup | int | `1000` |  |
 | cve.adapter.enabled | bool | `false` |  |
 | cve.adapter.image.repository | string | `"neuvector/registry-adapter"` |  |
 | cve.adapter.image.tag | string | `"0.1.0"` |  |
@@ -271,8 +273,11 @@ helm install neuvector chart/
 | cve.updater.podAnnotations | object | `{}` |  |
 | cve.updater.nodeSelector | object | `{}` |  |
 | cve.updater.securityContext.runAsUser | int | `1000` |  |
+| cve.updater.securityContext.runAsGroup | int | `1000` |  |
+| cve.updater.securityContext.fsGroup | int | `1000` |  |
 | cve.updater.securityContext.runAsNonRoot | bool | `true` |  |
 | cve.updater.containerSecurityContext.runAsUser | int | `1000` |  |
+| cve.updater.containerSecurityContext.runAsGroup | int | `1000` |  |
 | cve.updater.containerSecurityContext.runAsNonRoot | bool | `true` |  |
 | cve.updater.containerSecurityContext.capabilities.drop[0] | string | `"ALL"` |  |
 | cve.scanner.enabled | bool | `true` |  |
@@ -294,11 +299,14 @@ helm install neuvector chart/
 | cve.scanner.nodeSelector | object | `{}` |  |
 | cve.scanner.securityContext.runAsNonRoot | bool | `true` |  |
 | cve.scanner.securityContext.runAsUser | int | `1000` |  |
+| cve.scanner.securityContext.runAsGroup | int | `1000` |  |
+| cve.scanner.securityContext.fsGroup | int | `1000` |  |
 | cve.scanner.internal.certificate.secret | string | `"neuvector-internal"` |  |
 | cve.scanner.internal.certificate.keyFile | string | `"tls.key"` |  |
 | cve.scanner.internal.certificate.pemFile | string | `"tls.crt"` |  |
 | cve.scanner.internal.certificate.caFile | string | `"ca.crt"` |  |
 | cve.scanner.containerSecurityContext.runAsUser | int | `1000` |  |
+| cve.scanner.containerSecurityContext.runAsGroup | int | `1000` |  |
 | cve.scanner.containerSecurityContext.runAsNonRoot | bool | `true` |  |
 | cve.scanner.containerSecurityContext.capabilities.drop[0] | string | `"ALL"` |  |
 | docker.path | string | `"/var/run/docker.sock"` |  |

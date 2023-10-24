@@ -13,8 +13,6 @@ metadata:
     heritage: {{ .Release.Service }}
     release: {{ .Release.Name }}
 spec:
-  securityContext:
-    {{- toYaml $.Values.enforcer.securityContext | nindent 4 }}
   updateStrategy: {{- toYaml .Values.enforcer.updateStrategy | nindent 4 }}
   selector:
     matchLabels:
