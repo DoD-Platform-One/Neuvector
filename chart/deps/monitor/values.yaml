@@ -16,10 +16,12 @@ exporter:
   # changes this to a readonly user !
   CTRL_USERNAME: admin
   CTRL_PASSWORD: admin
-  
+
   containerSecurityContext:
+    runAsUser: 1000
+    runAsGroup: 1000
     capabilities:
-      drop: 
+      drop:
         - ALL
 
   podAnnotations: {}
@@ -48,7 +50,7 @@ exporter:
     # RelabelConfigs to apply to samples before scraping
     # ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api.md#relabelconfig
     relabelings: []
-  
+
   grafanaDashboard:
     enabled: false
     labels: {}
