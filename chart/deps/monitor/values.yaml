@@ -18,8 +18,8 @@ exporter:
   CTRL_PASSWORD: admin
 
   containerSecurityContext:
-    runAsUser: 1000
-    runAsGroup: 1000
+    runAsUser: 1002
+    runAsGroup: 1002
     capabilities:
       drop:
         - ALL
