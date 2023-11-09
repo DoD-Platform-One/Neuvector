@@ -52,6 +52,7 @@ spec:
           imagePullPolicy: Always
           securityContext:
             {{- toYaml $.Values.exporter.containerSecurityContext | nindent 12 }}
+          command: [ "sh", "-c", "until curl -s --connect-timeout 5 -k https://neuvector-svc-controller:10443 | grep \"URL not found\" ; do sleep 5; echo \"Health check failed. Waiting for controller.\"; done; echo \"Controller found.\"; python3 -u /usr/local/bin/nv_exporter.py"]
           env:
             - name: CTRL_API_SERVICE
               value: neuvector-svc-controller:10443
