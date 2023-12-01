@@ -1,6 +1,6 @@
 # neuvector
 
-![Version: 2.6.3-bb.3](https://img.shields.io/badge/Version-2.6.3--bb.3-informational?style=flat-square) ![AppVersion: 5.2.2](https://img.shields.io/badge/AppVersion-5.2.2-informational?style=flat-square)
+![Version: 2.6.3-bb.4](https://img.shields.io/badge/Version-2.6.3--bb.4-informational?style=flat-square) ![AppVersion: 5.2.2](https://img.shields.io/badge/AppVersion-5.2.2-informational?style=flat-square)
 
 Helm chart for NeuVector's core services
 
@@ -324,7 +324,10 @@ helm install neuvector chart/
 | crdwebhook.type | string | `"ClusterIP"` |  |
 | domain | string | `"bigbang.dev"` |  |
 | istio.enabled | bool | `false` |  |
-| istio.injection | string | `"disabled"` |  |
+| istio.injection | string | `"enabled"` |  |
+| istio.hardened.enabled | bool | `false` |  |
+| istio.hardened.matchLabels | object | `{}` |  |
+| istio.hardened.customAuthorizationPolicies | list | `[]` |  |
 | istio.neuvector.enabled | bool | `true` |  |
 | istio.neuvector.annotations | object | `{}` |  |
 | istio.neuvector.labels | object | `{}` |  |
