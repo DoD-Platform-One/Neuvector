@@ -3,6 +3,10 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
+## [2.6.3-bb.4] - 2023-12-01
+### Added
+- Peerauthentication added for controller for upgrade support
+
 ## [2.6.3-bb.3] - 2023-11-08
 ### Added
 - Added logic for neuvector-prometheus-exporter-pod to poll for active api server before starting
