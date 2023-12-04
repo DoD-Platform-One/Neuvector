@@ -25,146 +25,150 @@ component-definition:
           party-uuids:
             - 72134592-08C2-4A77-ABAD-C880F109367A # matches parties entry for p1
       control-implementations:
-        - uuid: a5e1398b-de9f-4ffd-8bc3-686abd191f28
-          source: https://raw.githubusercontent.com/usnistgov/oscal-content/master/nist.gov/SP800-53/rev5/json/NIST_SP-800-53_rev5_catalog.json
+        - uuid: d2afb4c4-2cd8-5305-a6cc-d1bc7b388d0c
+          source: https://raw.githubusercontent.com/GSA/fedramp-automation/93ca0e20ff5e54fc04140613476fba80f08e3c7d/dist/content/rev5/baselines/json/FedRAMP_rev5_HIGH-baseline-resolved-profile_catalog.json
           description: Controls implemented by NeuVector for inheritance by applications
           implemented-requirements:
             - uuid: 7d524c68-a463-4283-9f50-a4f914b0feb9
               control-id: ac-2
               description: >-
-                NeuVector supports internal user accounts and roles in addition to LDAP and SSO for providing RBAC access. https://open-docs.neuvector.com/configuration/users
+                NeuVector supports internal user accounts and roles in addition to LDAP and SSO for providing RBAC access. 
+
             - uuid: c32ebef9-831b-4662-9172-7cec6697b1e5
               control-id: ac-2.1
               description: >-
-                NeuVector supports internal user accounts and roles in addition to LDAP and SSO for providing RBAC access. https://open-docs.neuvector.com/configuration/users
-            - uuid: 73c55835-6833-48d8-91a8-040815a2ccd9
-              control-id: ac-2.3
-              description: >-
-                NeuVector logging access related audit events. https://open-docs.neuvector.com/reporting/reporting
+                NeuVector supports internal user accounts and roles in addition to LDAP and SSO for providing RBAC access. 
+
             - uuid: 56ab01ce-a2eb-4a9b-9e77-4b598c0c9230
               control-id: ac-3
               description: >-
-                NeuVector supports internal user accounts and roles in addition to LDAP and SSO for providing RBAC access. https://open-docs.neuvector.com/configuration/users
+                NeuVector supports internal user accounts and roles in addition to LDAP and SSO for providing RBAC access. 
+
             - uuid: de3fa1f1-b7ce-43a4-97c7-53a15f9dadaf
               control-id: ac-6
               description: >-
-                NeuVector supports mapping internal user accounts and roles in addition to LDAP and SSO roles or groups for providing RBAC access. https://open-docs.neuvector.com/configuration/users
+                NeuVector supports mapping internal user accounts and roles in addition to LDAP and SSO roles or groups for providing RBAC access. 
+
             - uuid: 4a200112-0c9b-4fae-a9dd-45c8d9a70886
               control-id: ac-6.1
               description: >-
-                NeuVector supports mapping internal user accounts and roles in addition to LDAP and SSO roles or groups for providing RBAC access. https://open-docs.neuvector.com/configuration/users
+                NeuVector supports mapping internal user accounts and roles in addition to LDAP and SSO roles or groups for providing RBAC access. 
+
             - uuid: 37d720fa-d135-49b8-b423-00ad9f77a92d
               control-id: ac-6.3
               description: >-
-                NeuVector supports mapping internal user accounts and roles in addition to LDAP and SSO roles or groups for providing RBAC access. https://open-docs.neuvector.com/configuration/users
-            - uuid: 08c37e6f-024a-4996-a3e1-8f57ac9e1f9d
-              control-id: ac-6.5
-              description: >-
-                NeuVector supports mapping internal user accounts and roles in addition to LDAP and SSO roles or groups for providing RBAC access. https://open-docs.neuvector.com/configuration/users
+                NeuVector supports mapping internal user accounts and roles in addition to LDAP and SSO roles or groups for providing RBAC access. 
+
             - uuid: 107864dd-f3e6-46b5-8004-2c7f717b2426
               control-id: ac-6.9
               description: >-
-                NeuVector logging access related audit events. https://open-docs.neuvector.com/reporting/reporting
+                NeuVector provides logging access related audit events. 
+
             - uuid: 88d83b17-b238-48e5-b1d2-f500035c6dc0
               control-id: ac-6.10
               description: >-
-                NeuVector supports mapping internal user accounts and roles in addition to LDAP and SSO roles or groups for providing RBAC access. https://open-docs.neuvector.com/configuration/users
+                NeuVector supports mapping internal user accounts and roles in addition to LDAP and SSO roles or groups for providing RBAC access. 
+
             - uuid: 53c7d03b-80f7-42e5-b300-dca43b2b8f05
               control-id: au-2
               description: >-
-                NeuVector logging access related audit events. https://open-docs.neuvector.com/reporting/reporting
+                NeuVector provides logging access related audit events. 
+
             - uuid: 4f50b73f-ff6a-4ce0-8139-dbae4f95b0d5
               control-id: au-3
               description: >-
-                NeuVector logging access related audit events. https://open-docs.neuvector.com/reporting/reporting
+                NeuVector provides logging access related audit events. 
+
             - uuid: 297107b6-bbe9-44e0-a36a-e5d7798f8ddd
               control-id: au-4
               description: >-
-                NeuVector can scale elastically based upon actual workload demands to allocate audit log storage capacity
-            - uuid: 88910426-f4a5-4d7d-a37f-7e8c088c49ff
-              control-id: au-8
-              description: >-
-                NeuVector logging related audit events contain timestamps. https://open-docs.neuvector.com/reporting/reporting
-            - uuid: 2f7d8d6c-0487-4df9-9fae-68ede0fd75e9
-              control-id: au-12
-              description: >-
-                NeuVector keeps audits of the generation of records.
+                NeuVector can scale elastically based upon actual workload demands to allocate audit log storage capacity.
+
+            - uuid: 510ce893-a40a-4bf4-92e0-1f1b1cd7d7a4
+              control-id: ca-2.2
+              description: >- 
+               NeuVector continually monitors kubernetes environments and container images to detect misconfigurations, advanced network threats, and vulnerable hosts with all attempts to exploit a vulnerability is documented.
+
             - uuid: 15d6de3a-14ef-4efd-ab27-329a9adc4979
               control-id: ca-7
               description: >-
-                NeuVector continually monitors kubernetes environments and container images to detect misconfigurations, advanced network threats, and vulnerable hosts with all attempts to exploit a vulnerability documented.
+                NeuVector continually monitors kubernetes environments and container images to detect misconfigurations, advanced network threats, and vulnerable hosts with all attempts to exploit a vulnerability is documented.
+
             - uuid: 5f04cfad-8aac-4809-970c-aca8067533fd
               control-id: cm-6
               description: >-
-                NeuVector is configured using Helm Charts. Default settings can be found https://repo1.dso.mil/big-bang/product/packages/neuvector/-/tree/main/chart
+                NeuVector is configured using Helm Charts. Default settings can be found.
+
             - uuid: f1425616-8ebb-48a9-a774-3d1a20c2d74a
               control-id: cm-7
               description: >-
-                NeuVector is configured securely and only access to required ports are available. https://repo1.dso.mil/big-bang/product/packages/neuvector/-/tree/main/chart
-            - uuid: 48d2f36e-9c1e-475c-9848-ee17f0fb27b3
-              control-id: ra-1
-              description: >-
-                NeuVector helps with creating policies and procedures through its comprehensive visibility, threat prevention, compliance assurance, and data protection in a consistent manner across multi-cloud environments
-            - uuid: 2fcd935e-dba4-4f4a-bdab-95c2dadba68e
-              control-id: ra-2
-              description: >-
-                NeuVector is a Kubernetes native security platform that categorizes the information it processes, stores, and transmits
-            - uuid: 83f96c59-56c0-42cc-9f72-4732fdfc73d2
-              control-id: ra-3
-              description: >-
-                NeuVector is a a Kubernetes native security platform that identifies threats and vulnerabilities in the system with Vulnerability Protection Profiles
+                NeuVector is configured securely and only access to required ports are available. 
+
             - uuid: 6f18f2f4-3796-4189-8bfa-57d5b7bb10e7
               control-id: ra-5
               description: >-
-                NeuVector is Kubernetes and container security tool. NeuVector will scan containers for vulnerabilities in addition to continuous monitoring for active threats. https://open-docs.neuvector.com/navigation/navigation
+                NeuVector is Kubernetes and container security tool. NeuVector will scan containers for vulnerabilities in addition to continuous monitoring for active threats. 
+
             - uuid: c458f99a-78fd-4322-91e9-034b51f3e414
               control-id: ra-5.2
               description: >-
-                NeuVector container scanning vulnerability database is updated frequently. https://open-docs.neuvector.com/scanning/scanning/vulnerabilities
+                NeuVector container scanning vulnerability database is updated frequently. 
+
             - uuid: 3ae44f3f-b44a-44e6-8752-e494b82e0ded
               control-id: ra-5.3
               description: >-
-                NeuVector container scanning configurations depth can be modified. https://open-docs.neuvector.com/scanning/scanning/vulnerabilities
+                NeuVector container scanning configurations depth can be modified. 
+
             - uuid: 142a0165-16de-4a5b-a151-cc646a5a943c
-              control-id: ra-5.6
+              control-id: ra-5.5
               description: >-
-                NeuVector container scans are stored and can be used for comparison over time. https://open-docs.neuvector.com/scanning/scanning/vulnerabilities
-            - uuid: 0efccbc4-022d-463b-bbc2-e63125a599d0
-              control-id: ra-5.8
-              description: >-
-                NeuVector container scans include a attack tree to visualize additional risks with a given vulnerability. https://open-docs.neuvector.com/scanning/scanning/vulnerabilities
-            - uuid: dfe42cc6-74e2-48e8-985f-c4846a9b5703
-              control-id: ra-10
-              description: >-
-                NeuVector allows for monitoring for malicious activity based on security policy rules. https://open-docs.neuvector.com/policy/overview
+                NeuVector supports mapping internal user accounts and roles in addition to LDAP and SSO roles or groups for providing RBAC access.
+
             - uuid: 8974dd78-8695-41ed-b68e-92e3105ff414
-              control-id: sa-2
+              control-id: sa-11
               description: >-
-                NeuVector scanners can scale elastically based upon actual workload demands in a consistent manner across multi-cloud environments
+                NeuVector continually monitors kubernetes environments and container images to detect misconfigurations, advanced network threats, and vulnerable hosts with all attempts to exploit a vulnerability is documented.
+
             - uuid: 4a59d604-10f9-4407-b062-1661063d760d
-              control-id: sa-3
+              control-id: sa-11.1
               description: >-
-                NeuVector's CI/CD capabilities help incorporate information security, privacy risk management, and privacy roles into development.
-            - uuid: 464b4f53-61e7-49a0-8dcf-243118909cfa
-              control-id: sa-8
-              description: >-
-                NeuVector powerful CI/CD capabilities allow security teams can set policies that act as system quality control gates that developers must follow for builds
+                NeuVector continually monitors kubernetes environments and container images to detect misconfigurations, advanced network threats, and vulnerable hosts with all attempts to exploit a vulnerability is documented.
+
             - uuid: 4daa5851-1f8d-41fc-aabe-fafcb97d8b84
               control-id: sc-7
               description: >-
                 NeuVector monitors all communications to external interfaces by only connecting to external networks through managed interfaces and utilizes whitelists and blacklists for rules at Layer 7.
+
             - uuid: 16c820af-4216-437c-a5e2-356dde1fb626
               control-id: sc-8
               description: >-
-                Data in transit is protected using a TLS connection and secured between components within the data center using an internal certificate until it is terminated at the application node. This ensures that data in transit is encrypted using SSL
+                Data in transit is protected using a TLS connection and secured between components within the data center using an internal certificate until it is terminated at the application node. This ensures that data in transit is encrypted using SSL.
+
+            - uuid: 4427e494-9ff4-4b98-8c41-62dbe056a1ac
+              control-id: si-2.3
+              description: >-
+                NeuVector continually monitors your Kubernetes environments to detect misconfigurations, advanced network threats, and vulnerable hosts with all attempts to exploit a vulnerability is documented.
+
             - uuid: 6f165f1a-2f91-4ac6-8eee-fe729a715952
               control-id: si-4
               description: >-
-                NeuVector continually monitors your Kubernetes environments to detect misconfigurations, advanced network threats, and vulnerable hosts with all attempts to exploit a vulnerability documented.
+                NeuVector continually monitors your Kubernetes environments to detect misconfigurations, advanced network threats, and vulnerable hosts with all attempts to exploit a vulnerability is documented.
+
             - uuid: e56438e7-b572-450a-b5a9-dc9a4cb93665
               control-id: si-5
               description: >-
-                NeuVector correlates configuration data with user behavior and network traffic to provide context around misconfigurations and threats in the form of actionable alerts
+                NeuVector correlates configuration data with user behavior and network traffic to provide context around misconfigurations and threats in the form of actionable alerts.
+
+            - uuid: 93e508f9-530b-43e6-8fb8-c95b20b7e887
+              control-id: si-6
+              description: >-
+                NeuVector correlates configuration data and network traffic to provide context around verification in the form of actionable alerts.
+
+            - uuid: 8392f45f-d74e-4a99-a7bb-d3ba45743b0a
+              control-id: si-11
+              description: >-
+                NeuVector correlates configuration data and network traffic for error tracking to provide context around misconfigurations and threats in the form of actionable alerts.
+                
   back-matter:
     resources:
       - uuid: b21ef636-e3e7-4386-8f10-b1f3243cc9a6
