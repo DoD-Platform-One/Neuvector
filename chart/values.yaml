@@ -611,7 +611,15 @@ crdwebhook:
 domain: bigbang.dev
 istio:
   enabled: false
-  injection: "disabled"
+  injection: "enabled"
+  hardened:
+    enabled: false
+    matchLabels: {}
+    # - app.kubernetes.io/name: example
+    customAuthorizationPolicies: []
+    # - name: "allow-nothing"
+    #   enabled: true
+    #   spec: {}
   neuvector:
     enabled: true
     annotations: {}
