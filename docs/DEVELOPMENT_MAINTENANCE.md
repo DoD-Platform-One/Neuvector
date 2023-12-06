@@ -46,6 +46,7 @@ neuvector:
   - Network Activity (you may need to zoom in/out to see pods/hosts)
   - Assets pages: Should show nodes/containers, "System Components" should show connected controllers and enforcers (and several scanners up)
 1. Under the Assets -> Containers page run a scan on a few images. You may just want to enable the `Auto Scan` option on the top right. Validate that scans finish and vulnerabilities are found on the vulnerabilities tab for a given image. You can also try the same scan on Assets -> Hosts to scan the k3d hosts.
+1. If the big-bang/base image has been updated, the "updater" functionality should be verified - this updates the CVE database by forcing a pull of the `scanner` image. The updater job is run via the cronjob `neuvector-updater-pod`, so check that this runs successfully.
 
 # Modifications made to upstream chart
 

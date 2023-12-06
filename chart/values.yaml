@@ -501,7 +501,7 @@ cve:
     cacert: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
     image:
       repository: ironbank/big-bang/base
-      tag: 2.0.0
+      tag: 2.1.0
       hash:
     schedule: "0 0 * * *"
     priorityClassName:

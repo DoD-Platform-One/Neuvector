@@ -1,6 +1,6 @@
 name: neuvector
 apiVersion: v2
-version: 2.6.3-bb.5
+version: 2.6.3-bb.6
 appVersion: 5.2.2
 description: Helm chart for NeuVector's core services
 home: https://neuvector.com
@@ -36,7 +36,7 @@ annotations:
       image: registry1.dso.mil/ironbank/neuvector/neuvector/scanner:5
     - name: updater
       condition: cve.updater.enabled
-      image: registry1.dso.mil/ironbank/big-bang/base:2.0.0
+      image: registry1.dso.mil/ironbank/big-bang/base:2.1.0
     - name: exporter
       condition: monitor.exporter.enabled
       image: registry1.dso.mil/ironbank/neuvector/neuvector/prometheus-exporter:5.1.0

@@ -1,6 +1,6 @@
 # neuvector
 
-![Version: 2.6.3-bb.5](https://img.shields.io/badge/Version-2.6.3--bb.5-informational?style=flat-square) ![AppVersion: 5.2.2](https://img.shields.io/badge/AppVersion-5.2.2-informational?style=flat-square)
+![Version: 2.6.3-bb.6](https://img.shields.io/badge/Version-2.6.3--bb.6-informational?style=flat-square) ![AppVersion: 5.2.2](https://img.shields.io/badge/AppVersion-5.2.2-informational?style=flat-square)
 
 Helm chart for NeuVector's core services
 
@@ -265,7 +265,7 @@ helm install neuvector chart/
 | cve.updater.secure | bool | `false` |  |
 | cve.updater.cacert | string | `"/var/run/secrets/kubernetes.io/serviceaccount/ca.crt"` |  |
 | cve.updater.image.repository | string | `"ironbank/big-bang/base"` |  |
-| cve.updater.image.tag | string | `"2.0.0"` |  |
+| cve.updater.image.tag | string | `"2.1.0"` |  |
 | cve.updater.image.hash | string | `nil` |  |
 | cve.updater.schedule | string | `"0 0 * * *"` |  |
 | cve.updater.priorityClassName | string | `nil` |  |
