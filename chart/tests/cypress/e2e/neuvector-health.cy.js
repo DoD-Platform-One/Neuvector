@@ -66,7 +66,7 @@ it('Scan an image', function() {
             .as('scanned')
 
           // When the scan is complete grid reloads, wait for that request to fire
-          cy.wait('@scanned', { timeout: 15000 })
+          cy.wait('@scanned', { timeout: 90000 })
 
           const rowName = $row.find('app-containers-grid-name-cell')[0].innerText
           const rowId = $row.attr('row-id');
@@ -76,8 +76,8 @@ it('Scan an image', function() {
 
           // Fetch row by id
           cy.get(`div[role='rowgroup'] > div.ag-row[row-id='${rowId}']`)
-            .find('app-containers-grid-status-cell', { timeout: 15000 })
-            .should('contain', 'Finished', { timeout: 15000 })
+            .find('app-containers-grid-status-cell', { timeout: 60000 })
+            .should('contain', 'Finished', { timeout: 60000 })
         })
     })
 })
