@@ -1,5 +1,13 @@
 bbtests:
   enabled: true
+  cypress:
+    resources:
+      requests:
+        cpu: "2"
+        memory: "1500M"
+      limits:
+        cpu: "2"
+        memory: "1500M"
 
 k3s:
   enabled: true
