@@ -123,3 +123,7 @@ NOTE: This list may not be complete yet - it should be updated as updates are wo
   # Current version was pulled from https://raw.githubusercontent.com/neuvector/prometheus-exporter/2af0012979e7d53e012794547820d7c5fd172afa/nv_dashboard.json
   curl https://raw.githubusercontent.com/neuvector/prometheus-exporter/master/nv_dashboard.json -o chart/dashboards/neuvector-dashboard.json
   ```
+### automountServiceAccountToken
+The mutating Kyverno policy named `update-automountserviceaccounttokens` is leveraged to harden all ServiceAccounts in this package with `automountServiceAccountToken: false`. This policy is configured by namespace in the Big Bang umbrella chart repository at [chart/templates/kyverno-policies/values.yaml](https://repo1.dso.mil/big-bang/bigbang/-/blob/master/chart/templates/kyverno-policies/values.yaml?ref_type=heads). 
+
+This policy revokes access to the K8s API for Pods utilizing said ServiceAccounts. If a Pod truly requires access to the K8s API (for app functionality), the Pod is added to the `pods:` array of the same mutating policy. This grants the Pod access to the API, and creates a Kyverno PolicyException to prevent an alert.
