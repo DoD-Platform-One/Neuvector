@@ -1,5 +1,5 @@
-{{- if and .Values.istio.enabled .Values.istio.hardened.enabled .Values.istio.console.enabled -}}
-{{- range .Values.istio.console.gateways -}}
+{{- if and .Values.istio.enabled .Values.istio.hardened.enabled .Values.istio.neuvector.enabled -}}
+{{- range .Values.istio.neuvector.gateways -}}
 {{- $gatewayParts := split "/" . }}
 {{- $namespace := $gatewayParts._0 }}
 {{- $name := $gatewayParts._1 }}
@@ -11,7 +11,7 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: neuvector
+      app: neuvector-manager-pod
   action: ALLOW
   rules:
   - from:

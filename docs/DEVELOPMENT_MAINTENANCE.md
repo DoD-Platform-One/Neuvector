@@ -92,25 +92,55 @@ NOTE: This list may not be complete yet - it should be updated as updates are wo
 - Added at the bottom of the values file are changes to support Istio, monitoring, and optional network policies.
 
   ```yaml
+  domain: bigbang.dev
   istio:
     enabled: false
+    injection: "enabled"
+    hardened:
+      enabled: false
+      customAuthorizationPolicies: []
+      # - name: "allow-nothing"
+      #   enabled: true
+      #   spec: {}
+    neuvector:
+      enabled: true
+      annotations: {}
+      labels: {}
+      gateways:
+        - istio-system/main
+      hosts:
+        - neuvector.{{ .Values.domain }}
     # -- Default neuvector peer authentication
     mtls:
       # -- STRICT = Allow only mutual TLS traffic,
       # PERMISSIVE = Allow both plain text and mutual TLS traffic
       mode: STRICT
-  monitoring:
-    enabled: false
 
   monitoring:
     enabled: false
+    namespace: monitoring
 
   networkPolicies:
     enabled: false
-    ingressLabels: 
+    ingressLabels:
       app: istio-ingressgateway
       istio: ingressgateway
     controlPlaneCidr: 0.0.0.0/0
+
+  monitor:
+    imagePullSecrets: private-registry
+
+  # Bigbang helm test values default disabled
+  bbtests:
+    enabled: false
+    cypress:
+      artifacts: true
+      envs:
+        cypress_url: "http://neuvector-service-webui.{{ .Release.Namespace }}.svc.cluster.local:8443"
+    scripts:
+      envs:
+        URL: "http://neuvector-service-webui.{{ .Release.Namespace }}.svc.cluster.local:8443"
+
   ```
 
 ## Grafana Dashboards
