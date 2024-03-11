@@ -20,20 +20,20 @@ BigBang makes modifications to the upstream helm chart. The full list of changes
 
 # Testing new NeuVector version
 
-It is important to note that NeuVector is not currently part of the BB "umbrella" chart, so you will need to install it on the side. The steps below should be helpful in doing that.
+### Deploy NeuVector as part of Big Bang
 
-## Deploying NeuVector
-
-NOTE: In initial exploration of NeuVector we discovered that k3d/kind (dockerized clusters) are not supported by NeuVector (see [this](https://open-docs.neuvector.com/basics/requirements#not-supported)). However we have been able to successfully test with some workarounds. One of the main requirements seems to be cgroupsv2 in order to workaround a limitation in NeuVector startup code. If you are using the k3d dev script this should already be enabled by default. To validate you can use [this check](https://rootlesscontaine.rs/getting-started/common/cgroup2/#checking-whether-cgroup-v2-is-already-enabled) and if required enable cgroupsv2 following [these steps](https://rootlesscontaine.rs/getting-started/common/cgroup2/#enabling-cgroup-v2).
-
-Deploy Big Bang with at minimum Istio, Monitoring, and Neuvector enabled. For Neuvector on k3d you will need to enable the k3s runtime value:
-
-```yaml
+- Create a k8s dev environment. One option is to use the Big Bang k3d-dev.sh with no arguments which will give you the default configuration. The following steps assume you are using the script.
+- Follow the instructions at the end of the script to connect to the k8s cluster and install flux.
+- Deploy NeuVector with these dev values overrides. Core apps are disabled for quick deployment.
+```
 neuvector:
   enabled: true
-  values:
-    k3s:
-      enabled: true
+  sourceType: "git"
+  git:
+    repo: https://repo1.dso.mil/big-bang/product/packages/neuvector.git
+    path: chart
+    tag: null
+    branch: "replace-me-with-your-branch-name"
 ```
 
 ## Testing NeuVector
