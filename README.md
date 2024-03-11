@@ -1,6 +1,6 @@
 # neuvector
 
-![Version: 2.6.3-bb.10](https://img.shields.io/badge/Version-2.6.3--bb.9-informational?style=flat-square) ![AppVersion: 5.2.2](https://img.shields.io/badge/AppVersion-5.2.2-informational?style=flat-square)
+![Version: 2.6.3-bb.11](https://img.shields.io/badge/Version-2.6.3--bb.11-informational?style=flat-square) ![AppVersion: 5.2.2](https://img.shields.io/badge/AppVersion-5.2.2-informational?style=flat-square)
 
 Helm chart for NeuVector's core services
 
@@ -326,7 +326,6 @@ helm install neuvector chart/
 | istio.enabled | bool | `false` |  |
 | istio.injection | string | `"enabled"` |  |
 | istio.hardened.enabled | bool | `false` |  |
-| istio.hardened.matchLabels | object | `{}` |  |
 | istio.hardened.customAuthorizationPolicies | list | `[]` |  |
 | istio.neuvector.enabled | bool | `true` |  |
 | istio.neuvector.annotations | object | `{}` |  |

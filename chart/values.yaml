@@ -614,8 +614,6 @@ istio:
   injection: "enabled"
   hardened:
     enabled: false
-    matchLabels: {}
-    # - app.kubernetes.io/name: example
     customAuthorizationPolicies: []
     # - name: "allow-nothing"
     #   enabled: true
