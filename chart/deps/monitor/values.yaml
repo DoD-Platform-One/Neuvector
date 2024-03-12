@@ -9,7 +9,7 @@ oem:
 
 exporter:
   # If false, exporter will not be installed
-  enabled: false
+  enabled: true
   image:
     repository: ironbank/neuvector/neuvector/prometheus-exporter
     tag: 5.1.0
