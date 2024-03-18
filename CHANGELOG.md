@@ -3,6 +3,10 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
+## [2.6.3-bb.14] - 2024-03-15
+### Changed
+- Update for reverting exporter
+
 ## [2.6.3-bb.13] - 2024-03-13
 ### Changed
 - Adding Sidecar to deny egress that is external to istio services
