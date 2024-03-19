@@ -3,6 +3,13 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
+## [2.6.3-bb.15] - 2024-03-19
+### Changed
+- Updated registry1.dso.mil/ironbank/neuvector/neuvector/controller from 5.2.2 to 5.3.0
+- Updated registry1.dso.mil/ironbank/neuvector/neuvector/enforcer from 5.2.2 to 5.3.0
+- Updated registry1.dso.mil/ironbank/neuvector/neuvector/manager from 5.2.2 to 5.3.0
+- Updated Cypress tests
+
 ## [2.6.3-bb.14] - 2024-03-15
 ### Changed
 - Update for reverting exporter

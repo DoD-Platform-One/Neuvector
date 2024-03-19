@@ -9,6 +9,9 @@ bbtests:
         cpu: "2"
         memory: "1500M"
 
+exporter:
+  enabled: true
+
 k3s:
   enabled: true
 

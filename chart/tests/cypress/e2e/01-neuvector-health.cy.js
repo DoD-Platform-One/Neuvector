@@ -6,7 +6,13 @@ Cypress.on('uncaught:exception', (err, runnable) => {
 
 // Login to NeuVector before each test
 beforeEach(function () {
+  cy.window().then(window => window.sessionStorage.clear());
+  cy.clearCookies();
+  cy.clearLocalStorage();
+  cy.wait(1000)
+
   cy.viewport(1920, 1080)
+
   cy.visit(Cypress.env('url'))
   cy.title().should('contain', 'NeuVector')
   cy.get('input[id="Email1"]').type("admin")
