@@ -5,7 +5,7 @@
 openshift: false
 
 registry: registry1.dso.mil
-tag: 5.2.2
+tag: 5.3.0
 oem:
 imagePullSecrets: private-registry
 psp: false
