@@ -36,6 +36,28 @@ neuvector:
     branch: "replace-me-with-your-branch-name"
 ```
 
+- A more robust option is to deploy Big Bang with Istio, Monitoring, and Neuvector enabled. For Neuvector on k3d you will need to enable the k3s runtime value as shown below:
+
+```
+istioOperator:
+  enabled: true
+istio:
+  enabled: true
+neuvector:
+  enabled: true
+  values:
+    k3s:
+      enabled: true
+  sourceType: "git"
+  git:
+    repo: https://repo1.dso.mil/big-bang/product/packages/neuvector.git
+    path: chart
+    tag: null
+    branch: "replace-me-with-your-branch-name"
+monitoring:
+  enabled: true
+```
+
 ## Testing NeuVector
 
 1. Validate all pods successfully go to "Running".
