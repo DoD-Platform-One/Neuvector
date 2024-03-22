@@ -3,6 +3,10 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
+## [2.6.3-bb.17] - 2024-03-22
+### Changed
+- Adding the monitoring authorization policy
+
 ## [2.6.3-bb.16] - 2024-03-21
 ### Changed
 - Changed uid:gid to 1001:1001 for monitor.prometheus-exporter image to allow python package visibility

@@ -1,6 +1,6 @@
 # neuvector
 
-![Version: 2.6.3-bb.16](https://img.shields.io/badge/Version-2.6.3--bb.16-informational?style=flat-square) ![AppVersion: 5.3.0](https://img.shields.io/badge/AppVersion-5.3.0-informational?style=flat-square)
+![Version: 2.6.3-bb.17](https://img.shields.io/badge/Version-2.6.3--bb.17-informational?style=flat-square) ![AppVersion: 5.3.0](https://img.shields.io/badge/AppVersion-5.3.0-informational?style=flat-square)
 
 Helm chart for NeuVector's core services
 
@@ -328,6 +328,14 @@ helm install neuvector chart/
 | istio.hardened.enabled | bool | `false` |  |
 | istio.hardened.customAuthorizationPolicies | list | `[]` |  |
 | istio.hardened.outboundTrafficPolicyMode | string | `"REGISTRY_ONLY"` |  |
+| istio.hardened.monitoring.enabled | bool | `true` |  |
+| istio.hardened.monitoring.namespaces[0] | string | `"monitoring"` |  |
+| istio.hardened.monitoring.principals[0] | string | `"cluster.local/ns/monitoring/sa/monitoring-grafana"` |  |
+| istio.hardened.monitoring.principals[1] | string | `"cluster.local/ns/monitoring/sa/monitoring-monitoring-kube-alertmanager"` |  |
+| istio.hardened.monitoring.principals[2] | string | `"cluster.local/ns/monitoring/sa/monitoring-monitoring-kube-operator"` |  |
+| istio.hardened.monitoring.principals[3] | string | `"cluster.local/ns/monitoring/sa/monitoring-monitoring-kube-prometheus"` |  |
+| istio.hardened.monitoring.principals[4] | string | `"cluster.local/ns/monitoring/sa/monitoring-monitoring-kube-state-metrics"` |  |
+| istio.hardened.monitoring.principals[5] | string | `"cluster.local/ns/monitoring/sa/monitoring-monitoring-prometheus-node-exporter"` |  |
 | istio.hardened.customServiceEntries | list | `[]` |  |
 | istio.neuvector.enabled | bool | `true` |  |
 | istio.neuvector.annotations | object | `{}` |  |
