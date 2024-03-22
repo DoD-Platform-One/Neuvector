@@ -1,6 +1,6 @@
 name: neuvector
 apiVersion: v2
-version: 2.6.3-bb.15
+version: 2.6.3-bb.16
 appVersion: 5.3.0
 description: Helm chart for NeuVector's core services
 home: https://neuvector.com
