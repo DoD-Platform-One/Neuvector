@@ -619,6 +619,17 @@ istio:
     #   enabled: true
     #   spec: {}
     outboundTrafficPolicyMode: "REGISTRY_ONLY"
+    monitoring:
+      enabled: true
+      namespaces:
+        - monitoring
+      principals:
+        - cluster.local/ns/monitoring/sa/monitoring-grafana
+        - cluster.local/ns/monitoring/sa/monitoring-monitoring-kube-alertmanager
+        - cluster.local/ns/monitoring/sa/monitoring-monitoring-kube-operator
+        - cluster.local/ns/monitoring/sa/monitoring-monitoring-kube-prometheus
+        - cluster.local/ns/monitoring/sa/monitoring-monitoring-kube-state-metrics
+        - cluster.local/ns/monitoring/sa/monitoring-monitoring-prometheus-node-exporter
     customServiceEntries: []
       # - name: "allow-google"
       #   enabled: true
