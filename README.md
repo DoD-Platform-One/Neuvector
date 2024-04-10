@@ -1,6 +1,6 @@
 # neuvector
 
-![Version: 2.6.3-bb.17](https://img.shields.io/badge/Version-2.6.3--bb.17-informational?style=flat-square) ![AppVersion: 5.3.0](https://img.shields.io/badge/AppVersion-5.3.0-informational?style=flat-square)
+![Version: 2.6.3-bb.18](https://img.shields.io/badge/Version-2.6.3--bb.18-informational?style=flat-square) ![AppVersion: 5.3.0](https://img.shields.io/badge/AppVersion-5.3.0-informational?style=flat-square)
 
 Helm chart for NeuVector's core services
 
@@ -350,6 +350,7 @@ helm install neuvector chart/
 | networkPolicies.ingressLabels.app | string | `"istio-ingressgateway"` |  |
 | networkPolicies.ingressLabels.istio | string | `"ingressgateway"` |  |
 | networkPolicies.controlPlaneCidr | string | `"0.0.0.0/0"` |  |
+| networkPolicies.additionalPolicies | list | `[]` |  |
 | monitor.imagePullSecrets | string | `"private-registry"` |  |
 | bbtests.enabled | bool | `false` |  |
 | bbtests.cypress.artifacts | bool | `true` |  |
