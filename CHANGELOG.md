@@ -3,6 +3,10 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
+## [2.6.3-bb.19] - 2024-04-11
+### Added
+- Added Openshift resources to support Neuvector deployment in openshift
+
 ## [2.6.3-bb.18] - 2024-04-09
 ### Added
 - Added custom network policies
