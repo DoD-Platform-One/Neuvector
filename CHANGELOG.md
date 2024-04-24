@@ -2,7 +2,14 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+
 ---
+## [2.7.6-bb.0] - 2024-04-14
+### Changed
+- Updated registry1.dso.mil/ironbank/neuvector/neuvector/controller from 5.3.0 to 5.3.2
+- Updated registry1.dso.mil/ironbank/neuvector/neuvector/enforcer from 5.3.0 to 5.3.2
+- Updated registry1.dso.mil/ironbank/neuvector/neuvector/manager from 5.3.0 to 5.3.2
+
 ## [2.6.3-bb.19] - 2024-04-11
 ### Added
 - Added Openshift resources to support Neuvector deployment in openshift

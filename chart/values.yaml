@@ -4,8 +4,9 @@
 
 openshift: false
 
+
 registry: registry1.dso.mil
-tag: 5.3.0
+tag: 5.3.2
 oem:
 imagePullSecrets: private-registry
 psp: false
@@ -27,7 +28,7 @@ global: # required for rancher authentication (https://<Rancher_URL>/)
     imagePullSecrets:
     images:
       neuvector_csp_pod:
-        digest:
+        digest: ""
         image: neuvector-billing-azure-by-suse-llc
         registry: susellcforazuremarketplace.azurecr.io
         imagePullPolicy: IfNotPresent
@@ -56,7 +57,7 @@ global: # required for rancher authentication (https://<Rancher_URL>/)
     annotations: {}
     imagePullSecrets:
     image:
-      digest:
+      digest: ""
       repository: neuvector/neuvector-csp-adapter
       tag: latest
       imagePullPolicy: IfNotPresent
@@ -152,18 +153,23 @@ controller:
     secretName:
     shareName:
   certificate:
-    secret:
+    secret: ""
     keyFile: tls.key
     pemFile: tls.pem
   internal: # this is used for internal communication. Please use the SAME CA for all the components (controller, scanner, adapter and enforcer)
     certificate:
-      secret: neuvector-internal
+      secret: ""
       keyFile: tls.key
       pemFile: tls.crt
       caFile: ca.crt # must be the same CA for all internal.
   federation:
     mastersvc:
       type:
+      loadBalancerIP:
+      clusterIP:
+      nodePort: # Must be a valid NodePort: 30000-32767
+      externalTrafficPolicy:
+      internalTrafficPolicy:
       # Federation Master Ingress
       ingress:
         enabled: false
@@ -197,6 +203,11 @@ controller:
           #  -----END PRIVATE KEY-----
     managedsvc:
       type:
+      loadBalancerIP:
+      clusterIP:
+      nodePort: # Must be a valid NodePort: 30000-32767
+      externalTrafficPolicy:
+      internalTrafficPolicy:
       # Federation Managed Ingress
       ingress:
         enabled: false
@@ -320,7 +331,7 @@ enforcer:
     #   memory: 2280Mi
   internal: # this is used for internal communication. Please use the SAME CA for all the components (controller, scanner, adapter and enforcer)
     certificate:
-      secret: neuvector-internal
+      secret: "" 
       keyFile: tls.key
       pemFile: tls.crt
       caFile: ca.crt # must be the same CA for all internal.
@@ -366,7 +377,7 @@ manager:
       #  -----BEGIN PRIVATE KEY-----
       #  -----END PRIVATE KEY-----
   certificate:
-    secret:
+    secret: ""
     keyFile: tls.key
     pemFile: tls.pem
   ingress:
@@ -417,7 +428,7 @@ cve:
     enabled: false
     image:
       repository: neuvector/registry-adapter
-      tag: 0.1.0
+      tag: 0.1.1-s1
       hash:
     priorityClassName:
     resources:
@@ -442,9 +453,9 @@ cve:
     ##
     ## default: (none)
     certificate:
-      secret:
+      secret: ""
       keyFile: tls.key
-      pemFile: tls.pem
+      pemFile: tls.crt
     harbor:
       protocol: https
       secretName:
@@ -490,7 +501,7 @@ cve:
       secretName: # my-tls-secret
     internal: # this is used for internal communication. Please use the SAME CA for all the components (controller, scanner, adapter and enforcer)
       certificate:
-        secret: neuvector-internal
+        secret: "" 
         keyFile: tls.key
         pemFile: tls.crt
         caFile: ca.crt # must be the same CA for all internal.
@@ -534,7 +545,7 @@ cve:
         maxUnavailable: 0
     image:
       repository: ironbank/neuvector/neuvector/scanner
-      tag: 5
+      tag: "5"
       hash:
     priorityClassName:
     resources:
@@ -561,7 +572,7 @@ cve:
       fsGroup: 1000
     internal: # this is used for internal communication. Please use the SAME CA for all the components ( controller, scanner, and enforcer ) The cert needs to have a CN of "NeuVector"
       certificate:
-        secret: neuvector-internal
+        secret: "" 
         keyFile: tls.key
         pemFile: tls.crt
         caFile: ca.crt # must be the same CA for all internal.
@@ -584,6 +595,13 @@ resources:
   # requests:
   #   cpu: 100m
   #   memory: 2280Mi
+
+runtimePath:
+
+# The following runtime type and socket location are deprecated after 5.3.0.
+# If the socket path is not at the default location, use above 'runtimePath' to specify the location.
+docker:
+  path: /var/run/docker.sock
 
 k3s:
   enabled: false

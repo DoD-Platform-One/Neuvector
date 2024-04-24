@@ -3,11 +3,11 @@ bbtests:
   cypress:
     resources:
       requests:
-        cpu: "2"
-        memory: "1500M"
+        cpu: 2
+        memory: 2Gi
       limits:
-        cpu: "2"
-        memory: "1500M"
+        cpu: 2
+        memory: 4Gi
 
 exporter:
   enabled: true
@@ -26,3 +26,4 @@ manager:
 monitoring:
   enabled: false
   namespace: monitoring
+

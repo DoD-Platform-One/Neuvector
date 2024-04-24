@@ -1,3 +1,7 @@
+{{- $pre530 := false -}}
+{{- if regexMatch "^[0-9]+\\.[0-9]+\\.[0-9]+" .Values.tag }}
+{{- $pre530 = (semverCompare "<5.2.10-0" .Values.tag) -}}
+{{- end }}
 {{- if .Values.controller.enabled -}}
 {{- if (semverCompare ">=1.9-0" (substr 1 -1 .Capabilities.KubeVersion.GitVersion)) }}
 apiVersion: apps/v1
@@ -32,7 +36,7 @@ spec:
         {{- with .Values.controller.podLabels }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
-      {{- if or .Values.controller.secret.enabled .Values.controller.configmap.enabled .Values.controller.podAnnotations .Values.autoGenerateCert }}
+      {{- if or .Values.controller.secret.enabled .Values.controller.configmap.enabled .Values.controller.podAnnotations (eq "true" (toString .Values.autoGenerateCert)) }}
       annotations:
         {{- if .Values.controller.secret.enabled }}
         checksum/init-secret: {{ include (print $.Template.BasePath "/init-secret.yaml") . | sha256sum }}
@@ -40,7 +44,7 @@ spec:
         {{- if .Values.controller.configmap.enabled }}
         checksum/init-configmap: {{ include (print $.Template.BasePath "/init-configmap.yaml") . | sha256sum }}
         {{- end }}
-        {{- if .Values.autoGenerateCert }}
+        {{- if eq "true" (toString .Values.autoGenerateCert) }}
         checksum/controller-secret: {{ include (print $.Template.BasePath "/controller-secret.yaml") . | sha256sum }}
         {{- end }}
         {{- if .Values.controller.podAnnotations }}
@@ -96,8 +100,13 @@ spec:
           {{- end }}
           {{- end }}
           {{- end }}
+          {{- if $pre530 }}
           securityContext:
             {{- toYaml $.Values.controller.containerSecurityContext | nindent 12 }}
+          {{- else }}
+          securityContext:
+            runAsUser: 0
+          {{- end }}
           resources:
           {{- if .Values.controller.resources }}
 {{ toYaml .Values.controller.resources | indent 12 }}
@@ -148,12 +157,12 @@ spec:
 {{- toYaml . | nindent 12 }}
           {{- end }}
           volumeMounts:
+           {{- if or .Values.controller.pvc.enabled .Values.controller.azureFileShare.enabled }}
             - mountPath: /var/neuvector
               name: nv-share
               readOnly: false
-            - mountPath: /var/nv_debug
-              name: nv-debug
-              readOnly: false
+          {{- end }}
+          {{- if $pre530 }}
           {{- if .Values.containerd.enabled }}
             - mountPath: /var/run/containerd/containerd.sock
           {{- else if .Values.k3s.enabled }}
@@ -173,6 +182,7 @@ spec:
             - mountPath: /host/cgroup
               name: cgroup-vol
               readOnly: true
+          {{- end }}
             - mountPath: /etc/config
               name: config-volume
               readOnly: true
@@ -185,7 +195,7 @@ spec:
               subPath: {{ .Values.controller.certificate.pemFile }}
               name: usercert
               readOnly: true
-          {{- else if .Values.autoGenerateCert }}
+          {{- else if eq "true" (toString .Values.autoGenerateCert) }}
             - mountPath: /etc/neuvector/certs/ssl-cert.key
               subPath: ssl-cert.key
               name: cert
@@ -196,7 +206,7 @@ spec:
               readOnly: true
           {{- else }}
           {{- end }}
-          {{- if .Values.internal.certmanager.enabled }}
+          {{- if or .Values.internal.certmanager.enabled .Values.controller.internal.certificate.secret }} 
             - mountPath: /etc/neuvector/certs/internal/cert.key
               subPath: {{ .Values.controller.internal.certificate.keyFile }}
               name: internal-cert
@@ -219,6 +229,7 @@ spec:
       terminationGracePeriodSeconds: 300
       restartPolicy: Always
       volumes:
+        {{- if or .Values.controller.pvc.enabled .Values.controller.azureFileShare.enabled }}
         - name: nv-share
         {{- if .Values.controller.pvc.enabled }}
           persistentVolumeClaim:
@@ -228,10 +239,9 @@ spec:
             secretName: {{ .Values.controller.azureFileShare.secretName }}
             shareName: {{ .Values.controller.azureFileShare.shareName }}
             readOnly: false
-        {{- else }}
-          hostPath:
-            path: /var/neuvector
         {{- end }}
+        {{- end }}
+        {{- if $pre530 }}
         - name: runtime-sock
           hostPath:
           {{- if .Values.containerd.enabled }}
@@ -251,6 +261,7 @@ spec:
         - name: cgroup-vol
           hostPath:
             path: /sys/fs/cgroup
+        {{- end }}
         - name: config-volume
           projected:
             sources:
@@ -260,10 +271,10 @@ spec:
               - secret:
                   name: neuvector-init
                   optional: true
-        - name: nv-debug
-          hostPath:
-            path: /var/nv_debug
-      {{- if .Values.autoGenerateCert }}
+              - secret:
+                  name: neuvector-secret
+                  optional: true
+      {{- if eq "true" (toString .Values.autoGenerateCert) }}
         - name: cert
           secret:
             secretName: neuvector-controller-secret
@@ -273,7 +284,7 @@ spec:
           secret:
             secretName: {{ .Values.controller.certificate.secret }}
       {{- end }}
-      {{- if .Values.internal.certmanager.enabled }}
+      {{- if or .Values.internal.certmanager.enabled .Values.controller.internal.certificate.secret }}
         - name: internal-cert
           secret:
             secretName: {{ .Values.controller.internal.certificate.secret }}
