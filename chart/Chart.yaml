@@ -1,6 +1,6 @@
 name: neuvector
 apiVersion: v2
-version: 2.7.6-bb.0
+version: 2.7.6-bb.1
 appVersion: 5.3.2
 description: Helm chart for NeuVector's core services
 home: https://neuvector.com
@@ -39,4 +39,4 @@ annotations:
       image: registry1.dso.mil/ironbank/big-bang/base:2.1.0
     - name: exporter
       condition: monitor.exporter.enabled
-      image: registry1.dso.mil/ironbank/neuvector/neuvector/prometheus-exporter:5.3.0
+      image: registry1.dso.mil/ironbank/neuvector/neuvector/prometheus-exporter:5.3.2
