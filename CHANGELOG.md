@@ -4,6 +4,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 
 ---
+## [2.7.6-bb.2] - 2024-05-22
+### Fixed
+- Update dependency chart cached copy for monitor chart
+
 ## [2.7.6-bb.1] - 2024-05-05
 ### Changed
 - Updated registry1.dso.mil/ironbank/neuvector/neuvector/prometheus-exporter from 5.3.0 to 5.3.2
