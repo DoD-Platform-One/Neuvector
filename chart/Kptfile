@@ -5,7 +5,7 @@ metadata:
 upstream:
   type: git
   git:
-    commit: 62c7e62563ff6d047b6b96f0d46ed7353f1830f1
+    commit: 5108ef70f7e37ff91eba6561d32ad44803e0ee98
     repo: https://github.com/neuvector/neuvector-helm
     directory: charts/core
-    ref: 2.7.6
+    ref: 2.7.7

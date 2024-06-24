@@ -4,6 +4,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 
 ---
+## [2.7.7-bb.0] - 2024-06-24
+### Changed
+- Updated chart version to `2.7.7`
+- Updated registry1.dso.mil/ironbank/neuvector/neuvector/controller from 5.3.2 to 5.3.3
+- Updated registry1.dso.mil/ironbank/neuvector/neuvector/enforcer from 5.3.2 to 5.3.3
+- Updated registry1.dso.mil/ironbank/neuvector/neuvector/manager from 5.3.2 to 5.3.3
+
 ## [2.7.6-bb.3] - 2024-06-18
 ### Changed
 - Removed duplicate network attachment definition for OpenShift deployments

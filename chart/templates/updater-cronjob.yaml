@@ -73,6 +73,8 @@ spec:
               imagePullPolicy: Always
               securityContext:
                 {{- toYaml $.Values.cve.updater.containerSecurityContext | nindent 16 }}
+              resources:
+                {{ toYaml .Values.cve.updater.resources | indent 16 }}
           {{- if .Values.cve.scanner.enabled }}
               command:
               - /bin/sh
