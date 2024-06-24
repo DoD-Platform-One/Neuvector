@@ -1,6 +1,6 @@
 # neuvector
 
-![Version: 2.7.6-bb.3](https://img.shields.io/badge/Version-2.7.6--bb.3-informational?style=flat-square) ![AppVersion: 5.3.2](https://img.shields.io/badge/AppVersion-5.3.2-informational?style=flat-square)
+![Version: 2.7.7-bb.0](https://img.shields.io/badge/Version-2.7.7--bb.0-informational?style=flat-square) ![AppVersion: 5.3.3](https://img.shields.io/badge/AppVersion-5.3.3-informational?style=flat-square)
 
 Helm chart for NeuVector's core services
 
@@ -35,7 +35,7 @@ helm install neuvector chart/
 |-----|------|---------|-------------|
 | openshift | bool | `false` |  |
 | registry | string | `"registry1.dso.mil"` |  |
-| tag | string | `"5.3.2"` |  |
+| tag | string | `"5.3.3"` |  |
 | oem | string | `nil` |  |
 | imagePullSecrets | string | `"private-registry"` |  |
 | psp | bool | `false` |  |
@@ -49,22 +49,19 @@ helm install neuvector chart/
 | global.azure.extension.resourceId | string | `"DONOTMODIFY"` |  |
 | global.azure.serviceAccount | string | `"csp"` |  |
 | global.azure.imagePullSecrets | string | `nil` |  |
-| global.azure.images.neuvector_csp_pod.digest | string | `""` |  |
+| global.azure.images.neuvector_csp_pod.tag | string | `"latest"` |  |
 | global.azure.images.neuvector_csp_pod.image | string | `"neuvector-billing-azure-by-suse-llc"` |  |
-| global.azure.images.neuvector_csp_pod.registry | string | `"susellcforazuremarketplace.azurecr.io"` |  |
+| global.azure.images.neuvector_csp_pod.registry | string | `"registry.suse.de/suse/sle-15-sp5/update/pubclouds/images"` |  |
 | global.azure.images.neuvector_csp_pod.imagePullPolicy | string | `"IfNotPresent"` |  |
-| global.azure.images.controller.digest | string | `""` |  |
-| global.azure.images.controller.image | string | `"neuvector/controller"` |  |
-| global.azure.images.controller.registry | string | `"docker.io"` |  |
-| global.azure.images.manager.digest | string | `""` |  |
-| global.azure.images.manager.image | string | `"neuvector/manager"` |  |
-| global.azure.images.manager.registry | string | `"docker.io"` |  |
-| global.azure.images.scanner.digest | string | `""` |  |
-| global.azure.images.scanner.image | string | `"neuvector/scanner"` |  |
-| global.azure.images.scanner.registry | string | `"docker.io"` |  |
-| global.azure.images.enforcer.digest | string | `""` |  |
-| global.azure.images.enforcer.image | string | `"neuvector/enforcer"` |  |
-| global.azure.images.enforcer.registry | string | `"docker.io"` |  |
+| global.azure.images.controller.tag | string | `"5.2.4"` |  |
+| global.azure.images.controller.image | string | `"controller"` |  |
+| global.azure.images.controller.registry | string | `"docker.io/neuvector"` |  |
+| global.azure.images.manager.tag | string | `"5.2.4"` |  |
+| global.azure.images.manager.image | string | `"manager"` |  |
+| global.azure.images.manager.registry | string | `"docker.io/neuvector"` |  |
+| global.azure.images.enforcer.tag | string | `"5.2.4"` |  |
+| global.azure.images.enforcer.image | string | `"enforcer"` |  |
+| global.azure.images.enforcer.registry | string | `"docker.io/neuvector"` |  |
 | global.aws.enabled | bool | `false` |  |
 | global.aws.accountNumber | string | `""` |  |
 | global.aws.roleName | string | `""` |  |
@@ -103,6 +100,7 @@ helm install neuvector chart/
 | controller.affinity.podAntiAffinity.preferredDuringSchedulingIgnoredDuringExecution[0].podAffinityTerm.labelSelector.matchExpressions[0].values[0] | string | `"neuvector-controller-pod"` |  |
 | controller.affinity.podAntiAffinity.preferredDuringSchedulingIgnoredDuringExecution[0].podAffinityTerm.topologyKey | string | `"kubernetes.io/hostname"` |  |
 | controller.tolerations | list | `[]` |  |
+| controller.topologySpreadConstraints | list | `[]` |  |
 | controller.nodeSelector | object | `{}` |  |
 | controller.apisvc.type | string | `nil` |  |
 | controller.apisvc.annotations | object | `{}` |  |
@@ -222,6 +220,7 @@ helm install neuvector chart/
 | manager.ingress.tls | bool | `false` |  |
 | manager.ingress.secretName | string | `nil` |  |
 | manager.resources | object | `{}` |  |
+| manager.topologySpreadConstraints | list | `[]` |  |
 | manager.affinity | object | `{}` |  |
 | manager.podLabels | object | `{}` |  |
 | manager.podAnnotations | object | `{}` |  |
@@ -237,7 +236,7 @@ helm install neuvector chart/
 | manager.securityContext.fsGroup | int | `1000` |  |
 | cve.adapter.enabled | bool | `false` |  |
 | cve.adapter.image.repository | string | `"neuvector/registry-adapter"` |  |
-| cve.adapter.image.tag | string | `"0.1.1-s1"` |  |
+| cve.adapter.image.tag | string | `"0.1.2"` |  |
 | cve.adapter.image.hash | string | `nil` |  |
 | cve.adapter.priorityClassName | string | `nil` |  |
 | cve.adapter.resources | object | `{}` |  |
@@ -279,6 +278,7 @@ helm install neuvector chart/
 | cve.updater.image.hash | string | `nil` |  |
 | cve.updater.schedule | string | `"0 0 * * *"` |  |
 | cve.updater.priorityClassName | string | `nil` |  |
+| cve.updater.resources | object | `{}` |  |
 | cve.updater.podLabels | object | `{}` |  |
 | cve.updater.podAnnotations | object | `{}` |  |
 | cve.updater.nodeSelector | object | `{}` |  |
@@ -301,6 +301,7 @@ helm install neuvector chart/
 | cve.scanner.image.hash | string | `nil` |  |
 | cve.scanner.priorityClassName | string | `nil` |  |
 | cve.scanner.resources | object | `{}` |  |
+| cve.scanner.topologySpreadConstraints | list | `[]` |  |
 | cve.scanner.affinity | object | `{}` |  |
 | cve.scanner.podLabels | object | `{}` |  |
 | cve.scanner.podAnnotations | object | `{}` |  |
