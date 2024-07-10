@@ -5,9 +5,11 @@
 Helm chart for NeuVector's core services
 
 ## Upstream References
+
 * <https://neuvector.com>
 
 ## Learn More
+
 * [Application Overview](docs/overview.md)
 * [Other Documentation](docs/)
 
@@ -19,12 +21,13 @@ Helm chart for NeuVector's core services
 
 Install Helm
 
-https://helm.sh/docs/intro/install/
+<https://helm.sh/docs/intro/install/>
 
 ## Deployment
 
 * Clone down the repository
 * cd into directory
+
 ```bash
 helm install neuvector chart/
 ```
