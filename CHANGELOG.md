@@ -4,6 +4,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 
 ---
+## [2.7.7-bb.1] - 2024-07-02
+### Changed
+- Rename and remove istio authorization policies 
+
 ## [2.7.7-bb.0] - 2024-06-24
 ### Changed
 - Updated chart version to `2.7.7`
