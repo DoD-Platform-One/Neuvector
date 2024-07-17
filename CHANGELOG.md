@@ -5,6 +5,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
+## [2.7.7-bb.2] - 2024-07-13
+
+### Changed
+
+- Removed redundant entries in package test-values.yaml already in package values.yaml
+- Updated cypress resources to standard 2 cpu and 4 Gi memory
+
 ## [2.7.7-bb.1] - 2024-07-02
 
 ### Changed

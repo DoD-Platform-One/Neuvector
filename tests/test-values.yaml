@@ -1,14 +1,6 @@
 bbtests:
   enabled: true
-  cypress:
-    resources:
-      requests:
-        cpu: 2
-        memory: 2Gi
-      limits:
-        cpu: 2
-        memory: 4Gi
-
+  
 exporter:
   enabled: true
 
@@ -18,12 +10,3 @@ k3s:
 networkPolicies:
   enabled: true
   controlPlaneCidr: 172.16.0.0/12
-
-manager:
-  env:
-    ssl: false
-
-monitoring:
-  enabled: false
-  namespace: monitoring
-
