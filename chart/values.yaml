@@ -590,9 +590,6 @@ cve:
         drop:
           - ALL
 
-docker:
-  path: /var/run/docker.sock
-
 resources:
   {}
   # limits:
@@ -632,7 +629,7 @@ crdwebhook:
   enabled: true
   type: ClusterIP
 
-domain: bigbang.dev
+domain: dev.bigbang.mil
 istio:
   enabled: false
   injection: "enabled"
@@ -694,6 +691,13 @@ networkPolicies:
 
 monitor:
   imagePullSecrets: private-registry
+  install: false
+  exporter:
+    enabled: false
+    serviceMonitor: 
+      enabled: false
+    svc:
+      enabled: false
 
 # Bigbang helm test values default disabled
 bbtests:
@@ -702,6 +706,16 @@ bbtests:
     artifacts: true
     envs:
       cypress_url: "http://neuvector-service-webui.{{ .Release.Namespace }}.svc.cluster.local:8443"
+    resources:
+      requests:
+        cpu: "2"
+        memory: "4Gi"
+      limits:
+        cpu: "2"
+        memory: "4Gi"
   scripts:
     envs:
       URL: "http://neuvector-service-webui.{{ .Release.Namespace }}.svc.cluster.local:8443"
+
+exporter:
+  enabled: false

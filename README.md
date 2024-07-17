@@ -1,15 +1,13 @@
 # neuvector
 
-![Version: 2.7.7-bb.1](https://img.shields.io/badge/Version-2.7.7--bb.1-informational?style=flat-square) ![AppVersion: 5.3.3](https://img.shields.io/badge/AppVersion-5.3.3-informational?style=flat-square)
+![Version: 2.7.7-bb.2](https://img.shields.io/badge/Version-2.7.7--bb.2-informational?style=flat-square) ![AppVersion: 5.3.3](https://img.shields.io/badge/AppVersion-5.3.3-informational?style=flat-square)
 
 Helm chart for NeuVector's core services
 
 ## Upstream References
-
 * <https://neuvector.com>
 
 ## Learn More
-
 * [Application Overview](docs/overview.md)
 * [Other Documentation](docs/)
 
@@ -21,13 +19,12 @@ Helm chart for NeuVector's core services
 
 Install Helm
 
-<https://helm.sh/docs/intro/install/>
+https://helm.sh/docs/intro/install/
 
 ## Deployment
 
 * Clone down the repository
 * cd into directory
-
 ```bash
 helm install neuvector chart/
 ```
@@ -323,7 +320,6 @@ helm install neuvector chart/
 | cve.scanner.containerSecurityContext.runAsGroup | int | `1000` |  |
 | cve.scanner.containerSecurityContext.runAsNonRoot | bool | `true` |  |
 | cve.scanner.containerSecurityContext.capabilities.drop[0] | string | `"ALL"` |  |
-| docker.path | string | `"/var/run/docker.sock"` |  |
 | resources | object | `{}` |  |
 | runtimePath | string | `nil` |  |
 | docker.path | string | `"/var/run/docker.sock"` |  |
@@ -338,7 +334,7 @@ helm install neuvector chart/
 | admissionwebhook.type | string | `"ClusterIP"` |  |
 | crdwebhook.enabled | bool | `true` |  |
 | crdwebhook.type | string | `"ClusterIP"` |  |
-| domain | string | `"bigbang.dev"` |  |
+| domain | string | `"dev.bigbang.mil"` |  |
 | istio.enabled | bool | `false` |  |
 | istio.injection | string | `"enabled"` |  |
 | istio.hardened.enabled | bool | `false` |  |
@@ -368,10 +364,19 @@ helm install neuvector chart/
 | networkPolicies.controlPlaneCidr | string | `"0.0.0.0/0"` |  |
 | networkPolicies.additionalPolicies | list | `[]` |  |
 | monitor.imagePullSecrets | string | `"private-registry"` |  |
+| monitor.install | bool | `false` |  |
+| monitor.exporter.enabled | bool | `false` |  |
+| monitor.exporter.serviceMonitor.enabled | bool | `false` |  |
+| monitor.exporter.svc.enabled | bool | `false` |  |
 | bbtests.enabled | bool | `false` |  |
 | bbtests.cypress.artifacts | bool | `true` |  |
 | bbtests.cypress.envs.cypress_url | string | `"http://neuvector-service-webui.{{ .Release.Namespace }}.svc.cluster.local:8443"` |  |
+| bbtests.cypress.resources.requests.cpu | string | `"2"` |  |
+| bbtests.cypress.resources.requests.memory | string | `"4Gi"` |  |
+| bbtests.cypress.resources.limits.cpu | string | `"2"` |  |
+| bbtests.cypress.resources.limits.memory | string | `"4Gi"` |  |
 | bbtests.scripts.envs.URL | string | `"http://neuvector-service-webui.{{ .Release.Namespace }}.svc.cluster.local:8443"` |  |
+| exporter.enabled | bool | `false` |  |
 
 ## Contributing
 
