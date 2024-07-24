@@ -22,6 +22,7 @@ spec:
       labels:
         app: neuvector-registry-adapter-pod
         release: {{ .Release.Name }}
+        version: {{ .Chart.AppVersion }}
         {{- with .Values.cve.adapter.podLabels }}
         {{- toYaml . | nindent 8 }}
         {{- end }}

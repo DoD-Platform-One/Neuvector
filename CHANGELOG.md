@@ -2,8 +2,14 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-
 ---
+
+## [2.7.7-bb.3] - 2024-07-24
+
+### Changed
+
+- Added `version` pod label to deployments and daemonset to conform to Kiali requirements
+- Updated `docs/DEVELOPMENT_MAINTENANCE.md` [Modifications made to upstream chart](https://repo1.dso.mil/big-bang/product/packages/neuvector/-/blob/main/docs/DEVELOPMENT_MAINTENANCE.md?ref_type=heads#modifications-made-to-upstream-chart) section to reflect changes
 
 ## [2.7.7-bb.2] - 2024-07-13
 
@@ -16,7 +22,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Changed
 
-- Rename and remove istio authorization policies 
+- Rename and remove istio authorization policies
 
 ## [2.7.7-bb.0] - 2024-06-24
 

@@ -33,6 +33,7 @@ spec:
       labels:
         app: neuvector-controller-pod
         release: {{ .Release.Name }}
+        version: {{ .Chart.AppVersion }}
         {{- with .Values.controller.podLabels }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
