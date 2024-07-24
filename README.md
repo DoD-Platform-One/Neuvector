@@ -1,13 +1,15 @@
 # neuvector
 
-![Version: 2.7.7-bb.2](https://img.shields.io/badge/Version-2.7.7--bb.2-informational?style=flat-square) ![AppVersion: 5.3.3](https://img.shields.io/badge/AppVersion-5.3.3-informational?style=flat-square)
+![Version: 2.7.7-bb.3](https://img.shields.io/badge/Version-2.7.7--bb.3-informational?style=flat-square) ![AppVersion: 5.3.3](https://img.shields.io/badge/AppVersion-5.3.3-informational?style=flat-square)
 
 Helm chart for NeuVector's core services
 
 ## Upstream References
+
 * <https://neuvector.com>
 
 ## Learn More
+
 * [Application Overview](docs/overview.md)
 * [Other Documentation](docs/)
 
@@ -19,12 +21,13 @@ Helm chart for NeuVector's core services
 
 Install Helm
 
-https://helm.sh/docs/intro/install/
+<https://helm.sh/docs/intro/install/>
 
 ## Deployment
 
 * Clone down the repository
 * cd into directory
+
 ```bash
 helm install neuvector chart/
 ```

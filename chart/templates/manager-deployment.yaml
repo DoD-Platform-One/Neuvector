@@ -22,6 +22,7 @@ spec:
       labels:
         app: neuvector-manager-pod
         release: {{ .Release.Name }}
+        version: {{ .Chart.AppVersion }}
         {{- with .Values.manager.podLabels }}
         {{- toYaml . | nindent 8 }}
         {{- end }}

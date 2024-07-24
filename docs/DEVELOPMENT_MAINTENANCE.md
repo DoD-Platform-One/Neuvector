@@ -84,6 +84,34 @@ NOTE: This list may not be complete yet - it should be updated as updates are wo
 - Add BB dev application version annotation
 - Add monitor subchart dependency
 
+## chart/templates/controller-deployment.yaml
+
+- Add `version: {{ .Chart.AppVersion }}` in pod template section near line 36
+
+## chart/templates/enforcer-daemonset.yaml
+
+- Add `version: {{ .Chart.AppVersion }}` in pod template section near line 43
+
+## chart/templates/manager-deployment.yaml
+
+- Add `version: {{ .Chart.AppVersion }}` in pod template section near line 25
+
+## chart/templates/registry-adapter.yaml
+
+- Add `version: {{ .Chart.AppVersion }}` in pod template section near line 25
+
+## chart/templates/scanner-deployment.yaml
+
+- Add `version: {{ .Chart.AppVersion }}` in pod template section near line 26
+
+## chart/templates/updater-cronjob.yaml
+
+- Add `version: {{ .Chart.AppVersion }}` in pod template section near line 25
+
+## chart/deps/monitor/templates/exporter-deployment.yaml
+
+- Add `version: {{ .Chart.AppVersion }}` in pod template section near line 29
+
 ## chart/deps/monitor/templates/exporter-servicemonitor.yaml
 
 - Add support for scheme and tlsConfig
@@ -111,7 +139,7 @@ NOTE: This list may not be complete yet - it should be updated as updates are wo
       - name: JDK_JAVA_OPTIONS
         value: "-Dcom.redhat.fips=false"
   ```
-  
+
 - Added at the bottom of the values file are changes to support Istio, monitoring, and optional network policies.
 
   ```yaml
