@@ -4,6 +4,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
+## [2.7.8-bb.0] - 2024-06-24
+
+### Changed
+
+- Updated chart version to `2.7.8`
+- Updated registry1.dso.mil/ironbank/neuvector/neuvector/controller from `5.3.3` to `5.3.4`
+- Updated registry1.dso.mil/ironbank/neuvector/neuvector/enforcer from `5.3.3` to `5.3.4`
+- Updated registry1.dso.mil/ironbank/neuvector/neuvector/manager from `5.3.3` to `5.3.4`
+
 ## [2.7.7-bb.3] - 2024-07-24
 
 ### Changed
