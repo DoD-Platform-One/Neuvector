@@ -5,7 +5,7 @@
 openshift: false
 
 registry: registry1.dso.mil
-tag: 5.3.3
+tag: 5.3.4
 oem:
 imagePullSecrets: private-registry
 psp: false
@@ -269,6 +269,8 @@ controller:
       # sysinitcfg.yaml: |
       # ...
       # userinitcfg.yaml: |
+      # ...
+      # fedinitcfg.yaml: |
       # ...
   secret:
     # NOTE: files defined here have preferrence over the ones defined in the configmap section
