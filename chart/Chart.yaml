@@ -1,6 +1,6 @@
 name: neuvector
 apiVersion: v2
-version: 2.7.8-bb.1
+version: 2.7.8-bb.2
 appVersion: 5.3.4
 description: Helm chart for NeuVector's core services
 home: https://neuvector.com
@@ -16,7 +16,7 @@ dependencies:
     condition: monitor.install
     repository: file://./deps/monitor
   - name: gluon
-    version: "0.5.0"
+    version: "0.5.2"
     repository: "oci://registry1.dso.mil/bigbang"
 annotations:
   bigbang.dev/upstreamReleaseNotesMarkdown: |

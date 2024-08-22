@@ -32,17 +32,17 @@ global: # required for rancher authentication (https://<Rancher_URL>/)
         registry: registry.suse.de/suse/sle-15-sp5/update/pubclouds/images
         imagePullPolicy: IfNotPresent
       controller:
-        tag: 5.2.4
+        tag: 5.3.4
         image: controller
-        registry: docker.io/neuvector
+        registry: registry1.dso.mil/ironbank/neuvector/neuvector
       manager:
-        tag: 5.2.4
+        tag: 5.3.4
         image: manager
-        registry: docker.io/neuvector
+        registry: registry1.dso.mil/ironbank/neuvector/neuvector
       enforcer:
-        tag: 5.2.4
+        tag: 5.3.4
         image: enforcer
-        registry: docker.io/neuvector
+        registry: registry1.dso.mil/ironbank/neuvector/neuvector
 
   aws:
     enabled: false
