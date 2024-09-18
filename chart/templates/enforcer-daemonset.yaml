@@ -40,9 +40,8 @@ spec:
       labels:
         app: neuvector-enforcer-pod
         release: {{ .Release.Name }}
-        version: {{ .Chart.AppVersion }}
         {{- with .Values.enforcer.podLabels }}
-        {{- toYaml . | nindent 8 }}
+        {{ tpl (toYaml . | nindent 8) $ }}
         {{- end }}
       {{- with .Values.enforcer.podAnnotations }}
       annotations:

@@ -23,9 +23,8 @@ spec:
     metadata:
       labels:
         app: neuvector-scanner-pod
-        version: {{ .Chart.AppVersion }}
         {{- with .Values.cve.scanner.podLabels }}
-        {{- toYaml . | nindent 8 }}
+        {{ tpl (toYaml . | nindent 8) $ }}
         {{- end }}
       {{- with .Values.cve.scanner.podAnnotations }}
       annotations:

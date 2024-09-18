@@ -86,27 +86,27 @@ NOTE: This list may not be complete yet - it should be updated as updates are wo
 
 ## chart/templates/controller-deployment.yaml
 
-- Add `version: {{ .Chart.AppVersion }}` in pod template section near line 36
+- Added tpl function in pod template section near line 38 for version labels
 
 ## chart/templates/enforcer-daemonset.yaml
 
-- Add `version: {{ .Chart.AppVersion }}` in pod template section near line 43
+- Added tpl function in pod template section near line 45 for version labels
 
 ## chart/templates/manager-deployment.yaml
 
-- Add `version: {{ .Chart.AppVersion }}` in pod template section near line 25
+- Added tpl function in pod template section near line 26 for version labels
 
 ## chart/templates/registry-adapter.yaml
 
-- Add `version: {{ .Chart.AppVersion }}` in pod template section near line 25
+- Added tpl function in pod template section near line 26 for version labels
 
 ## chart/templates/scanner-deployment.yaml
 
-- Add `version: {{ .Chart.AppVersion }}` in pod template section near line 26
+- Added tpl function in pod template section near line 27 for version labels
 
 ## chart/templates/updater-cronjob.yaml
 
-- Add `version: {{ .Chart.AppVersion }}` in pod template section near line 25
+- Added tpl function in pod template section near line 27
 
 ## chart/deps/monitor/templates/exporter-deployment.yaml
 
