@@ -33,9 +33,8 @@ spec:
       labels:
         app: neuvector-controller-pod
         release: {{ .Release.Name }}
-        version: {{ .Chart.AppVersion }}
         {{- with .Values.controller.podLabels }}
-        {{- toYaml . | nindent 8 }}
+        {{ tpl (toYaml . | nindent 8) $ }}
         {{- end }}
       {{- if or .Values.controller.secret.enabled .Values.controller.configmap.enabled .Values.controller.podAnnotations (eq "true" (toString .Values.autoGenerateCert)) }}
       annotations:
