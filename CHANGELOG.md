@@ -4,6 +4,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
+## [2.7.8-bb.4] - 2024-09-20
+
+### Changed
+
+- Updated gluon to `0.5.2`
+
 ## [2.7.8-bb.3] - 2024-09-14
 
 ### Changed
@@ -16,7 +22,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 - Changed reference to `docker.io` in values.yaml to `registry1.dso.mil/ironbank/neuvector/neuvector`
 - Update from gluon 0.5.0 to 0.5.2
-
 
 ## [2.7.8-bb.1] - 2024-08-20
 
