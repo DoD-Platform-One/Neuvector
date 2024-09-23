@@ -1,11 +1,12 @@
 <!-- Warning: Do not manually edit this file. See notes on gluon + helm-docs at the end of this file for more information. -->
 # neuvector
 
-![Version: 2.7.8-bb.3](https://img.shields.io/badge/Version-2.7.8--bb.3-informational?style=flat-square) ![AppVersion: 5.3.4](https://img.shields.io/badge/AppVersion-5.3.4-informational?style=flat-square)
+![Version: 2.7.8-bb.4](https://img.shields.io/badge/Version-2.7.8--bb.4-informational?style=flat-square) ![AppVersion: 5.3.4](https://img.shields.io/badge/AppVersion-5.3.4-informational?style=flat-square)
 
 Helm chart for NeuVector's core services
 
 ## Upstream References
+
 * <https://neuvector.com>
 
 ### Upstream Release Notes
@@ -14,6 +15,7 @@ Helm chart for NeuVector's core services
 * [and our upstream application release notes here](https://github.com/neuvector/neuvector/releases)
 
 ## Learn More
+
 * [Application Overview](docs/overview.md)
 * [Other Documentation](docs/)
 
@@ -25,12 +27,13 @@ Helm chart for NeuVector's core services
 
 Install Helm
 
-https://helm.sh/docs/intro/install/
+<https://helm.sh/docs/intro/install/>
 
 ## Deployment
 
 * Clone down the repository
 * cd into directory
+
 ```bash
 helm install neuvector chart/
 ```
@@ -391,4 +394,3 @@ Please see the [contributing guide](./CONTRIBUTING.md) if you are interested in 
 ---
 
 _This file is programatically generated using `helm-docs` and some BigBang-specific templates. The `gluon` repository has [instructions for regenerating package READMEs](https://repo1.dso.mil/big-bang/product/packages/gluon/-/blob/master/docs/bb-package-readme.md)._
-

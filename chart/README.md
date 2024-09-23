@@ -3,9 +3,11 @@
 Helm chart for NeuVector container security's core services.
 
 ## CRD
+
 Because the CRD (Custom Resource Definition) policies can be deployed before NeuVector's core product, a new 'crd' helm chart is created. The crd template in the 'core' chart is kept for the backward compatibility. Please set `crdwebhook.enabled` to false, if you use the new 'crd' chart.
 
 ## Choosing container runtime
+
 Prior to 5.3 release, the user has to specify the correct container runtime type and its socket path. In 5.3.0 release, the enforcer is able to automatically detect the container runtime at its default socket location. The settings of docker/containerd/crio/k8s/bottlerocket become deprecated. If the container runtime socket is not at the default location, please specify it using 'runtimePath' field. In the meantime, the controller does not require the runtime socket to be mounted any more.
 
 ## Configuration
@@ -159,12 +161,12 @@ Parameter | Description | Default | Notes
 `manager.podAnnotations` | Specify the pod annotations. | `{}` |
 `manager.env.ssl` | If false, manager will listen on HTTP access instead of HTTPS | `true` |
 `manager.env.envs` | Other environment variables. The following variables are accepted. | `[]` |
-`        CUSTOM_LOGIN_LOGO`               | SVG file encoded in based64, the logo is displayed as a 300 x 80 pixels icon. | 
-`        CUSTOM_EULA_POLICY`              | HTML or TEXT encoded in base64. | 
-`        CUSTOM_PAGE_HEADER_CONTENT`      | max. 120 characters, base64 encoded. | 
-`        CUSTOM_PAGE_HEADER_COLOR`        | use color name (yellow) or value (#ffff00) | 
-`        CUSTOM_PAGE_FOOTER_CONTENT`      | max. 120 characters, base64 encoded. | 
-`        CUSTOM_PAGE_FOOTER_COLOR`        | use color name (yellow) or value (#ffff00) | 
+`CUSTOM_LOGIN_LOGO`               | SVG file encoded in based64, the logo is displayed as a 300 x 80 pixels icon. |
+`CUSTOM_EULA_POLICY`              | HTML or TEXT encoded in base64. |
+`CUSTOM_PAGE_HEADER_CONTENT`      | max. 120 characters, base64 encoded. |
+`CUSTOM_PAGE_HEADER_COLOR`        | use color name (yellow) or value (#ffff00) |
+`CUSTOM_PAGE_FOOTER_CONTENT`      | max. 120 characters, base64 encoded. |
+`CUSTOM_PAGE_FOOTER_COLOR`        | use color name (yellow) or value (#ffff00) |
 `manager.svc.type` | set manager service type for native Kubernetes | `NodePort`;<br>if it is OpenShift platform or ingress is enabled, then default is `ClusterIP` | set to LoadBalancer if using cloud providers, such as Azure, Amazon, Google
 `manager.svc.loadBalancerIP` | if manager service type is LoadBalancer, this is used to specify the load balancer's IP | `nil` |
 `manager.svc.annotations` | Add annotations to manager service | `{}` | see examples in [values.yaml](values.yaml)
@@ -282,11 +284,11 @@ Parameter | Description | Default | Notes
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example,
 
 ```console
-$ helm install my-release --namespace neuvector ./neuvector-helm/ --set manager.env.ssl=off
+helm install my-release --namespace neuvector ./neuvector-helm/ --set manager.env.ssl=off
 ```
 
 Alternatively, a YAML file that specifies the values for the above parameters can be provided while installing the chart. For example,
 
 ```console
-$ helm install my-release --namespace neuvector ./neuvector-helm/ -f values.yaml
+helm install my-release --namespace neuvector ./neuvector-helm/ -f values.yaml
 ```
