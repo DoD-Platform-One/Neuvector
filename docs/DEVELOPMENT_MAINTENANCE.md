@@ -6,13 +6,13 @@ BigBang makes modifications to the upstream helm chart. The full list of changes
 1. From the root of the repo run `kpt pkg update chart@<version> --strategy alpha-git-patch` replacing `<version>` with the latest version tag from the [upstream repo](https://github.com/neuvector/neuvector-helm) that has matching image versions. You may be prompted to resolve some conflicts - choose what makes sense (if there are BB additions/changes keep them, if there are upstream additions/changes keep them). You may want to use an alternative strategy with `kpt` (like `force-delete-replace`), and then restore the BB changes as needed.
 1. Update `chart/Chart.yaml` to the appropriate versions. The annotation version should match the `appVersion`. If we have moved to a new chart version reset the `bb.X` version to `bb.0`.
 
-    ```yaml
-    version: X.X.X-bb.X
-    appVersion: X.X.X
-    annotations:
-      bigbang.dev/applicationVersions: |
-        - NeuVector: X.X.X
-    ```
+   ```yaml
+   version: X.X.X-bb.X
+   appVersion: X.X.X
+   annotations:
+     bigbang.dev/applicationVersions: |
+       - NeuVector: X.X.X
+   ```
 
 1. Update gluon to a new version (if necessary) and run `helm dependency update chart` to package up new gluon as a `.tgz`.
 1. Update `CHANGELOG.md` with an entry for the update. At minimum add the new image versions and any chart version update.
@@ -113,6 +113,10 @@ NOTE: This list may not be complete yet - it should be updated as updates are wo
 
 - Added tpl function in pod template section near line 27
 
+## chart/templates/upgrader-cronjob.yaml
+
+- Added tpl function in pod template section near line 40
+
 ## chart/deps/monitor/templates/exporter-deployment.yaml
 
 - Add `version: {{ .Chart.AppVersion }}` in pod template section near line 29
@@ -129,7 +133,7 @@ NOTE: This list may not be complete yet - it should be updated as updates are wo
 
 - Add empty defaults for scheme and tlsConfig
 
-## chart/templates/bigbang/*
+## chart/templates/bigbang/\*
 
 - Templates added to support network policies, mTLS, and Istio virtual service
 
@@ -139,10 +143,10 @@ NOTE: This list may not be complete yet - it should be updated as updates are wo
 - Added `JDK_JAVA_OPTIONS` to `manager.env.envs`
 
   ```yaml
-    envs:
-      # This setting should be enabled when in FIPS environments to prevent Java errors arising from the FIPS alignment
-      - name: JDK_JAVA_OPTIONS
-        value: "-Dcom.redhat.fips=false"
+  envs:
+    # This setting should be enabled when in FIPS environments to prevent Java errors arising from the FIPS alignment
+    - name: JDK_JAVA_OPTIONS
+      value: "-Dcom.redhat.fips=false"
   ```
 
 - Added at the bottom of the values file are changes to support Istio, monitoring, and optional network policies.
@@ -196,7 +200,6 @@ NOTE: This list may not be complete yet - it should be updated as updates are wo
     scripts:
       envs:
         URL: "http://neuvector-service-webui.{{ .Release.Namespace }}.svc.cluster.local:8443"
-
   ```
 
 ## Grafana Dashboards

@@ -1,38 +1,37 @@
 <!-- Warning: Do not manually edit this file. See notes on gluon + helm-docs at the end of this file for more information. -->
 # neuvector
 
-![Version: 2.7.8-bb.4](https://img.shields.io/badge/Version-2.7.8--bb.4-informational?style=flat-square) ![AppVersion: 5.3.4](https://img.shields.io/badge/AppVersion-5.3.4-informational?style=flat-square)
+![Version: 2.8.2-bb.0](https://img.shields.io/badge/Version-2.8.2--bb.0-informational?style=flat-square) ![AppVersion: 5.4.0](https://img.shields.io/badge/AppVersion-5.4.0-informational?style=flat-square)
 
 Helm chart for NeuVector's core services
 
 ## Upstream References
+- <https://neuvector.com>
 
-* <https://neuvector.com>
+## Upstream Release Notes
 
-### Upstream Release Notes
-
-* [Find our upstream chart's CHANGELOG here](https://repo1.dso.mil/big-bang/product/packages/neuvector/-/blob/main/CHANGELOG.md?ref_type=heads)
-* [and our upstream application release notes here](https://github.com/neuvector/neuvector/releases)
+- [Find our upstream chart's CHANGELOG here](https://repo1.dso.mil/big-bang/product/packages/neuvector/-/blob/main/CHANGELOG.md?ref_type=heads)
+- [and our upstream application release notes here](https://github.com/neuvector/neuvector/releases)
 
 ## Learn More
 
-* [Application Overview](docs/overview.md)
-* [Other Documentation](docs/)
+- [Application Overview](docs/overview.md)
+- [Other Documentation](docs/)
 
 ## Pre-Requisites
 
-* Kubernetes Cluster deployed
-* Kubernetes config installed in `~/.kube/config`
-* Helm installed
+- Kubernetes Cluster deployed
+- Kubernetes config installed in `~/.kube/config`
+- Helm installed
 
 Install Helm
 
-<https://helm.sh/docs/intro/install/>
+https://helm.sh/docs/intro/install/
 
 ## Deployment
 
-* Clone down the repository
-* cd into directory
+- Clone down the repository
+- cd into directory
 
 ```bash
 helm install neuvector chart/
@@ -44,7 +43,7 @@ helm install neuvector chart/
 |-----|------|---------|-------------|
 | openshift | bool | `false` |  |
 | registry | string | `"registry1.dso.mil"` |  |
-| tag | string | `"5.3.4"` |  |
+| tag | string | `"5.4.0"` |  |
 | oem | string | `nil` |  |
 | imagePullSecrets | string | `"private-registry"` |  |
 | psp | bool | `false` |  |
@@ -81,10 +80,13 @@ helm install neuvector chart/
 | global.aws.image.repository | string | `"neuvector/neuvector-csp-adapter"` |  |
 | global.aws.image.tag | string | `"latest"` |  |
 | global.aws.image.imagePullPolicy | string | `"IfNotPresent"` |  |
+| bootstrapPassword | string | `""` |  |
 | autoGenerateCert | bool | `true` |  |
 | defaultValidityPeriod | int | `365` |  |
 | internal.certmanager.enabled | bool | `false` |  |
 | internal.certmanager.secretname | string | `"neuvector-internal"` |  |
+| internal.autoGenerateCert | bool | `true` |  |
+| internal.autoRotateCert | bool | `false` |  |
 | controller.enabled | bool | `true` |  |
 | controller.annotations | object | `{}` |  |
 | controller.strategy.type | string | `"RollingUpdate"` |  |
@@ -102,6 +104,7 @@ helm install neuvector chart/
 | controller.containerSecurityContext.runAsUser | int | `1000` |  |
 | controller.containerSecurityContext.runAsNonRoot | bool | `true` |  |
 | controller.containerSecurityContext.capabilities.drop[0] | string | `"ALL"` |  |
+| controller.searchRegistries | string | `nil` |  |
 | controller.env | list | `[]` |  |
 | controller.affinity.podAntiAffinity.preferredDuringSchedulingIgnoredDuringExecution[0].weight | int | `100` |  |
 | controller.affinity.podAntiAffinity.preferredDuringSchedulingIgnoredDuringExecution[0].podAffinityTerm.labelSelector.matchExpressions[0].key | string | `"app"` |  |
@@ -184,6 +187,22 @@ helm install neuvector chart/
 | controller.secret.data."userinitcfg.yaml".users[0].Fullname | string | `"admin"` |  |
 | controller.secret.data."userinitcfg.yaml".users[0].Password | string | `nil` |  |
 | controller.secret.data."userinitcfg.yaml".users[0].Role | string | `"admin"` |  |
+| controller.certupgrader.env | list | `[]` |  |
+| controller.certupgrader.schedule | string | `""` |  |
+| controller.certupgrader.imagePullPolicy | string | `"IfNotPresent"` |  |
+| controller.certupgrader.timeout | int | `3600` |  |
+| controller.certupgrader.priorityClassName | string | `nil` |  |
+| controller.certupgrader.podLabels | object | `{}` |  |
+| controller.certupgrader.podAnnotations | object | `{}` |  |
+| controller.certupgrader.nodeSelector | object | `{}` |  |
+| controller.certupgrader.containerSecurityContext.runAsUser | int | `1000` |  |
+| controller.certupgrader.containerSecurityContext.runAsGroup | int | `1000` |  |
+| controller.certupgrader.containerSecurityContext.runAsNonRoot | bool | `true` |  |
+| controller.certupgrader.containerSecurityContext.capabilities.drop[0] | string | `"ALL"` |  |
+| controller.prime.enabled | bool | `false` |  |
+| controller.prime.image.repository | string | `"neuvector/compliance-config"` |  |
+| controller.prime.image.tag | string | `"1.0.0"` |  |
+| controller.prime.image.hash | string | `nil` |  |
 | enforcer.enabled | bool | `true` |  |
 | enforcer.image.repository | string | `"ironbank/neuvector/neuvector/enforcer"` |  |
 | enforcer.image.hash | string | `nil` |  |
@@ -243,9 +262,13 @@ helm install neuvector chart/
 | manager.securityContext.runAsUser | int | `1000` |  |
 | manager.securityContext.runAsGroup | int | `1000` |  |
 | manager.securityContext.fsGroup | int | `1000` |  |
+| manager.probes.enabled | bool | `false` |  |
+| manager.probes.timeout | int | `1` |  |
+| manager.probes.periodSeconds | int | `10` |  |
+| manager.probes.startupFailureThreshold | int | `30` |  |
 | cve.adapter.enabled | bool | `false` |  |
 | cve.adapter.image.repository | string | `"neuvector/registry-adapter"` |  |
-| cve.adapter.image.tag | string | `"0.1.2"` |  |
+| cve.adapter.image.tag | string | `"0.1.3"` |  |
 | cve.adapter.image.hash | string | `nil` |  |
 | cve.adapter.priorityClassName | string | `nil` |  |
 | cve.adapter.resources | object | `{}` |  |
@@ -255,7 +278,10 @@ helm install neuvector chart/
 | cve.adapter.env | list | `[]` |  |
 | cve.adapter.tolerations | list | `[]` |  |
 | cve.adapter.nodeSelector | object | `{}` |  |
-| cve.adapter.runAsUser | string | `nil` |  |
+| cve.adapter.securityContext.runAsUser | int | `1000` |  |
+| cve.adapter.securityContext.runAsGroup | int | `1000` |  |
+| cve.adapter.securityContext.fsGroup | int | `1000` |  |
+| cve.adapter.securityContext.runAsNonRoot | bool | `true` |  |
 | cve.adapter.certificate.secret | string | `""` |  |
 | cve.adapter.certificate.keyFile | string | `"tls.key"` |  |
 | cve.adapter.certificate.pemFile | string | `"tls.crt"` |  |
@@ -394,3 +420,4 @@ Please see the [contributing guide](./CONTRIBUTING.md) if you are interested in 
 ---
 
 _This file is programatically generated using `helm-docs` and some BigBang-specific templates. The `gluon` repository has [instructions for regenerating package READMEs](https://repo1.dso.mil/big-bang/product/packages/gluon/-/blob/master/docs/bb-package-readme.md)._
+
