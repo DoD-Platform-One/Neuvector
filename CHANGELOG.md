@@ -4,6 +4,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
+## [2.8.2-bb.0] - 2024-10-17
+
+### Changed
+
+- Updated chart version to `2.8.0`
+- Updated registry1.dso.mil/ironbank/neuvector/neuvector/controller from `5.3.4` to `5.4.0`
+- Updated registry1.dso.mil/ironbank/neuvector/neuvector/enforcer from `5.3.4` to `5.4.0`
+- Updated registry1.dso.mil/ironbank/neuvector/neuvector/manager from `5.3.4` to `5.4.0`
+
 ## [2.7.8-bb.4] - 2024-09-20
 
 ### Changed
@@ -273,7 +282,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Added
 
 - OSCAL component file
-  
+
 ## [2.4.5-bb.0] - 2023-06-21
 
 ### Fixed
