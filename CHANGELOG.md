@@ -4,6 +4,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
+## [2.8.2-bb.1] - 2024-11-13
+
+### Changed
+
+- Added an initContainer to fix the cert permissions until an upstream fix comes in
+
 ## [2.8.2-bb.0] - 2024-10-17
 
 ### Changed

@@ -68,6 +68,41 @@ spec:
       securityContext:
         {{- toYaml $.Values.cve.scanner.securityContext | nindent 8 }}
       {{- end }}
+      initContainers:
+        - name: init-cert-permissions        
+          {{- if .Values.global.azure.enabled }}
+          image: "{{ .Values.global.azure.images.scanner.registry }}/{{ .Values.global.azure.images.scanner.image }}:{{ .Values.global.azure.images.scanner.tag }}"
+          {{- else }}
+          {{- if eq .Values.registry "registry.neuvector.com" }}
+          {{- if .Values.oem }}
+          image: "{{ .Values.registry }}/{{ .Values.oem }}/scanner:{{ .Values.cve.scanner.image.tag }}"
+          {{- else }}
+          image: "{{ .Values.registry }}/scanner:{{ .Values.cve.scanner.image.tag }}"
+          {{- end }}
+          {{- else }}
+          {{- if .Values.cve.scanner.image.hash }}
+          image: "{{ .Values.registry }}/{{ .Values.cve.scanner.image.repository }}@{{ .Values.cve.scanner.image.hash }}"
+          {{- else if .Values.cve.scanner.image.registry }}
+          image: "{{ .Values.cve.scanner.image.registry }}/{{ .Values.cve.scanner.image.repository }}:{{ .Values.cve.scanner.image.tag }}"
+          {{- else }}
+          image: "{{ .Values.registry }}/{{ .Values.cve.scanner.image.repository }}:{{ .Values.cve.scanner.image.tag }}"
+          {{- end }}
+          {{- end }}
+          {{- end }}
+          imagePullPolicy: Always
+          securityContext:
+            runAsUser: 0
+            runAsNonRoot: false
+          command:
+            - /bin/sh
+            - -cx
+            - |
+              cp -a /etc/neuvector/certs/internal/* /newcerts
+              chmod 660 /newcerts/*
+              chown scanner:scanner /newcerts/*
+          volumeMounts:
+            - mountPath: /newcerts
+              name: bigbang-readable-certs            
       containers:
         - name: neuvector-scanner-pod
           {{- if .Values.global.azure.enabled }}
@@ -126,6 +161,9 @@ spec:
           {{- else if and .Values.internal.autoRotateCert (not $pre540) }}
             - mountPath: /etc/neuvector/certs/internal/
               name: internal-cert-dir
+          {{- else }}
+            - mountPath: /etc/neuvector/certs/internal/
+              name: bigbang-readable-certs           
           {{- end }}
       restartPolicy: Always
       volumes:
@@ -138,4 +176,7 @@ spec:
           emptyDir:
             sizeLimit: 50Mi
       {{- end }}
+      - name: bigbang-readable-certs
+        emptyDir:
+          sizeLimit: 50Mi
 {{- end }}

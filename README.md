@@ -1,7 +1,7 @@
 <!-- Warning: Do not manually edit this file. See notes on gluon + helm-docs at the end of this file for more information. -->
 # neuvector
 
-![Version: 2.8.2-bb.0](https://img.shields.io/badge/Version-2.8.2--bb.0-informational?style=flat-square) ![AppVersion: 5.4.0](https://img.shields.io/badge/AppVersion-5.4.0-informational?style=flat-square)
+![Version: 2.8.2-bb.1](https://img.shields.io/badge/Version-2.8.2--bb.1-informational?style=flat-square) ![AppVersion: 5.4.0](https://img.shields.io/badge/AppVersion-5.4.0-informational?style=flat-square)
 
 Helm chart for NeuVector's core services
 
@@ -195,6 +195,10 @@ helm install neuvector chart/
 | controller.certupgrader.podLabels | object | `{}` |  |
 | controller.certupgrader.podAnnotations | object | `{}` |  |
 | controller.certupgrader.nodeSelector | object | `{}` |  |
+| controller.certupgrader.securityContext.runAsNonRoot | bool | `true` |  |
+| controller.certupgrader.securityContext.runAsUser | int | `1000` |  |
+| controller.certupgrader.securityContext.runAsGroup | int | `1000` |  |
+| controller.certupgrader.securityContext.fsGroup | int | `1000` |  |
 | controller.certupgrader.containerSecurityContext.runAsUser | int | `1000` |  |
 | controller.certupgrader.containerSecurityContext.runAsGroup | int | `1000` |  |
 | controller.certupgrader.containerSecurityContext.runAsNonRoot | bool | `true` |  |
@@ -308,6 +312,7 @@ helm install neuvector chart/
 | cve.updater.enabled | bool | `true` |  |
 | cve.updater.secure | bool | `false` |  |
 | cve.updater.cacert | string | `"/var/run/secrets/kubernetes.io/serviceaccount/ca.crt"` |  |
+| cve.updater.image.registry | string | `"registry1.dso.mil"` |  |
 | cve.updater.image.repository | string | `"ironbank/big-bang/base"` |  |
 | cve.updater.image.tag | string | `"2.1.0"` |  |
 | cve.updater.image.hash | string | `nil` |  |
