@@ -176,7 +176,7 @@ spec:
           emptyDir:
             sizeLimit: 50Mi
       {{- end }}
-      - name: bigbang-readable-certs
-        emptyDir:
-          sizeLimit: 50Mi
+        - name: bigbang-readable-certs
+          emptyDir:
+            sizeLimit: 50Mi
 {{- end }}

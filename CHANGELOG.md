@@ -4,6 +4,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
+## [2.8.2-bb.2] - 2024-11-18
+
+### Fixed
+
+- Fixed indentation error
+
 ## [2.8.2-bb.1] - 2024-11-13
 
 ### Changed
