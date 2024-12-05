@@ -1,11 +1,12 @@
 <!-- Warning: Do not manually edit this file. See notes on gluon + helm-docs at the end of this file for more information. -->
 # neuvector
 
-![Version: 2.8.2-bb.2](https://img.shields.io/badge/Version-2.8.2--bb.2-informational?style=flat-square) ![AppVersion: 5.4.0](https://img.shields.io/badge/AppVersion-5.4.0-informational?style=flat-square)
+![Version: 2.8.3-bb.0](https://img.shields.io/badge/Version-2.8.3--bb.0-informational?style=flat-square) ![AppVersion: 5.4.1](https://img.shields.io/badge/AppVersion-5.4.1-informational?style=flat-square) ![Maintenance Track: unknown](https://img.shields.io/badge/Maintenance_Track-unknown-red?style=flat-square)
 
 Helm chart for NeuVector's core services
 
 ## Upstream References
+
 - <https://neuvector.com>
 
 ## Upstream Release Notes
@@ -26,7 +27,7 @@ Helm chart for NeuVector's core services
 
 Install Helm
 
-https://helm.sh/docs/intro/install/
+<https://helm.sh/docs/intro/install/>
 
 ## Deployment
 
@@ -43,7 +44,7 @@ helm install neuvector chart/
 |-----|------|---------|-------------|
 | openshift | bool | `false` |  |
 | registry | string | `"registry1.dso.mil"` |  |
-| tag | string | `"5.4.0"` |  |
+| tag | string | `"5.4.1"` |  |
 | oem | string | `nil` |  |
 | imagePullSecrets | string | `"private-registry"` |  |
 | psp | bool | `false` |  |
@@ -205,7 +206,7 @@ helm install neuvector chart/
 | controller.certupgrader.containerSecurityContext.capabilities.drop[0] | string | `"ALL"` |  |
 | controller.prime.enabled | bool | `false` |  |
 | controller.prime.image.repository | string | `"neuvector/compliance-config"` |  |
-| controller.prime.image.tag | string | `"1.0.0"` |  |
+| controller.prime.image.tag | string | `"latest"` |  |
 | controller.prime.image.hash | string | `nil` |  |
 | enforcer.enabled | bool | `true` |  |
 | enforcer.image.repository | string | `"ironbank/neuvector/neuvector/enforcer"` |  |
@@ -372,6 +373,7 @@ helm install neuvector chart/
 | crio.enabled | bool | `false` |  |
 | crio.path | string | `"/var/run/crio/crio.sock"` |  |
 | admissionwebhook.type | string | `"ClusterIP"` |  |
+| crdwebhooksvc.enabled | bool | `true` |  |
 | crdwebhook.enabled | bool | `true` |  |
 | crdwebhook.type | string | `"ClusterIP"` |  |
 | domain | string | `"dev.bigbang.mil"` |  |
@@ -425,4 +427,3 @@ Please see the [contributing guide](./CONTRIBUTING.md) if you are interested in 
 ---
 
 _This file is programatically generated using `helm-docs` and some BigBang-specific templates. The `gluon` repository has [instructions for regenerating package READMEs](https://repo1.dso.mil/big-bang/product/packages/gluon/-/blob/master/docs/bb-package-readme.md)._
-

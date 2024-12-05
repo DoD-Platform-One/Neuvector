@@ -4,7 +4,7 @@
 
 openshift: false
 registry: registry1.dso.mil
-tag: 5.4.0
+tag: 5.4.1
 oem:
 imagePullSecrets: private-registry
 psp: false
@@ -31,15 +31,15 @@ global: # required for rancher authentication (https://<Rancher_URL>/)
         registry: registry.suse.de/suse/sle-15-sp5/update/pubclouds/images
         imagePullPolicy: IfNotPresent
       controller:
-        tag: 5.3.4
+        tag: 5.4.1
         image: controller
         registry: registry1.dso.mil/ironbank/neuvector/neuvector
       manager:
-        tag: 5.3.4
+        tag: 5.4.1
         image: manager
         registry: registry1.dso.mil/ironbank/neuvector/neuvector
       enforcer:
-        tag: 5.3.4
+        tag: 5.4.1
         image: enforcer
         registry: registry1.dso.mil/ironbank/neuvector/neuvector
   aws:
@@ -327,7 +327,7 @@ controller:
     enabled: false
     image:
       repository: neuvector/compliance-config
-      tag: 1.0.0
+      tag: 1.0.1
       hash:
 enforcer:
   # If false, enforcer will not be installed
@@ -660,6 +660,10 @@ crio:
   path: /var/run/crio/crio.sock
 admissionwebhook:
   type: ClusterIP
+
+crdwebhooksvc:
+  enabled: true
+
 crdwebhook:
   enabled: true
   type: ClusterIP
