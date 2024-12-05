@@ -1,12 +1,11 @@
 <!-- Warning: Do not manually edit this file. See notes on gluon + helm-docs at the end of this file for more information. -->
 # neuvector
 
-![Version: 2.8.3-bb.0](https://img.shields.io/badge/Version-2.8.3--bb.0-informational?style=flat-square) ![AppVersion: 5.4.1](https://img.shields.io/badge/AppVersion-5.4.1-informational?style=flat-square) ![Maintenance Track: unknown](https://img.shields.io/badge/Maintenance_Track-unknown-red?style=flat-square)
+![Version: 2.8.3-bb.0](https://img.shields.io/badge/Version-2.8.3--bb.0-informational?style=flat-square) ![AppVersion: 5.4.1](https://img.shields.io/badge/AppVersion-5.4.1-informational?style=flat-square) ![Maintenance Track: bb_integrated](https://img.shields.io/badge/Maintenance_Track-bb_integrated-green?style=flat-square)
 
 Helm chart for NeuVector's core services
 
 ## Upstream References
-
 - <https://neuvector.com>
 
 ## Upstream Release Notes
@@ -27,7 +26,7 @@ Helm chart for NeuVector's core services
 
 Install Helm
 
-<https://helm.sh/docs/intro/install/>
+https://helm.sh/docs/intro/install/
 
 ## Deployment
 
@@ -62,13 +61,13 @@ helm install neuvector chart/
 | global.azure.images.neuvector_csp_pod.image | string | `"neuvector-billing-azure-by-suse-llc"` |  |
 | global.azure.images.neuvector_csp_pod.registry | string | `"registry.suse.de/suse/sle-15-sp5/update/pubclouds/images"` |  |
 | global.azure.images.neuvector_csp_pod.imagePullPolicy | string | `"IfNotPresent"` |  |
-| global.azure.images.controller.tag | string | `"5.3.4"` |  |
+| global.azure.images.controller.tag | string | `"5.4.1"` |  |
 | global.azure.images.controller.image | string | `"controller"` |  |
 | global.azure.images.controller.registry | string | `"registry1.dso.mil/ironbank/neuvector/neuvector"` |  |
-| global.azure.images.manager.tag | string | `"5.3.4"` |  |
+| global.azure.images.manager.tag | string | `"5.4.1"` |  |
 | global.azure.images.manager.image | string | `"manager"` |  |
 | global.azure.images.manager.registry | string | `"registry1.dso.mil/ironbank/neuvector/neuvector"` |  |
-| global.azure.images.enforcer.tag | string | `"5.3.4"` |  |
+| global.azure.images.enforcer.tag | string | `"5.4.1"` |  |
 | global.azure.images.enforcer.image | string | `"enforcer"` |  |
 | global.azure.images.enforcer.registry | string | `"registry1.dso.mil/ironbank/neuvector/neuvector"` |  |
 | global.aws.enabled | bool | `false` |  |
@@ -206,7 +205,7 @@ helm install neuvector chart/
 | controller.certupgrader.containerSecurityContext.capabilities.drop[0] | string | `"ALL"` |  |
 | controller.prime.enabled | bool | `false` |  |
 | controller.prime.image.repository | string | `"neuvector/compliance-config"` |  |
-| controller.prime.image.tag | string | `"latest"` |  |
+| controller.prime.image.tag | string | `"1.0.1"` |  |
 | controller.prime.image.hash | string | `nil` |  |
 | enforcer.enabled | bool | `true` |  |
 | enforcer.image.repository | string | `"ironbank/neuvector/neuvector/enforcer"` |  |
@@ -427,3 +426,4 @@ Please see the [contributing guide](./CONTRIBUTING.md) if you are interested in 
 ---
 
 _This file is programatically generated using `helm-docs` and some BigBang-specific templates. The `gluon` repository has [instructions for regenerating package READMEs](https://repo1.dso.mil/big-bang/product/packages/gluon/-/blob/master/docs/bb-package-readme.md)._
+
