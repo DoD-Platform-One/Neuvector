@@ -19,6 +19,7 @@ dependencies:
     version: "0.5.12"
     repository: "oci://registry1.dso.mil/bigbang"
 annotations:
+  bigbang.dev/maintenanceTrack: bb_integrated
   bigbang.dev/upstreamReleaseNotesMarkdown: |
     - [Find our upstream chart's CHANGELOG here](https://repo1.dso.mil/big-bang/product/packages/neuvector/-/blob/main/CHANGELOG.md?ref_type=heads)
     - [and our upstream application release notes here](https://github.com/neuvector/neuvector/releases)

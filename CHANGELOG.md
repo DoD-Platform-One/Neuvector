@@ -13,6 +13,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Updated registry1.dso.mil/ironbank/neuvector/neuvector/controller from `5.4.0` to `5.4.1`
 - Updated registry1.dso.mil/ironbank/neuvector/neuvector/enforcer from `5.4.0` to `5.4.1`
 - Updated registry1.dso.mil/ironbank/neuvector/neuvector/manager from `5.4.0` to `5.4.1`
+- Added the maintenance track annotation and badge
 
 ## [2.8.2-bb.2] - 2024-11-18
 
