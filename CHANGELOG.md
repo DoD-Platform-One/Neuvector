@@ -4,6 +4,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
+## [2.8.3-bb.1] - 2025-02-12
+
+### Changed
+
+- Updated istio ingress and egress network policies to be more dynamic
+
 ## [2.8.3-bb.0] - 2024-12-03
 
 ### Changed
