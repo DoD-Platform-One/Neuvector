@@ -1,9 +1,36 @@
-bbtests:
+# exporter:
+#   enabled: true
+
+#########################
+# Disable Core Packages #
+#########################
+monitoring:
+  enabled: false
+grafana:
+  enabled: false
+loki:
+  enabled: false
+promtail:
+  enabled: false
+tempo:
+  enabled: false
+kyvernoReporter:
+  enabled: false
+kiali:
+  enabled: false
+addons:
+  minioOperator:
+    enabled: false
+########################
+# Required for package #
+########################
+neuvector:
   enabled: true
-exporter:
-  enabled: true
-k3s:
-  enabled: true
-networkPolicies:
-  enabled: true
-  controlPlaneCidr: 172.16.0.0/12
+kyvernoPolicies:
+  values:
+    bbtests:
+      enabled: false
+kyverno:
+  values:
+    bbtests:
+      enabled: false
