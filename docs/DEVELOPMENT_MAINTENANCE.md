@@ -85,9 +85,9 @@ NOTE: This list may not be complete yet - it should be updated as updates are wo
 ## chart/Chart.yaml
 
 - Append `-bb.x` to Chart version
-- Add gluon library dependency
+- Update gluon library dependency
+- Update monitor subchart dependency
 - Add BB dev application version annotation
-- Add monitor subchart dependency
 
 ## chart/templates/controller-deployment.yaml
 
@@ -117,22 +117,6 @@ NOTE: This list may not be complete yet - it should be updated as updates are wo
 
 - Added tpl function in pod template section near line 40
 
-## chart/deps/monitor/templates/exporter-deployment.yaml
-
-- Add `version: {{ .Chart.AppVersion }}` in pod template section near line 29
-
-## chart/deps/monitor/templates/exporter-servicemonitor.yaml
-
-- Add support for scheme and tlsConfig
-
-## chart/deps/monitor/templates/exporter-service.yaml
-
-- Add `appProtocol: http` to the metrics port to support Istio protocol detection
-
-## chart/deps/monitor/values.yaml
-
-- Add empty defaults for scheme and tlsConfig
-
 ## chart/templates/bigbang/\*
 
 - Templates added to support network policies, mTLS, and Istio virtual service
@@ -152,7 +136,7 @@ NOTE: This list may not be complete yet - it should be updated as updates are wo
 - Added at the bottom of the values file are changes to support Istio, monitoring, and optional network policies.
 
   ```yaml
-  domain: bigbang.dev
+  domain: dev.bigbang.mil
   istio:
     enabled: false
     injection: "enabled"
@@ -218,3 +202,21 @@ NOTE: This list may not be complete yet - it should be updated as updates are wo
 The mutating Kyverno policy named `update-automountserviceaccounttokens` is leveraged to harden all ServiceAccounts in this package with `automountServiceAccountToken: false`. This policy is configured by namespace in the Big Bang umbrella chart repository at [chart/templates/kyverno-policies/values.yaml](https://repo1.dso.mil/big-bang/bigbang/-/blob/master/chart/templates/kyverno-policies/values.yaml?ref_type=heads).
 
 This policy revokes access to the K8s API for Pods utilizing said ServiceAccounts. If a Pod truly requires access to the K8s API (for app functionality), the Pod is added to the `pods:` array of the same mutating policy. This grants the Pod access to the API, and creates a Kyverno PolicyException to prevent an alert.
+
+## Monitor chart
+
+In `2.8.5-bb.0`, the monitor chart from upstream was added as a dependency instead of being bundled directly. This simplies the chart management.
+
+
+## Excluding healthchecks from Istio Mesh
+
+Update deployments & daemonsets with `traffic.sidecar.istio.io/excludeInboundPorts: "18500"` to allow the cert-updater pod
+to properly communicate with the healthcheck endpoints. This may change in the future
+
+See https://repo1.dso.mil/big-bang/product/packages/neuvector/-/issues/179 for more details.
+
+## ImagePullPolicy is set to Always 
+
+ImagePullPolicy is overrided to Always wherever possible since IronBank rebuilds images nightly.
+
+```

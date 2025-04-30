@@ -4,6 +4,23 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
+## [2.8.5-bb.0] (2025-04-09)
+
+### Changed
+
+- registry1.dso.mil/ironbank/neuvector/neuvector/controller 5.4.1 -> 5.4.3
+- registry1.dso.mil/ironbank/neuvector/neuvector/enforcer 5.4.1 -> 5.4.3
+- registry1.dso.mil/ironbank/neuvector/neuvector/manager 5.4.1 -> 5.4.3
+- registry1.dso.mil/ironbank/neuvector/neuvector/scanner 5 -> 6
+- remove monitor chart dependency and add monitor subchart
+- update monitor subchart to v2.8.5
+- update gluon subchart to v0.5.15
+
+### Added
+
+- Added `monitor` subchart
+- Added Istio annotations `traffic.sidecar.istio.io/excludeOutboundPorts: "18500"` to allow the cert-updater pod to communicate with the NeuVector healthcheck endpoints. See [issue #179](https://repo1.dso.mil/big-bang/product/packages/neuvector/-/issues/179) for more details.
+
 ## [2.8.3-bb.1] - 2025-02-12
 
 ### Changed
