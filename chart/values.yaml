@@ -4,7 +4,7 @@
 
 openshift: false
 registry: registry1.dso.mil
-tag: 5.4.1
+tag: 5.4.3
 oem:
 imagePullSecrets: private-registry
 psp: false
@@ -29,17 +29,17 @@ global: # required for rancher authentication (https://<Rancher_URL>/)
         tag: latest
         image: neuvector-billing-azure-by-suse-llc
         registry: registry.suse.de/suse/sle-15-sp5/update/pubclouds/images
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
       controller:
-        tag: 5.4.1
+        tag: 5.4.3
         image: controller
         registry: registry1.dso.mil/ironbank/neuvector/neuvector
       manager:
-        tag: 5.4.1
+        tag: 5.4.3
         image: manager
         registry: registry1.dso.mil/ironbank/neuvector/neuvector
       enforcer:
-        tag: 5.4.1
+        tag: 5.4.3
         image: enforcer
         registry: registry1.dso.mil/ironbank/neuvector/neuvector
   aws:
@@ -53,17 +53,22 @@ global: # required for rancher authentication (https://<Rancher_URL>/)
       digest: ""
       repository: neuvector/neuvector-csp-adapter
       tag: latest
-      imagePullPolicy: IfNotPresent
+      imagePullPolicy: Always
+
 # Set a bootstrap password. If leave empty, default admin password used.
 bootstrapPassword: ""
+
 autoGenerateCert: true
+
 defaultValidityPeriod: 365
+
 internal:
   certmanager: # enable when cert-manager is installed for the internal certificates
     enabled: false
     secretname: neuvector-internal
   autoGenerateCert: true
-  autoRotateCert: false
+  autoRotateCert: true
+
 controller:
   # If false, controller will not be installed
   enabled: true
@@ -75,13 +80,15 @@ controller:
       maxUnavailable: 0
   image:
     repository: ironbank/neuvector/neuvector/controller
+    imagePullPolicy: Always
     hash:
   replicas: 3
   disruptionbudget: 0
   schedulerName:
   priorityClassName:
   podLabels: {}
-  podAnnotations: {}
+  podAnnotations:
+    traffic.sidecar.istio.io/excludeInboundPorts: "18500"
   containerSecurityContext:
     privileged: true
     runAsUser: 1000
@@ -105,12 +112,14 @@ controller:
             topologyKey: "kubernetes.io/hostname"
   tolerations: []
   topologySpreadConstraints: []
-  nodeSelector: {}
-  # key1: value1
-  # key2: value2
+  nodeSelector:
+    {}
+    # key1: value1
+    # key2: value2
   apisvc:
-    type:
+    type: ClusterIP
     annotations: {}
+    nodePort: null
     # OpenShift Route configuration
     # Controller supports HTTPS only, so edge termination not supported
     route:
@@ -118,20 +127,21 @@ controller:
       termination: passthrough
       host:
       tls:
-      #certificate: |
-      #  -----BEGIN CERTIFICATE-----
-      #  -----END CERTIFICATE-----
-      #caCertificate: |
-      #  -----BEGIN CERTIFICATE-----
-      #  -----END CERTIFICATE-----
-      #destinationCACertificate: |
-      #  -----BEGIN CERTIFICATE-----
-      #  -----END CERTIFICATE-----
-      #key: |
-      #  -----BEGIN PRIVATE KEY-----
-      #  -----END PRIVATE KEY-----
+        #certificate: |
+        #  -----BEGIN CERTIFICATE-----
+        #  -----END CERTIFICATE-----
+        #caCertificate: |
+        #  -----BEGIN CERTIFICATE-----
+        #  -----END CERTIFICATE-----
+        #destinationCACertificate: |
+        #  -----BEGIN CERTIFICATE-----
+        #  -----END CERTIFICATE-----
+        #key: |
+        #  -----BEGIN PRIVATE KEY-----
+        #  -----END PRIVATE KEY-----
   ranchersso: # required for rancher authentication
     enabled: false
+  ## BB specific change
   sso:
     certificateAuthority:
       secretName: ""
@@ -189,18 +199,18 @@ controller:
         termination: passthrough
         host:
         tls:
-        #certificate: |
-        #  -----BEGIN CERTIFICATE-----
-        #  -----END CERTIFICATE-----
-        #caCertificate: |
-        #  -----BEGIN CERTIFICATE-----
-        #  -----END CERTIFICATE-----
-        #destinationCACertificate: |
-        #  -----BEGIN CERTIFICATE-----
-        #  -----END CERTIFICATE-----
-        #key: |
-        #  -----BEGIN PRIVATE KEY-----
-        #  -----END PRIVATE KEY-----
+          #certificate: |
+          #  -----BEGIN CERTIFICATE-----
+          #  -----END CERTIFICATE-----
+          #caCertificate: |
+          #  -----BEGIN CERTIFICATE-----
+          #  -----END CERTIFICATE-----
+          #destinationCACertificate: |
+          #  -----BEGIN CERTIFICATE-----
+          #  -----END CERTIFICATE-----
+          #key: |
+          #  -----BEGIN PRIVATE KEY-----
+          #  -----END PRIVATE KEY-----
     managedsvc:
       type:
       loadBalancerIP:
@@ -227,18 +237,18 @@ controller:
         termination: passthrough
         host:
         tls:
-        #certificate: |
-        #  -----BEGIN CERTIFICATE-----
-        #  -----END CERTIFICATE-----
-        #caCertificate: |
-        #  -----BEGIN CERTIFICATE-----
-        #  -----END CERTIFICATE-----
-        #destinationCACertificate: |
-        #  -----BEGIN CERTIFICATE-----
-        #  -----END CERTIFICATE-----
-        #key: |
-        #  -----BEGIN PRIVATE KEY-----
-        #  -----END PRIVATE KEY-----
+          #certificate: |
+          #  -----BEGIN CERTIFICATE-----
+          #  -----END CERTIFICATE-----
+          #caCertificate: |
+          #  -----BEGIN CERTIFICATE-----
+          #  -----END CERTIFICATE-----
+          #destinationCACertificate: |
+          #  -----BEGIN CERTIFICATE-----
+          #  -----END CERTIFICATE-----
+          #key: |
+          #  -----BEGIN PRIVATE KEY-----
+          #  -----END PRIVATE KEY-----
   ingress:
     enabled: false
     host: # MUST be set, if ingress is enabled
@@ -249,32 +259,33 @@ controller:
       # ingress.kubernetes.io/rewrite-target: /
     tls: false
     secretName:
-  resources: {}
-  # limits:
-  #   cpu: 400m
-  #   memory: 2792Mi
-  # requests:
-  #   cpu: 100m
-  #   memory: 2280Mi
+  resources:
+    {}
+    # limits:
+    #   cpu: 400m
+    #   memory: 2792Mi
+    # requests:
+    #   cpu: 100m
+    #   memory: 2280Mi
   configmap:
     enabled: false
     data:
-    # passwordprofileinitcfg.yaml: |
-    #  ...
-    # roleinitcfg.yaml: |
-    #  ...
-    # ldapinitcfg.yaml: |
-    #  ...
-    # oidcinitcfg.yaml: |
-    # ...
-    # samlinitcfg.yaml: |
-    # ...
-    # sysinitcfg.yaml: |
-    # ...
-    # userinitcfg.yaml: |
-    # ...
-    # fedinitcfg.yaml: |
-    # ...
+      # passwordprofileinitcfg.yaml: |
+      #  ...
+      # roleinitcfg.yaml: |
+      #  ...
+      # ldapinitcfg.yaml: |
+      #  ...
+      # oidcinitcfg.yaml: |
+      # ...
+      # samlinitcfg.yaml: |
+      # ...
+      # sysinitcfg.yaml: |
+      # ...
+      # userinitcfg.yaml: |
+      # ...
+      # fedinitcfg.yaml: |
+      # ...
   secret:
     # NOTE: files defined here have preferrence over the ones defined in the configmap section
     enabled: false
@@ -295,22 +306,25 @@ controller:
       #   ...
       userinitcfg.yaml:
         users:
-          - Fullname: admin
-            Password:
-            Role: admin
+        - Fullname: admin
+          Password:
+          Role: admin
   certupgrader:
     env: []
     # The cronjob schedule that cert-upgrader will run to check and rotate internal certificate.
     # default: "" (off)
     schedule: ""
-    imagePullPolicy: IfNotPresent
+    imagePullPolicy: Always
     timeout: 3600
     priorityClassName:
     podLabels: {}
-    podAnnotations: {}
-    nodeSelector: {}
-    # key1: value1
-    # key2: value2
+    podAnnotations:
+      traffic.sidecar.istio.io/excludeInboundPorts: "18500"
+      traffic.sidecar.istio.io/excludeOutboundPorts: "18500"
+    nodeSelector:
+      {}
+      # key1: value1
+      # key2: value2
     securityContext:
       runAsNonRoot: true
       runAsUser: 1000 # MUST be set for Rancher hardened cluster
@@ -327,19 +341,21 @@ controller:
     enabled: false
     image:
       repository: neuvector/compliance-config
-      tag: 1.0.1
+      tag: 1.0.4
       hash:
 enforcer:
   # If false, enforcer will not be installed
   enabled: true
   image:
     repository: ironbank/neuvector/neuvector/enforcer
+    imagePullPolicy: Always
     hash:
   updateStrategy:
     type: RollingUpdate
   priorityClassName:
   podLabels: {}
-  podAnnotations: {}
+  podAnnotations:
+    traffic.sidecar.istio.io/excludeInboundPorts: "18500"
   containerSecurityContext:
     privileged: true
     runAsGroup: 1000
@@ -352,13 +368,14 @@ enforcer:
       key: node-role.kubernetes.io/master
     - effect: NoSchedule
       key: node-role.kubernetes.io/control-plane
-  resources: {}
-  # limits:
-  #   cpu: 400m
-  #   memory: 2792Mi
-  # requests:
-  #   cpu: 100m
-  #   memory: 2280Mi
+  resources:
+    {}
+    # limits:
+    #   cpu: 400m
+    #   memory: 2792Mi
+    # requests:
+    #   cpu: 100m
+    #   memory: 2280Mi
   internal: # this is used for internal communication. Please use the SAME CA for all the components (controller, scanner, adapter and enforcer)
     certificate:
       secret: ""
@@ -370,9 +387,11 @@ manager:
   enabled: true
   image:
     repository: ironbank/neuvector/neuvector/manager
+    imagePullPolicy: Always
     hash:
   priorityClassName:
   env:
+  ## BB specific change
     ssl: false
     envs:
       # This setting should be enabled when in FIPS environments to prevent Java errors arising from the FIPS alignment
@@ -380,11 +399,13 @@ manager:
         value: "-Dcom.redhat.fips=false"
   svc:
     type: ClusterIP
+    nodePort:
     loadBalancerIP:
-    annotations: {}
-    # azure
-    # service.beta.kubernetes.io/azure-load-balancer-internal: "true"
-    # service.beta.kubernetes.io/azure-load-balancer-internal-subnet: "apps-subnet"
+    annotations:
+      {}
+      # azure
+      # service.beta.kubernetes.io/azure-load-balancer-internal: "true"
+      # service.beta.kubernetes.io/azure-load-balancer-internal-subnet: "apps-subnet"
   # OpenShift Route configuration
   # Make sure manager env ssl is false for edge termination
   route:
@@ -392,18 +413,18 @@ manager:
     termination: passthrough
     host:
     tls:
-    #certificate: |
-    #  -----BEGIN CERTIFICATE-----
-    #  -----END CERTIFICATE-----
-    #caCertificate: |
-    #  -----BEGIN CERTIFICATE-----
-    #  -----END CERTIFICATE-----
-    #destinationCACertificate: |
-    #  -----BEGIN CERTIFICATE-----
-    #  -----END CERTIFICATE-----
-    #key: |
-    #  -----BEGIN PRIVATE KEY-----
-    #  -----END PRIVATE KEY-----
+      #certificate: |
+      #  -----BEGIN CERTIFICATE-----
+      #  -----END CERTIFICATE-----
+      #caCertificate: |
+      #  -----BEGIN CERTIFICATE-----
+      #  -----END CERTIFICATE-----
+      #destinationCACertificate: |
+      #  -----BEGIN CERTIFICATE-----
+      #  -----END CERTIFICATE-----
+      #key: |
+      #  -----BEGIN PRIVATE KEY-----
+      #  -----END PRIVATE KEY-----
   certificate:
     secret: ""
     keyFile: tls.key
@@ -428,17 +449,19 @@ manager:
       # only for end-to-end tls conf - ingress-nginx accepts backend self-signed cert
     tls: false
     secretName: # my-tls-secret
-  resources: {}
-  # limits:
-  #   cpu: 400m
-  #   memory: 2792Mi
-  # requests:
-  #   cpu: 100m
-  #   memory: 2280Mi
+  resources:
+    {}
+    # limits:
+    #   cpu: 400m
+    #   memory: 2792Mi
+    # requests:
+    #   cpu: 100m
+    #   memory: 2280Mi
   topologySpreadConstraints: []
   affinity: {}
   podLabels: {}
-  podAnnotations: {}
+  podAnnotations:
+    traffic.sidecar.istio.io/excludeInboundPorts: "18500"
   containerSecurityContext:
     runAsUser: 1000
     runAsGroup: 1000
@@ -447,9 +470,10 @@ manager:
       drop:
         - ALL
   tolerations: []
-  nodeSelector: {}
-  # key1: value1
-  # key2: value2
+  nodeSelector:
+    {}
+    # key1: value1
+    # key2: value2
   securityContext:
     runAsNonRoot: true
     runAsUser: 1000 # MUST be set for Rancher hardened cluster
@@ -465,24 +489,27 @@ cve:
     enabled: false
     image:
       repository: neuvector/registry-adapter
-      tag: 0.1.3
+      tag: 0.1.6
       hash:
     priorityClassName:
-    resources: {}
-    # limits:
-    #   cpu: 400m
-    #   memory: 512Mi
-    # requests:
-    #   cpu: 100m
-    #   memory: 1024Mi
+    resources:
+      {}
+      # limits:
+      #   cpu: 400m
+      #   memory: 512Mi
+      # requests:
+      #   cpu: 100m
+      #   memory: 1024Mi
     affinity: {}
     podLabels: {}
-    podAnnotations: {}
+    podAnnotations:
+      traffic.sidecar.istio.io/excludeInboundPorts: "18500"
     env: []
     tolerations: []
-    nodeSelector: {}
-    # key1: value1
-    # key2: value2
+    nodeSelector:
+      {}
+      # key1: value1
+      # key2: value2
     securityContext:
       runAsUser: 1000 # MUST be set for Rancher hardened cluster
       runAsGroup: 1000
@@ -505,30 +532,31 @@ cve:
       protocol: https
       secretName:
     svc:
-      type: NodePort # should be set to - ClusterIP
+      type: ClusterIP
       loadBalancerIP:
-      annotations: {}
-      # azure
-      # service.beta.kubernetes.io/azure-load-balancer-internal: "true"
-      # service.beta.kubernetes.io/azure-load-balancer-internal-subnet: "apps-subnet"
+      annotations:
+        {}
+        # azure
+        # service.beta.kubernetes.io/azure-load-balancer-internal: "true"
+        # service.beta.kubernetes.io/azure-load-balancer-internal-subnet: "apps-subnet"
     # OpenShift Route configuration
     route:
       enabled: true
       termination: passthrough
       host:
       tls:
-      #certificate: |
-      #  -----BEGIN CERTIFICATE-----
-      #  -----END CERTIFICATE-----
-      #caCertificate: |
-      #  -----BEGIN CERTIFICATE-----
-      #  -----END CERTIFICATE-----
-      #destinationCACertificate: |
-      #  -----BEGIN CERTIFICATE-----
-      #  -----END CERTIFICATE-----
-      #key: |
-      #  -----BEGIN PRIVATE KEY-----
-      #  -----END PRIVATE KEY-----
+        #certificate: |
+        #  -----BEGIN CERTIFICATE-----
+        #  -----END CERTIFICATE-----
+        #caCertificate: |
+        #  -----BEGIN CERTIFICATE-----
+        #  -----END CERTIFICATE-----
+        #destinationCACertificate: |
+        #  -----BEGIN CERTIFICATE-----
+        #  -----END CERTIFICATE-----
+        #key: |
+        #  -----BEGIN PRIVATE KEY-----
+        #  -----END PRIVATE KEY-----
     ingress:
       enabled: false
       host: # MUST be set, if ingress is enabled
@@ -557,22 +585,26 @@ cve:
     image:
       registry: "registry1.dso.mil"
       repository: ironbank/big-bang/base
+      imagePullPolicy: Always
       tag: 2.1.0
       hash:
     schedule: "0 0 * * *"
     priorityClassName:
-    resources: {}
-    # limits:
-    #   cpu: 100m
-    #   memory: 256Mi
-    # requests:
-    #   cpu: 100m
-    #   memory: 256Mi
+    resources:
+      {}
+      # limits:
+      #   cpu: 100m
+      #   memory: 256Mi
+      # requests:
+      #   cpu: 100m
+      #   memory: 256Mi
     podLabels: {}
-    podAnnotations: {}
-    nodeSelector: {}
-    # key1: value1
-    # key2: value2
+    podAnnotations:
+      traffic.sidecar.istio.io/excludeInboundPorts: "18500"
+    nodeSelector:
+      {}
+      # key1: value1
+      # key2: value2
     securityContext:
       runAsUser: 1000 # MUST be set for Rancher hardened cluster
       runAsGroup: 1000
@@ -596,30 +628,35 @@ cve:
         maxUnavailable: 0
     image:
       repository: ironbank/neuvector/neuvector/scanner
-      tag: "5"
+      imagePullPolicy: Always
+      tag: "6"
       hash:
     priorityClassName:
-    resources: {}
-    # limits:
-    #   cpu: 400m
-    #   memory: 2792Mi
-    # requests:
-    #   cpu: 100m
-    #   memory: 2280Mi
+    resources:
+      {}
+      # limits:
+      #   cpu: 400m
+      #   memory: 2792Mi
+      # requests:
+      #   cpu: 100m
+      #   memory: 2280Mi
     topologySpreadConstraints: []
     affinity: {}
     podLabels: {}
-    podAnnotations: {}
+    podAnnotations:
+      traffic.sidecar.istio.io/excludeInboundPorts: "18500"
     env: []
     tolerations: []
-    nodeSelector: {}
-    # key1: value1
-    # key2: value2
-    securityContext:
-      runAsNonRoot: true
-      runAsUser: 1000 # MUST be set for Rancher hardened cluster
-      runAsGroup: 1000
-      fsGroup: 1000
+    nodeSelector:
+      {}
+      # key1: value1
+      # key2: value2
+    runAsUser: 1000 # MUST be set for Rancher hardened cluster
+    # securityContext:
+    #   runAsNonRoot: true
+    #   runAsUser: 1000 # MUST be set for Rancher hardened cluster
+    #   runAsGroup: 1000
+    #   fsGroup: 1000
     internal: # this is used for internal communication. Please use the SAME CA for all the components ( controller, scanner, and enforcer ) The cert needs to have a CN of "NeuVector"
       certificate:
         secret: ""
@@ -633,31 +670,40 @@ cve:
       capabilities:
         drop:
           - ALL
-resources: {}
-# limits:
-#   cpu: 400m
-#   memory: 2792Mi
-# requests:
-#   cpu: 100m
-#   memory: 2280Mi
+    volumes:
+    volumeMounts:
+resources:
+  {}
+  # limits:
+  #   cpu: 400m
+  #   memory: 2792Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 2280Mi
 
 runtimePath:
+
 # The following runtime type and socket location are deprecated after 5.3.0.
 # If the socket path is not at the default location, use above 'runtimePath' to specify the location.
 docker:
   path: /var/run/docker.sock
+
 k3s:
   enabled: false
   runtimePath: /run/k3s/containerd/containerd.sock
+
 bottlerocket:
   enabled: false
   runtimePath: /run/dockershim.sock
+
 containerd:
   enabled: false
   path: /var/run/containerd/containerd.sock
+
 crio:
   enabled: false
   path: /var/run/crio/crio.sock
+
 admissionwebhook:
   type: ClusterIP
 
@@ -667,7 +713,85 @@ crdwebhooksvc:
 crdwebhook:
   enabled: true
   type: ClusterIP
+
+lease:
+  enabled: true
+
+## BB specific changes
+# From https://github.com/neuvector/neuvector-helm/blob/master/charts/monitor/values.yaml
+monitor:
+  imagePullSecrets: private-registry
+  install: false
+
+  # Default values for neuvector monitor subchart.
+  # Declare variables to be passed into the templates.
+
+  serviceAccount: default
+
+  registry: registry1.dso.mil
+  oem: ''
+  leastPrivilege: false # Inherited from parent chart
+
+  exporter:
+    # If false, exporter will not be installed
+    enabled: false
+    image:
+      repository: ironbank/neuvector/neuvector/prometheus-exporter
+      tag: 1-1.0.0
+      imagePullPolicy: Always
+    # changes this to a readonly user !
+    CTRL_USERNAME: admin
+    CTRL_PASSWORD: admin
+    ctrlSercretName: ''
+    enforcerStats:
+      enabled: false
+    ctrlSecretName: ''
+    apiSvc: neuvector-svc-controller-api:10443
+    podLabels: {}
+    securityContext: {} # Inherited from parent chart if leastPrivilege is true
+    containerSecurityContext: # Inherited from parent chart if leastPrivilege is true
+      runAsUser: 1001
+      runAsGroup: 1001
+      capabilities:
+        drop:
+          - ALL
+
+    svc:
+      enabled: true
+      type: ClusterIP
+      loadBalancerIP: ''
+      annotations: {}
+        # service.beta.kubernetes.io/azure-load-balancer-internal: "true"
+        # service.beta.kubernetes.io/azure-load-balancer-internal-subnet: "apps-subnet"
+
+    grafanaDashboard:
+      enabled: false
+      namespace: "" # Release namespace, if empty
+      labels: {}
+      # annotations: {}
+        # k8s-sidecar-target-directory: /tmp/dashboards/neuvector
+
+    serviceMonitor:
+      enabled: false # Defaulted to false in parent chart
+      # labels for the ServiceMonitor.
+      labels: {}
+      # annotations for the ServiceMonitor.
+      annotations: {}
+      # Scrape interval. If not set, the Prometheus default scrape interval is used.
+      interval: ""
+      # MetricRelabelConfigs to apply to samples after scraping, but before ingestion.
+      # ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api.md#relabelconfig
+      metricRelabelings: []
+      # RelabelConfigs to apply to samples before scraping
+      # ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api.md#relabelconfig
+      relabelings: []
+
+monitoring:
+  enabled: false
+  namespace: monitoring
+
 domain: dev.bigbang.mil
+
 istio:
   enabled: false
   injection: "enabled"
@@ -714,9 +838,9 @@ istio:
     # -- STRICT = Allow only mutual TLS traffic,
     # PERMISSIVE = Allow both plain text and mutual TLS traffic
     mode: STRICT
-monitoring:
-  enabled: false
-  namespace: monitoring
+
+
+
 networkPolicies:
   enabled: false
   ingressLabels:
@@ -724,15 +848,6 @@ networkPolicies:
     istio: ingressgateway
   controlPlaneCidr: 0.0.0.0/0
   additionalPolicies: []
-monitor:
-  imagePullSecrets: private-registry
-  install: false
-  exporter:
-    enabled: false
-    serviceMonitor:
-      enabled: false
-    svc:
-      enabled: false
 # Bigbang helm test values default disabled
 bbtests:
   enabled: false

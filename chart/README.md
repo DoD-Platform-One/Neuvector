@@ -10,6 +10,22 @@ Because the CRD (Custom Resource Definition) policies can be deployed before Neu
 
 Prior to 5.3 release, the user has to specify the correct container runtime type and its socket path. In 5.3.0 release, the enforcer is able to automatically detect the container runtime at its default socket location. The settings of docker/containerd/crio/k8s/bottlerocket become deprecated. If the container runtime socket is not at the default location, please specify it using 'runtimePath' field. In the meantime, the controller does not require the runtime socket to be mounted any more.
 
+
+## Scan caching
+Scan caching can be enabled by editing values.yaml or creating below override file and pass them with "-f" option on HELM commands.
+```console
+cve:
+  scanner:
+    volumes:
+      - name: scan-cache
+        hostPath:
+          path: /tmp/
+          type: ""
+    volumeMounts:
+      - mountPath: /tmp/images/caches
+        name: scan-cache
+```
+
 ## Configuration
 
 The following table lists the configurable parameters of the NeuVector chart and their default values.
@@ -76,6 +92,7 @@ Parameter | Description | Default | Notes
 `controller.azureFileShare.secretName` | The name of the secret containing the Azure file share storage account name and key | `nil` |
 `controller.azureFileShare.shareName` | The name of the Azure file share to use | `nil` |
 `controller.apisvc.type` | Controller REST API service type | `nil` |
+`controller.apisvc.nodePort` | Controller REST API service NodePort number | `nil` |
 `controller.apisvc.annotations` | Add annotations to controller REST API service | `{}` |
 `controller.apisvc.route.enabled` | If true, create a OpenShift route to expose the Controller REST API service | `false` |
 `controller.apisvc.route.termination` | Specify TLS termination for OpenShift route for Controller REST API service. Possible passthrough, edge, reencrypt | `passthrough` |
@@ -180,6 +197,7 @@ Parameter | Description | Default | Notes
 `CUSTOM_PAGE_FOOTER_CONTENT`      | max. 120 characters, base64 encoded. |
 `CUSTOM_PAGE_FOOTER_COLOR`        | use color name (yellow) or value (#ffff00) |
 `manager.svc.type` | set manager service type for native Kubernetes | `NodePort`;<br>if it is OpenShift platform or ingress is enabled, then default is `ClusterIP` | set to LoadBalancer if using cloud providers, such as Azure, Amazon, Google
+`manager.svc.nodePort` | set manager service NodePort number |  `nil` |
 `manager.svc.loadBalancerIP` | if manager service type is LoadBalancer, this is used to specify the load balancer's IP | `nil` |
 `manager.svc.annotations` | Add annotations to manager service | `{}` | see examples in [values.yaml](values.yaml)
 `manager.route.enabled` | If true, create a OpenShift route to expose the management console service | `true` |
@@ -297,6 +315,7 @@ Parameter | Description | Default | Notes
 `crdwebhooksvc.enabled` | Enable crd service | `true` |
 `crdwebhook.enabled` | Create crd resources | `true` |
 `crdwebhook.type` | crd webhook type | `ClusterIP` |
+`lease.enabled` | Create lease object or not | `true` |
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example,
 
