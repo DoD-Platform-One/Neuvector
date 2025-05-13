@@ -4,6 +4,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
+## [2.8.5-bb.1] (2025-05-12)
+
+### Changed
+
+- update renovate.json for migrate renovate config
+
 ## [2.8.5-bb.0] (2025-04-09)
 
 ### Changed

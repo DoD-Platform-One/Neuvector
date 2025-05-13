@@ -1,7 +1,7 @@
 <!-- Warning: Do not manually edit this file. See notes on gluon + helm-docs at the end of this file for more information. -->
 # neuvector
 
-![Version: 2.8.5-bb.0](https://img.shields.io/badge/Version-2.8.5--bb.0-informational?style=flat-square) ![AppVersion: 5.4.3](https://img.shields.io/badge/AppVersion-5.4.3-informational?style=flat-square) ![Maintenance Track: bb_integrated](https://img.shields.io/badge/Maintenance_Track-bb_integrated-green?style=flat-square)
+![Version: 2.8.5-bb.1](https://img.shields.io/badge/Version-2.8.5--bb.1-informational?style=flat-square) ![AppVersion: 5.4.3](https://img.shields.io/badge/AppVersion-5.4.3-informational?style=flat-square) ![Maintenance Track: bb_integrated](https://img.shields.io/badge/Maintenance_Track-bb_integrated-green?style=flat-square)
 
 Helm chart for NeuVector's core services
 
@@ -27,7 +27,7 @@ Helm chart for NeuVector's core services
 
 Install Helm
 
-https://helm.sh/docs/intro/install/
+<https://helm.sh/docs/intro/install/>
 
 ## Deployment
 
@@ -61,7 +61,7 @@ helm install neuvector chart/
 | global.azure.images.neuvector_csp_pod.tag | string | `"latest"` |  |
 | global.azure.images.neuvector_csp_pod.image | string | `"neuvector-billing-azure-by-suse-llc"` |  |
 | global.azure.images.neuvector_csp_pod.registry | string | `"registry.suse.de/suse/sle-15-sp5/update/pubclouds/images"` |  |
-| global.azure.images.neuvector_csp_pod.imagePullPolicy | string | `"IfNotPresent"` |  |
+| global.azure.images.neuvector_csp_pod.imagePullPolicy | string | `"Always"` |  |
 | global.azure.images.controller.tag | string | `"5.4.3"` |  |
 | global.azure.images.controller.image | string | `"controller"` |  |
 | global.azure.images.controller.registry | string | `"registry1.dso.mil/ironbank/neuvector/neuvector"` |  |
@@ -80,7 +80,7 @@ helm install neuvector chart/
 | global.aws.image.digest | string | `""` |  |
 | global.aws.image.repository | string | `"neuvector/neuvector-csp-adapter"` |  |
 | global.aws.image.tag | string | `"latest"` |  |
-| global.aws.image.imagePullPolicy | string | `"IfNotPresent"` |  |
+| global.aws.image.imagePullPolicy | string | `"Always"` |  |
 | bootstrapPassword | string | `""` |  |
 | autoGenerateCert | bool | `true` |  |
 | defaultValidityPeriod | int | `365` |  |
@@ -94,7 +94,7 @@ helm install neuvector chart/
 | controller.strategy.rollingUpdate.maxSurge | int | `1` |  |
 | controller.strategy.rollingUpdate.maxUnavailable | int | `0` |  |
 | controller.image.repository | string | `"ironbank/neuvector/neuvector/controller"` |  |
-| controller.image.imagePullPolicy | string | `"IfNotPresent"` |  |
+| controller.image.imagePullPolicy | string | `"Always"` |  |
 | controller.image.hash | string | `nil` |  |
 | controller.replicas | int | `3` |  |
 | controller.disruptionbudget | int | `0` |  |
@@ -116,7 +116,7 @@ helm install neuvector chart/
 | controller.tolerations | list | `[]` |  |
 | controller.topologySpreadConstraints | list | `[]` |  |
 | controller.nodeSelector | object | `{}` |  |
-| controller.apisvc.type | string | `nil` |  |
+| controller.apisvc.type | string | `"ClusterIP"` |  |
 | controller.apisvc.annotations | object | `{}` |  |
 | controller.apisvc.nodePort | string | `nil` |  |
 | controller.apisvc.route.enabled | bool | `false` |  |
@@ -192,7 +192,7 @@ helm install neuvector chart/
 | controller.secret.data."userinitcfg.yaml".users[0].Role | string | `"admin"` |  |
 | controller.certupgrader.env | list | `[]` |  |
 | controller.certupgrader.schedule | string | `""` |  |
-| controller.certupgrader.imagePullPolicy | string | `"IfNotPresent"` |  |
+| controller.certupgrader.imagePullPolicy | string | `"Always"` |  |
 | controller.certupgrader.timeout | int | `3600` |  |
 | controller.certupgrader.priorityClassName | string | `nil` |  |
 | controller.certupgrader.podLabels | object | `{}` |  |
@@ -213,7 +213,7 @@ helm install neuvector chart/
 | controller.prime.image.hash | string | `nil` |  |
 | enforcer.enabled | bool | `true` |  |
 | enforcer.image.repository | string | `"ironbank/neuvector/neuvector/enforcer"` |  |
-| enforcer.image.imagePullPolicy | string | `"IfNotPresent"` |  |
+| enforcer.image.imagePullPolicy | string | `"Always"` |  |
 | enforcer.image.hash | string | `nil` |  |
 | enforcer.updateStrategy.type | string | `"RollingUpdate"` |  |
 | enforcer.priorityClassName | string | `nil` |  |
@@ -234,7 +234,7 @@ helm install neuvector chart/
 | enforcer.internal.certificate.caFile | string | `"ca.crt"` |  |
 | manager.enabled | bool | `true` |  |
 | manager.image.repository | string | `"ironbank/neuvector/neuvector/manager"` |  |
-| manager.image.imagePullPolicy | string | `"IfNotPresent"` |  |
+| manager.image.imagePullPolicy | string | `"Always"` |  |
 | manager.image.hash | string | `nil` |  |
 | manager.priorityClassName | string | `nil` |  |
 | manager.env.ssl | bool | `false` |  |
@@ -321,7 +321,7 @@ helm install neuvector chart/
 | cve.updater.cacert | string | `"/var/run/secrets/kubernetes.io/serviceaccount/ca.crt"` |  |
 | cve.updater.image.registry | string | `"registry1.dso.mil"` |  |
 | cve.updater.image.repository | string | `"ironbank/big-bang/base"` |  |
-| cve.updater.image.imagePullPolicy | string | `"IfNotPresent"` |  |
+| cve.updater.image.imagePullPolicy | string | `"Always"` |  |
 | cve.updater.image.tag | string | `"2.1.0"` |  |
 | cve.updater.image.hash | string | `nil` |  |
 | cve.updater.schedule | string | `"0 0 * * *"` |  |
@@ -389,12 +389,37 @@ helm install neuvector chart/
 | monitor.serviceAccount | string | `"default"` |  |
 | monitor.registry | string | `"registry1.dso.mil"` |  |
 | monitor.oem | string | `""` |  |
+| monitor.leastPrivilege | bool | `false` |  |
 | monitor.exporter.enabled | bool | `false` |  |
 | monitor.exporter.image.repository | string | `"ironbank/neuvector/neuvector/prometheus-exporter"` |  |
 | monitor.exporter.image.tag | string | `"1-1.0.0"` |  |
+| monitor.exporter.image.imagePullPolicy | string | `"Always"` |  |
+| monitor.exporter.CTRL_USERNAME | string | `"admin"` |  |
+| monitor.exporter.CTRL_PASSWORD | string | `"admin"` |  |
+| monitor.exporter.ctrlSercretName | string | `""` |  |
+| monitor.exporter.enforcerStats.enabled | bool | `false` |  |
+| monitor.exporter.ctrlSecretName | string | `""` |  |
+| monitor.exporter.apiSvc | string | `"neuvector-svc-controller-api:10443"` |  |
+| monitor.exporter.podLabels | object | `{}` |  |
+| monitor.exporter.securityContext | object | `{}` |  |
 | monitor.exporter.containerSecurityContext.runAsUser | int | `1001` |  |
 | monitor.exporter.containerSecurityContext.runAsGroup | int | `1001` |  |
 | monitor.exporter.containerSecurityContext.capabilities.drop[0] | string | `"ALL"` |  |
+| monitor.exporter.svc.enabled | bool | `true` |  |
+| monitor.exporter.svc.type | string | `"ClusterIP"` |  |
+| monitor.exporter.svc.loadBalancerIP | string | `""` |  |
+| monitor.exporter.svc.annotations | object | `{}` |  |
+| monitor.exporter.grafanaDashboard.enabled | bool | `false` |  |
+| monitor.exporter.grafanaDashboard.namespace | string | `""` |  |
+| monitor.exporter.grafanaDashboard.labels | object | `{}` |  |
+| monitor.exporter.serviceMonitor.enabled | bool | `false` |  |
+| monitor.exporter.serviceMonitor.labels | object | `{}` |  |
+| monitor.exporter.serviceMonitor.annotations | object | `{}` |  |
+| monitor.exporter.serviceMonitor.interval | string | `""` |  |
+| monitor.exporter.serviceMonitor.metricRelabelings | list | `[]` |  |
+| monitor.exporter.serviceMonitor.relabelings | list | `[]` |  |
+| monitoring.enabled | bool | `false` |  |
+| monitoring.namespace | string | `"monitoring"` |  |
 | domain | string | `"dev.bigbang.mil"` |  |
 | istio.enabled | bool | `false` |  |
 | istio.injection | string | `"enabled"` |  |
@@ -417,8 +442,6 @@ helm install neuvector chart/
 | istio.neuvector.hosts[0] | string | `"neuvector.{{ .Values.domain }}"` |  |
 | istio.mtls | object | `{"mode":"STRICT"}` | Default neuvector peer authentication |
 | istio.mtls.mode | string | `"STRICT"` | STRICT = Allow only mutual TLS traffic, PERMISSIVE = Allow both plain text and mutual TLS traffic |
-| monitoring.enabled | bool | `false` |  |
-| monitoring.namespace | string | `"monitoring"` |  |
 | networkPolicies.enabled | bool | `false` |  |
 | networkPolicies.ingressLabels.app | string | `"istio-ingressgateway"` |  |
 | networkPolicies.ingressLabels.istio | string | `"ingressgateway"` |  |
@@ -441,4 +464,3 @@ Please see the [contributing guide](./CONTRIBUTING.md) if you are interested in 
 ---
 
 _This file is programatically generated using `helm-docs` and some BigBang-specific templates. The `gluon` repository has [instructions for regenerating package READMEs](https://repo1.dso.mil/big-bang/product/packages/gluon/-/blob/master/docs/bb-package-readme.md)._
-
