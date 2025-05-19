@@ -1,0 +1,9 @@
+dependencies:
+- name: monitor
+  repository: https://neuvector.github.io/neuvector-helm/
+  version: 2.8.6
+- name: gluon
+  repository: oci://registry1.dso.mil/bigbang
+  version: 0.5.19
+digest: sha256:6249b81a748ff8e494fad2d9383de5b7e10fcc65eb990eae2120397c0c1859ba
+generated: "2025-05-15T11:50:46.138948-04:00"

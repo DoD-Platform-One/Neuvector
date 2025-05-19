@@ -1,7 +1,7 @@
 <!-- Warning: Do not manually edit this file. See notes on gluon + helm-docs at the end of this file for more information. -->
 # neuvector
 
-![Version: 2.8.5-bb.1](https://img.shields.io/badge/Version-2.8.5--bb.1-informational?style=flat-square) ![AppVersion: 5.4.3](https://img.shields.io/badge/AppVersion-5.4.3-informational?style=flat-square) ![Maintenance Track: bb_integrated](https://img.shields.io/badge/Maintenance_Track-bb_integrated-green?style=flat-square)
+![Version: 2.8.6-bb.0](https://img.shields.io/badge/Version-2.8.6--bb.0-informational?style=flat-square) ![AppVersion: 5.4.4](https://img.shields.io/badge/AppVersion-5.4.4-informational?style=flat-square) ![Maintenance Track: bb_integrated](https://img.shields.io/badge/Maintenance_Track-bb_integrated-green?style=flat-square)
 
 Helm chart for NeuVector's core services
 
@@ -44,7 +44,7 @@ helm install neuvector chart/
 |-----|------|---------|-------------|
 | openshift | bool | `false` |  |
 | registry | string | `"registry1.dso.mil"` |  |
-| tag | string | `"5.4.3"` |  |
+| tag | string | `"5.4.4"` |  |
 | oem | string | `nil` |  |
 | imagePullSecrets | string | `"private-registry"` |  |
 | psp | bool | `false` |  |
@@ -198,6 +198,7 @@ helm install neuvector chart/
 | controller.certupgrader.podLabels | object | `{}` |  |
 | controller.certupgrader.podAnnotations."traffic.sidecar.istio.io/excludeInboundPorts" | string | `"18500"` |  |
 | controller.certupgrader.podAnnotations."traffic.sidecar.istio.io/excludeOutboundPorts" | string | `"18500"` |  |
+| controller.certupgrader.tolerations | list | `[]` |  |
 | controller.certupgrader.nodeSelector | object | `{}` |  |
 | controller.certupgrader.securityContext.runAsNonRoot | bool | `true` |  |
 | controller.certupgrader.securityContext.runAsUser | int | `1000` |  |
@@ -209,7 +210,7 @@ helm install neuvector chart/
 | controller.certupgrader.containerSecurityContext.capabilities.drop[0] | string | `"ALL"` |  |
 | controller.prime.enabled | bool | `false` |  |
 | controller.prime.image.repository | string | `"neuvector/compliance-config"` |  |
-| controller.prime.image.tag | string | `"1.0.4"` |  |
+| controller.prime.image.tag | string | `"1.0.5"` |  |
 | controller.prime.image.hash | string | `nil` |  |
 | enforcer.enabled | bool | `true` |  |
 | enforcer.image.repository | string | `"ironbank/neuvector/neuvector/enforcer"` |  |
@@ -279,7 +280,7 @@ helm install neuvector chart/
 | manager.probes.startupFailureThreshold | int | `30` |  |
 | cve.adapter.enabled | bool | `false` |  |
 | cve.adapter.image.repository | string | `"neuvector/registry-adapter"` |  |
-| cve.adapter.image.tag | string | `"0.1.6"` |  |
+| cve.adapter.image.tag | string | `"0.1.7"` |  |
 | cve.adapter.image.hash | string | `nil` |  |
 | cve.adapter.priorityClassName | string | `nil` |  |
 | cve.adapter.resources | object | `{}` |  |
@@ -329,6 +330,7 @@ helm install neuvector chart/
 | cve.updater.resources | object | `{}` |  |
 | cve.updater.podLabels | object | `{}` |  |
 | cve.updater.podAnnotations."traffic.sidecar.istio.io/excludeInboundPorts" | string | `"18500"` |  |
+| cve.updater.tolerations | list | `[]` |  |
 | cve.updater.nodeSelector | object | `{}` |  |
 | cve.updater.securityContext.runAsUser | int | `1000` |  |
 | cve.updater.securityContext.runAsGroup | int | `1000` |  |
