@@ -4,7 +4,7 @@
 
 openshift: false
 registry: registry1.dso.mil
-tag: 5.4.3
+tag: 5.4.4
 oem:
 imagePullSecrets: private-registry
 psp: false
@@ -321,6 +321,7 @@ controller:
     podAnnotations:
       traffic.sidecar.istio.io/excludeInboundPorts: "18500"
       traffic.sidecar.istio.io/excludeOutboundPorts: "18500"
+    tolerations: []
     nodeSelector:
       {}
       # key1: value1
@@ -341,7 +342,7 @@ controller:
     enabled: false
     image:
       repository: neuvector/compliance-config
-      tag: 1.0.4
+      tag: 1.0.5
       hash:
 enforcer:
   # If false, enforcer will not be installed
@@ -489,7 +490,7 @@ cve:
     enabled: false
     image:
       repository: neuvector/registry-adapter
-      tag: 0.1.6
+      tag: 0.1.7
       hash:
     priorityClassName:
     resources:
@@ -601,6 +602,7 @@ cve:
     podLabels: {}
     podAnnotations:
       traffic.sidecar.istio.io/excludeInboundPorts: "18500"
+    tolerations: []
     nodeSelector:
       {}
       # key1: value1

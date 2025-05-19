@@ -1,7 +1,7 @@
 name: neuvector
 apiVersion: v2
-version: 2.8.5-bb.1
-appVersion: 5.4.3
+version: 2.8.6-bb.0
+appVersion: 5.4.4
 description: Helm chart for NeuVector's core services
 home: https://neuvector.com
 icon: https://avatars2.githubusercontent.com/u/19367275?s=200&v=4
@@ -10,12 +10,12 @@ maintainers:
     email: support@neuvector.com
 dependencies:
   - name: monitor
-    version: 2.8.5
+    version: 2.8.6
     alias: monitor
     condition: monitor.install
     repository: https://neuvector.github.io/neuvector-helm/
   - name: gluon
-    version: "0.5.15"
+    version: "0.5.19"
     repository: "oci://registry1.dso.mil/bigbang"
 annotations:
   bigbang.dev/maintenanceTrack: bb_integrated
@@ -23,17 +23,17 @@ annotations:
     - [Find our upstream chart's CHANGELOG here](https://repo1.dso.mil/big-bang/product/packages/neuvector/-/blob/main/CHANGELOG.md?ref_type=heads)
     - [and our upstream application release notes here](https://github.com/neuvector/neuvector/releases)
   bigbang.dev/applicationVersions: |
-    - NeuVector: 5.4.3
+    - NeuVector: 5.4.4
   helm.sh/images: |
     - name: controller
       condition: controller.enabled
-      image: registry1.dso.mil/ironbank/neuvector/neuvector/controller:5.4.3
+      image: registry1.dso.mil/ironbank/neuvector/neuvector/controller:5.4.4
     - name: enforcer
       condition: enforcer.enabled
-      image: registry1.dso.mil/ironbank/neuvector/neuvector/enforcer:5.4.3
+      image: registry1.dso.mil/ironbank/neuvector/neuvector/enforcer:5.4.4
     - name: manager
       condition: manager.enabled
-      image: registry1.dso.mil/ironbank/neuvector/neuvector/manager:5.4.3
+      image: registry1.dso.mil/ironbank/neuvector/neuvector/manager:5.4.4
     - name: scanner
       condition: cve.scanner.enabled
       image: registry1.dso.mil/ironbank/neuvector/neuvector/scanner:6

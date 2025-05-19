@@ -4,6 +4,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
+## [2.8.6-bb.0] (2025-05-15)
+
+### Changed
+
+- registry1.dso.mil/ironbank/neuvector/neuvector/controller 5.4.3 -> 5.4.4
+- registry1.dso.mil/ironbank/neuvector/neuvector/enforcer 5.4.3 -> 5.4.4
+- registry1.dso.mil/ironbank/neuvector/neuvector/manager 5.4.3 -> 5.4.4
+- update gluon subchart to v0.5.19
+- update monitor subchart to v2.8.6
+
 ## [2.8.5-bb.1] (2025-05-12)
 
 ### Changed
