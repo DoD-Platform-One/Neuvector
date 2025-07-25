@@ -33,6 +33,7 @@
   "postUpdateOptions": [
     "helmUpdateSubChartArchives"
   ],
+  "ignoreDeps": ["neuvector/compliance-config"],
   "customManagers": [
     {
       "customType": "regex",
