@@ -489,9 +489,8 @@ cve:
   adapter:
     enabled: false
     image:
-      registry: "registry1.dso.mil"
-      repository: ironbank/opensource/neuvector/registry-adapter
-      tag: v0.1.8
+      repository: neuvector/registry-adapter
+      tag: 0.1.7
       hash:
     priorityClassName:
     resources:
