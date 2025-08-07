@@ -1,4 +1,4 @@
-{{- if and .Values.istio.enabled .Values.openshift }}
+{{- if and .Values.istio.enabled .Values.upstream.openshift }}
 apiVersion: k8s.cni.cncf.io/v1
 kind: NetworkAttachmentDefinition
 metadata:
