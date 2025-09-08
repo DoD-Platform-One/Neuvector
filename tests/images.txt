@@ -1,1 +1,0 @@
-registry1.dso.mil/ironbank/neuvector/neuvector/prometheus-exporter:5.3.2
