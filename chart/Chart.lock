@@ -1,15 +1,15 @@
 dependencies:
 - name: crd
   repository: https://neuvector.github.io/neuvector-helm/
-  version: 2.8.6
+  version: 2.8.8
 - name: core
   repository: https://neuvector.github.io/neuvector-helm/
-  version: 2.8.6
+  version: 2.8.8
 - name: monitor
   repository: https://neuvector.github.io/neuvector-helm/
-  version: 2.8.7
+  version: 2.8.8
 - name: gluon
   repository: oci://registry1.dso.mil/bigbang
-  version: 0.6.2
-digest: sha256:0ae3cb7cafc1972e4db5118f77c641051421ad3a213d0c8e0bbf8d53eb8d8dc3
-generated: "2025-08-06T10:36:05.133709-07:00"
+  version: 0.9.0
+digest: sha256:f0f7c68ff49e61ea2867436db1a64dab6125f82087c265a2cfc525765619b566
+generated: "2025-09-08T15:10:31.427643-04:00"

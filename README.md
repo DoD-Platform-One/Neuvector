@@ -1,7 +1,7 @@
 <!-- Warning: Do not manually edit this file. See notes on gluon + helm-docs at the end of this file for more information. -->
 # neuvector
 
-![Version: 2.8.7-bb.1](https://img.shields.io/badge/Version-2.8.7--bb.1-informational?style=flat-square) ![AppVersion: 5.4.5](https://img.shields.io/badge/AppVersion-5.4.5-informational?style=flat-square) ![Maintenance Track: bb_integrated](https://img.shields.io/badge/Maintenance_Track-bb_integrated-green?style=flat-square)
+![Version: 2.8.8-bb.0](https://img.shields.io/badge/Version-2.8.8--bb.0-informational?style=flat-square) ![AppVersion: 5.4.6](https://img.shields.io/badge/AppVersion-5.4.6-informational?style=flat-square) ![Maintenance Track: bb_integrated](https://img.shields.io/badge/Maintenance_Track-bb_integrated-green?style=flat-square)
 
 Helm chart for NeuVector's core services
 
@@ -27,7 +27,7 @@ Helm chart for NeuVector's core services
 
 Install Helm
 
-https://helm.sh/docs/intro/install/
+<https://helm.sh/docs/intro/install/>
 
 ## Deployment
 
@@ -99,7 +99,7 @@ helm install neuvector chart/
 | upstream.fullnameOverride | string | `"neuvector-neuvector"` |  |
 | upstream.openshift | bool | `false` |  |
 | upstream.registry | string | `"registry1.dso.mil"` |  |
-| upstream.tag | string | `"5.4.5"` |  |
+| upstream.tag | string | `"5.4.6"` |  |
 | upstream.imagePullSecrets | string | `"private-registry"` |  |
 | upstream.crdwebhook.enabled | bool | `false` |  |
 | upstream.controller.enabled | bool | `true` |  |
@@ -126,7 +126,7 @@ helm install neuvector chart/
 | upstream.controller.apisvc.nodePort | string | `nil` |  |
 | upstream.controller.prime.enabled | bool | `false` |  |
 | upstream.controller.prime.image.repository | string | `"neuvector/compliance-config"` |  |
-| upstream.controller.prime.image.tag | string | `"1.0.5"` |  |
+| upstream.controller.prime.image.tag | string | `"5.4.6"` |  |
 | upstream.enforcer.enabled | bool | `true` |  |
 | upstream.enforcer.image.repository | string | `"ironbank/neuvector/neuvector/enforcer"` |  |
 | upstream.enforcer.image.imagePullPolicy | string | `"Always"` |  |
@@ -206,4 +206,3 @@ Please see the [contributing guide](./CONTRIBUTING.md) if you are interested in 
 ---
 
 _This file is programatically generated using `helm-docs` and some BigBang-specific templates. The `gluon` repository has [instructions for regenerating package READMEs](https://repo1.dso.mil/big-bang/product/packages/gluon/-/blob/master/docs/bb-package-readme.md)._
-
