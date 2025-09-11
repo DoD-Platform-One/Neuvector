@@ -3,14 +3,27 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
+
+## [2.8.8-bb.0] (2025-09-05)
+
+### Changed
+
+- registry1.dso.mil/ironbank/neuvector/neuvector/controller 5.4.5 -> 5.4.6
+- registry1.dso.mil/ironbank/neuvector/neuvector/enforcer 5.4.5 -> 5.4.6
+- registry1.dso.mil/ironbank/neuvector/neuvector/manager 5.4.5 -> 5.4.6
+- registry1.dso.mil/ironbank/opensource/neuvector/registry-adapter 0.1.8 -> 0.1.9
+- Updated gluon subchart  v0.6.2 -> v0.9.0
+
 ## [2.8.7-bb.1] (2025-08-27)
 
 ### Changed
+
 - Cleaned up README.md
 
 ## [2.8.7-bb.0] (2025-08-01)
 
 ### Changed
+
 - registry1.dso.mil/ironbank/neuvector/neuvector/controller 5.4.4 -> 5.4.5
 - registry1.dso.mil/ironbank/neuvector/neuvector/enforcer 5.4.4 -> 5.4.5
 - registry1.dso.mil/ironbank/neuvector/neuvector/manager 5.4.4 -> 5.4.5
@@ -27,6 +40,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Changed
 
 - registry1.dso.mil/ironbank/opensource/neuvector/registry-adapter 0.1.7 -> 0.1.8
+
+## [2.8.6-bb.0] (2025-05-15)
+
+### Changed
+
+- registry1.dso.mil/ironbank/neuvector/neuvector/controller 5.4.3 -> 5.4.4
+- registry1.dso.mil/ironbank/neuvector/neuvector/enforcer 5.4.3 -> 5.4.4
+- registry1.dso.mil/ironbank/neuvector/neuvector/manager 5.4.3 -> 5.4.4
+- update gluon subchart to v0.5.19
+- update monitor subchart to v2.8.6
 
 ## [2.8.6-bb.0] (2025-05-15)
 

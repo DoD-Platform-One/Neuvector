@@ -92,10 +92,11 @@ global: # required for rancher authentication (https://<Rancher_URL>/)
 upstream:
   nameOverride: neuvector
   fullnameOverride: neuvector-neuvector
+  bootstrapPassword: changeme$! # neuvector enforces a mandatory password change on first login
 
   openshift: false
   registry: registry1.dso.mil
-  tag: 5.4.5
+  tag: 5.4.6
   imagePullSecrets: private-registry
   crdwebhook:
     enabled: false
@@ -140,7 +141,7 @@ upstream:
       enabled: false
       image:
         repository: neuvector/compliance-config
-        tag: 1.0.5
+        tag: 5.4.6
 
   enforcer:
     enabled: true
@@ -242,7 +243,7 @@ monitor:
   install: false
   serviceAccount: default
   registry: registry1.dso.mil
-  
+
   exporter:
     enabled: false
     serviceMonitor:
@@ -253,7 +254,7 @@ monitor:
       repository: ironbank/neuvector/neuvector/prometheus-exporter
       tag: 1-1.0.0
       imagePullPolicy: Always
-    containerSecurityContext: 
+    containerSecurityContext:
       runAsUser: 1001
       runAsGroup: 1001
       capabilities:

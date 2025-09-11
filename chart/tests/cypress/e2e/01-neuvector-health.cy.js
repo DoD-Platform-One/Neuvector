@@ -4,6 +4,35 @@ Cypress.on('uncaught:exception', (err, runnable) => {
   return false
 })
 
+function resetPasswordIfPrompted() {
+  cy.get('body').then($body => {
+    const hasResetModal = $body.find('mat-dialog-container app-reset-password-modal').length > 0
+    if (!hasResetModal) return
+    const newPwd = `Nv!${Date.now()}aA1`
+
+    // Scope to the dialog to avoid selector bleed
+    cy.get('mat-dialog-container app-reset-password-modal').within(() => {
+      cy.get('input[formcontrolname="newPassword"]', { timeout: 10000 })
+        .should('be.visible')
+        .type(newPwd, { log: false })
+
+      cy.get('input[formcontrolname="confirmPassword"]')
+        .type(newPwd, { log: false })
+
+      // Wait for button to enable then submit
+      cy.get('#reset-password-dialog-submit')
+        .should('not.be.disabled')
+        .click()
+    })
+
+    // Ensure the dialog is gone and landing UI appears
+    cy.get('mat-dialog-container', { timeout: 20000 }).should('not.exist')
+
+    // Persist the new credential for the rest of this run
+    Cypress.env('password', newPwd)
+  })
+}
+
 // Login to NeuVector before each test
 beforeEach(function () {
   cy.window().then(window => window.sessionStorage.clear());
@@ -12,21 +41,47 @@ beforeEach(function () {
 
   cy.viewport(1920, 1080)
 
-  cy.visit(Cypress.env('url'))
-  cy.title().should('contain', 'NeuVector')
-  cy.get('input[id="Email1"]').type("admin")
-  cy.get('input[id="password1"]').type("admin")
-  // If license acceptance is present, click it
-  cy.get('body').then($body => {
-    if ($body.find('#mat-checkbox-1').length == 0 ) {
-      cy.get('button[type="submit"]').click({force:true})
-    }
-    else if ($body.find('#mat-checkbox-1').length > 0 ){
-      cy.get('#mat-checkbox-1').find('input').click({force:true})
-      cy.get('button[type="submit"]').click({force:true})
-    }
+  const url = Cypress.env('url')
+  const passPrimary = Cypress.env('password') || 'changeme$!'
+  const passFallback = 'admin' // fallback password
+
+  function attemptLogin(username, password) {
+    cy.visit(url)
+    cy.title().should('contain', 'NeuVector')
+
+    cy.get('input[id="Email1"]').clear().type(username)
+    cy.get('input[id="password1"]').clear().type(password)
+
+    cy.get('body').then($body => {
+      if ($body.find('#mat-checkbox-1').length == 0) {
+        cy.get('button[type="submit"]').click({ force: true })
+      } else {
+        cy.get('#mat-checkbox-1').find('input').click({ force: true })
+        cy.get('button[type="submit"]').click({ force: true })
+      }
+    })
+
     cy.wait(2000)
+    resetPasswordIfPrompted()
+
+    // Check if dashboard element exists to confirm login success
+    return cy.get('body').then($b => {
+      if ($b.find('app-exposure-chart').length > 0) {
+        return true
+      } else {
+        return false
+      }
+    })
+  }
+
+  // Try first login, then fallback if needed
+  attemptLogin('admin', passPrimary).then(success => {
+    if (!success) {
+      cy.log('Primary login failed, trying fallback (admin/admin)')
+      attemptLogin('admin', passFallback)
+    }
   })
+
 })
 
 // Basic test that validates Dashboard panels exist
