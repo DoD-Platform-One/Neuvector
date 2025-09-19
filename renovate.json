@@ -33,21 +33,27 @@
   "postUpdateOptions": [
     "helmUpdateSubChartArchives"
   ],
-  "ignoreDeps": ["neuvector/compliance-config"],
+  "ignoreDeps": [
+    "neuvector/compliance-config"
+  ],
   "customManagers": [
     {
       "customType": "regex",
       "description": "Update upstream neuvector core chart version",
-      "fileMatch": ["^chart/Chart\\.yaml$"],
-      "matchStrings": ["name:\\s+core\\s+version:\\s+(?<currentValue>.+)"],
+      "managerFilePatterns": [
+        "/^chart/Chart\\.yaml$/"
+      ],
+      "matchStrings": [
+        "name:\\s+core\\s+version:\\s+(?<currentValue>.+)"
+      ],
       "depNameTemplate": "core",
       "datasourceTemplate": "helm",
       "registryUrlTemplate": "https://neuvector.github.io/neuvector-helm/"
     },
     {
       "customType": "regex",
-      "fileMatch": [
-        "^chart/values\\.yaml$"
+      "managerFilePatterns": [
+        "/^chart/values\\.yaml$/"
       ],
       "matchStrings": [
         "upstream:\\s+[\\s\\S]*?registry: registry1\\.dso\\.mil\\s+tag:\\s+(?<currentValue>.+)"
@@ -57,8 +63,8 @@
     },
     {
       "customType": "regex",
-      "fileMatch": [
-        "^chart/values\\.yaml$"
+      "managerFilePatterns": [
+        "/^chart/values\\.yaml$/"
       ],
       "matchStrings": [
         "upstream:\\s+[\\s\\S]*?repository:\\s+(?<depName>.+)\\s+[\\s\\S]*?tag:\\s+(?<currentValue>.+)"
@@ -68,8 +74,8 @@
     },
     {
       "customType": "regex",
-      "fileMatch": [
-        "^chart/Chart\\.yaml$"
+      "managerFilePatterns": [
+        "/^chart/Chart\\.yaml$/"
       ],
       "matchStrings": [
         "- NeuVector:\\s+(?<currentValue>.+)"
@@ -79,8 +85,8 @@
     },
     {
       "customType": "regex",
-      "fileMatch": [
-        "^chart/Chart\\.yaml$"
+      "managerFilePatterns": [
+        "/^chart/Chart\\.yaml$/"
       ],
       "matchStrings": [
         "appVersion:\\s+(?<currentValue>.+)"
@@ -90,8 +96,8 @@
     },
     {
       "customType": "regex",
-      "fileMatch": [
-        "^tests/images\\.txt$"
+      "managerFilePatterns": [
+        "/^tests/images\\.txt$/"
       ],
       "matchStrings": [
         "s*(?<depName>.+):(?<currentValue>.+)"
@@ -100,8 +106,8 @@
     },
     {
       "customType": "regex",
-      "fileMatch": [
-        "^chart/Chart\\.yaml$"
+      "managerFilePatterns": [
+        "/^chart/Chart\\.yaml$/"
       ],
       "matchStrings": [
         "image:[^\\S\\r\\n]+(?<depName>.+):(?<currentValue>.+)"
