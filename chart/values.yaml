@@ -87,8 +87,10 @@ global: # required for rancher authentication (https://<Rancher_URL>/)
         tag: 5.4.3
         image: enforcer
         registry: registry1.dso.mil/ironbank/neuvector/neuvector
-#Upstream NeuVector Helm Chart values from core subchart
-# From https://github.com/neuvector/neuvector-helm/blob/master/charts/core/values.yaml
+
+# -- Values to pass to [the upstream NeuVector core subchart](https://github.com/neuvector/neuvector-helm/blob/master/charts/core/values.yaml)
+# @default -- Upstream chart values for Neuvector core
+
 upstream:
   nameOverride: neuvector
   fullnameOverride: neuvector-neuvector
