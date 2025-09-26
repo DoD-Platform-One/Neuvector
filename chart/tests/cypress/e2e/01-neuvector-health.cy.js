@@ -8,7 +8,7 @@ function resetPasswordIfPrompted() {
   cy.get('body').then($body => {
     const hasResetModal = $body.find('mat-dialog-container app-reset-password-modal').length > 0
     if (!hasResetModal) return
-    const newPwd = `Nv!${Date.now()}aA1`
+    const newPwd = 'cypressPwd!1'
 
     // Scope to the dialog to avoid selector bleed
     cy.get('mat-dialog-container app-reset-password-modal').within(() => {
@@ -43,7 +43,7 @@ beforeEach(function () {
 
   const url = Cypress.env('url')
   const passPrimary = Cypress.env('password') || 'changeme$!'
-  const passFallback = 'admin' // fallback password
+  const passFallback = 'cypressPwd!1' // fallback password
 
   function attemptLogin(username, password) {
     cy.visit(url)
@@ -77,7 +77,7 @@ beforeEach(function () {
   // Try first login, then fallback if needed
   attemptLogin('admin', passPrimary).then(success => {
     if (!success) {
-      cy.log('Primary login failed, trying fallback (admin/admin)')
+      cy.log('Primary login failed, trying fallback (admin/cypressPwd!1)')
       attemptLogin('admin', passFallback)
     }
   })

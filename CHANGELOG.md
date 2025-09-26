@@ -4,6 +4,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
+## [2.8.8-bb.1] (2025-09-25)
+
+### Changed
+
+- Updated Cypress health check test to use a deterministic fallback password.
+
 ## [2.8.8-bb.0] (2025-09-05)
 
 ### Changed
