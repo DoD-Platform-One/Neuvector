@@ -1,7 +1,7 @@
 <!-- Warning: Do not manually edit this file. See notes on gluon + helm-docs at the end of this file for more information. -->
 # neuvector
 
-![Version: 2.8.8-bb.0](https://img.shields.io/badge/Version-2.8.8--bb.0-informational?style=flat-square) ![AppVersion: 5.4.6](https://img.shields.io/badge/AppVersion-5.4.6-informational?style=flat-square) ![Maintenance Track: bb_integrated](https://img.shields.io/badge/Maintenance_Track-bb_integrated-green?style=flat-square)
+![Version: 2.8.8-bb.1](https://img.shields.io/badge/Version-2.8.8--bb.1-informational?style=flat-square) ![AppVersion: 5.4.6](https://img.shields.io/badge/AppVersion-5.4.6-informational?style=flat-square) ![Maintenance Track: bb_integrated](https://img.shields.io/badge/Maintenance_Track-bb_integrated-green?style=flat-square)
 
 Helm chart for NeuVector's core services
 
@@ -27,7 +27,7 @@ Helm chart for NeuVector's core services
 
 Install Helm
 
-<https://helm.sh/docs/intro/install/>
+https://helm.sh/docs/intro/install/
 
 ## Deployment
 
@@ -95,96 +95,7 @@ helm install neuvector chart/
 | global.images.enforcer.tag | string | `"5.4.3"` |  |
 | global.images.enforcer.image | string | `"enforcer"` |  |
 | global.images.enforcer.registry | string | `"registry1.dso.mil/ironbank/neuvector/neuvector"` |  |
-| upstream.nameOverride | string | `"neuvector"` |  |
-| upstream.fullnameOverride | string | `"neuvector-neuvector"` |  |
-| upstream.openshift | bool | `false` |  |
-| upstream.registry | string | `"registry1.dso.mil"` |  |
-| upstream.tag | string | `"5.4.6"` |  |
-| upstream.imagePullSecrets | string | `"private-registry"` |  |
-| upstream.crdwebhook.enabled | bool | `false` |  |
-| upstream.controller.enabled | bool | `true` |  |
-| upstream.controller.image.repository | string | `"ironbank/neuvector/neuvector/controller"` |  |
-| upstream.controller.image.imagePullPolicy | string | `"Always"` |  |
-| upstream.controller.podAnnotations."traffic.sidecar.istio.io/excludeInboundPorts" | string | `"18500"` |  |
-| upstream.controller.containerSecurityContext.privileged | bool | `true` |  |
-| upstream.controller.containerSecurityContext.runAsUser | int | `1000` |  |
-| upstream.controller.containerSecurityContext.runAsNonRoot | bool | `true` |  |
-| upstream.controller.containerSecurityContext.capabilities.drop[0] | string | `"ALL"` |  |
-| upstream.controller.certupgrader.imagePullPolicy | string | `"Always"` |  |
-| upstream.controller.certupgrader.podAnnotations."traffic.sidecar.istio.io/excludeInboundPorts" | string | `"18500"` |  |
-| upstream.controller.certupgrader.podAnnotations."traffic.sidecar.istio.io/excludeOutboundPorts" | string | `"18500"` |  |
-| upstream.controller.certupgrader.securityContext.runAsNonRoot | bool | `true` |  |
-| upstream.controller.certupgrader.securityContext.runAsUser | int | `1000` |  |
-| upstream.controller.certupgrader.securityContext.runAsGroup | int | `1000` |  |
-| upstream.controller.certupgrader.securityContext.fsGroup | int | `1000` |  |
-| upstream.controller.certupgrader.containerSecurityContext.runAsUser | int | `1000` |  |
-| upstream.controller.certupgrader.containerSecurityContext.runAsGroup | int | `1000` |  |
-| upstream.controller.certupgrader.containerSecurityContext.runAsNonRoot | bool | `true` |  |
-| upstream.controller.certupgrader.containerSecurityContext.capabilities.drop[0] | string | `"ALL"` |  |
-| upstream.controller.apisvc.type | string | `"ClusterIP"` |  |
-| upstream.controller.apisvc.annotations | object | `{}` |  |
-| upstream.controller.apisvc.nodePort | string | `nil` |  |
-| upstream.controller.prime.enabled | bool | `false` |  |
-| upstream.controller.prime.image.repository | string | `"neuvector/compliance-config"` |  |
-| upstream.controller.prime.image.tag | string | `"5.4.6"` |  |
-| upstream.enforcer.enabled | bool | `true` |  |
-| upstream.enforcer.image.repository | string | `"ironbank/neuvector/neuvector/enforcer"` |  |
-| upstream.enforcer.image.imagePullPolicy | string | `"Always"` |  |
-| upstream.enforcer.podAnnotations."traffic.sidecar.istio.io/excludeInboundPorts" | string | `"18500"` |  |
-| upstream.enforcer.containerSecurityContext.privileged | bool | `true` |  |
-| upstream.enforcer.containerSecurityContext.runAsGroup | int | `1000` |  |
-| upstream.enforcer.containerSecurityContext.capabilities.drop[0] | string | `"ALL"` |  |
-| upstream.manager.enabled | bool | `true` |  |
-| upstream.manager.image.repository | string | `"ironbank/neuvector/neuvector/manager"` |  |
-| upstream.manager.image.imagePullPolicy | string | `"Always"` |  |
-| upstream.manager.env.ssl | bool | `false` |  |
-| upstream.manager.podAnnotations."traffic.sidecar.istio.io/excludeInboundPorts" | string | `"18500"` |  |
-| upstream.manager.containerSecurityContext.runAsUser | int | `1000` |  |
-| upstream.manager.containerSecurityContext.runAsGroup | int | `1000` |  |
-| upstream.manager.containerSecurityContext.runAsNonRoot | bool | `true` |  |
-| upstream.manager.containerSecurityContext.capabilities.drop[0] | string | `"ALL"` |  |
-| upstream.manager.securityContext.runAsNonRoot | bool | `true` |  |
-| upstream.manager.securityContext.runAsUser | int | `1000` |  |
-| upstream.manager.securityContext.runAsGroup | int | `1000` |  |
-| upstream.manager.securityContext.fsGroup | int | `1000` |  |
-| upstream.cve.adapter.enabled | bool | `false` |  |
-| upstream.cve.adapter.image.repository | string | `"neuvector/registry-adapter"` |  |
-| upstream.cve.adapter.image.tag | string | `"0.1.7"` |  |
-| upstream.cve.adapter.image."traffic.sidecar.istio.io/excludeInboundPorts" | string | `"18500"` |  |
-| upstream.cve.adapter.securityContext.runAsUser | int | `1000` |  |
-| upstream.cve.adapter.securityContext.runAsGroup | int | `1000` |  |
-| upstream.cve.adapter.securityContext.fsGroup | int | `1000` |  |
-| upstream.cve.adapter.securityContext.runAsNonRoot | bool | `true` |  |
-| upstream.cve.updater.enabled | bool | `true` |  |
-| upstream.cve.updater.secure | bool | `false` |  |
-| upstream.cve.updater.cacert | string | `"/var/run/secrets/kubernetes.io/serviceaccount/ca.crt"` |  |
-| upstream.cve.updater.image.registry | string | `"registry1.dso.mil"` |  |
-| upstream.cve.updater.image.repository | string | `"ironbank/big-bang/base"` |  |
-| upstream.cve.updater.image.imagePullPolicy | string | `"Always"` |  |
-| upstream.cve.updater.image.tag | string | `"2.1.0"` |  |
-| upstream.cve.updater.podAnnotations."traffic.sidecar.istio.io/excludeInboundPorts" | string | `"18500"` |  |
-| upstream.cve.updater.securityContext.runAsUser | int | `1000` |  |
-| upstream.cve.updater.securityContext.runAsGroup | int | `1000` |  |
-| upstream.cve.updater.securityContext.fsGroup | int | `1000` |  |
-| upstream.cve.updater.securityContext.runAsNonRoot | bool | `true` |  |
-| upstream.cve.updater.containerSecurityContext.runAsUser | int | `1000` |  |
-| upstream.cve.updater.containerSecurityContext.runAsGroup | int | `1000` |  |
-| upstream.cve.updater.containerSecurityContext.runAsNonRoot | bool | `true` |  |
-| upstream.cve.updater.containerSecurityContext.capabilities.drop[0] | string | `"ALL"` |  |
-| upstream.cve.scanner.enabled | bool | `true` |  |
-| upstream.cve.scanner.image.repository | string | `"ironbank/neuvector/neuvector/scanner"` |  |
-| upstream.cve.scanner.image.imagePullPolicy | string | `"Always"` |  |
-| upstream.cve.scanner.image.tag | string | `"6"` |  |
-| upstream.cve.scanner.podAnnotations."traffic.sidecar.istio.io/excludeInboundPorts" | string | `"18500"` |  |
-| upstream.cve.scanner.runAsUser | string | `nil` |  |
-| upstream.cve.scanner.securityContext.runAsUser | int | `1000` |  |
-| upstream.cve.scanner.securityContext.runAsGroup | int | `1000` |  |
-| upstream.cve.scanner.securityContext.fsGroup | int | `1000` |  |
-| upstream.cve.scanner.securityContext.runAsNonRoot | bool | `true` |  |
-| upstream.cve.scanner.containerSecurityContext.runAsUser | int | `1000` |  |
-| upstream.cve.scanner.containerSecurityContext.runAsGroup | int | `1000` |  |
-| upstream.cve.scanner.containerSecurityContext.runAsNonRoot | bool | `true` |  |
-| upstream.cve.scanner.containerSecurityContext.capabilities.drop[0] | string | `"ALL"` |  |
+| upstream | object | Upstream chart values for Neuvector core | Values to pass to [the upstream NeuVector core subchart](https://github.com/neuvector/neuvector-helm/blob/master/charts/core/values.yaml) |
 | monitor.imagePullSecrets | string | `"private-registry"` |  |
 | monitor.install | bool | `false` |  |
 | monitor.serviceAccount | string | `"default"` |  |
@@ -206,3 +117,4 @@ Please see the [contributing guide](./CONTRIBUTING.md) if you are interested in 
 ---
 
 _This file is programatically generated using `helm-docs` and some BigBang-specific templates. The `gluon` repository has [instructions for regenerating package READMEs](https://repo1.dso.mil/big-bang/product/packages/gluon/-/blob/master/docs/bb-package-readme.md)._
+
