@@ -4,6 +4,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
+## [2.8.8-bb.2] (2025-09-26)
+
+### Changed
+
+- update condition part of helm.sh/images
+
 ## [2.8.8-bb.1] (2025-09-25)
 
 ### Changed

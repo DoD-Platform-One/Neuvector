@@ -186,7 +186,7 @@ upstream:
       enabled: false
       image:
         repository: neuvector/registry-adapter
-        tag: 0.1.7
+        tag: 0.1.9
         traffic.sidecar.istio.io/excludeInboundPorts: "18500"
       securityContext:
         runAsUser: 1000
