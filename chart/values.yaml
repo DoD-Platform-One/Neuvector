@@ -43,6 +43,7 @@ networkPolicies:
     ingress: istio-gateway
     egress: istio-gateway
   controlPlaneCidr: 0.0.0.0/0
+  vpcCidr: 0.0.0.0/0
   additionalPolicies: []
 
 monitoring:
