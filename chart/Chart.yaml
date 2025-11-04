@@ -1,7 +1,7 @@
 name: neuvector
 apiVersion: v2
-version: 2.8.8-bb.3
-appVersion: 5.4.6
+version: 2.8.9-bb.0
+appVersion: 5.4.7
 description: Helm chart for NeuVector's core services
 home: https://neuvector.com
 icon: https://avatars2.githubusercontent.com/u/19367275?s=200&v=4
@@ -10,18 +10,18 @@ maintainers:
     email: support@neuvector.com
 dependencies:
   - name: crd
-    version: 2.8.8
+    version: 2.8.9
     repository: https://neuvector.github.io/neuvector-helm/
   - name: core
-    version: 2.8.8
+    version: 2.8.9
     alias: upstream
     repository: https://neuvector.github.io/neuvector-helm/
   - name: monitor
-    version: 2.8.8
+    version: 2.8.9
     repository: https://neuvector.github.io/neuvector-helm/
     condition: monitoring.enabled
   - name: gluon
-    version: "0.9.0"
+    version: "0.9.6"
     repository: "oci://registry1.dso.mil/bigbang"
 annotations:
   bigbang.dev/maintenanceTrack: bb_integrated
@@ -29,20 +29,20 @@ annotations:
     - [Find our upstream chart's CHANGELOG here](https://repo1.dso.mil/big-bang/product/packages/neuvector/-/blob/main/CHANGELOG.md?ref_type=heads)
     - [and our upstream application release notes here](https://github.com/neuvector/neuvector/releases)
   bigbang.dev/applicationVersions: |
-    - NeuVector: 5.4.6
+    - NeuVector: 5.4.7
   helm.sh/images: |
     - name: controller
       condition: upstream.controller.enabled
-      image: registry1.dso.mil/ironbank/neuvector/neuvector/controller:5.4.6
+      image: registry1.dso.mil/ironbank/neuvector/neuvector/controller:5.4.7
     - name: enforcer
       condition: upstream.enforcer.enabled
-      image: registry1.dso.mil/ironbank/neuvector/neuvector/enforcer:5.4.6
+      image: registry1.dso.mil/ironbank/neuvector/neuvector/enforcer:5.4.7
     - name: manager
       condition: upstream.manager.enabled
-      image: registry1.dso.mil/ironbank/neuvector/neuvector/manager:5.4.6
+      image: registry1.dso.mil/ironbank/neuvector/neuvector/manager:5.4.7
     - name: adapter
       condition: upstream.cve.adapter.enabled
-      image: registry1.dso.mil/ironbank/opensource/neuvector/registry-adapter:v0.1.9
+      image: registry1.dso.mil/ironbank/opensource/neuvector/registry-adapter:v0.2.1
     - name: scanner
       condition: upstream.cve.scanner.enabled
       image: registry1.dso.mil/ironbank/neuvector/neuvector/scanner:6
