@@ -1,50 +1,101 @@
 domain: dev.bigbang.mil
 
+# bb-common istio configuration
 istio:
   enabled: false
   injection: "enabled"
-  hardened:
-    enabled: false
-    customAuthorizationPolicies: []
-    outboundTrafficPolicyMode: "REGISTRY_ONLY"
-    monitoring:
-      enabled: true
-      namespaces:
-        - monitoring
-      principals:
-        - cluster.local/ns/monitoring/sa/monitoring-grafana
-        - cluster.local/ns/monitoring/sa/monitoring-monitoring-kube-alertmanager
-        - cluster.local/ns/monitoring/sa/monitoring-monitoring-kube-operator
-        - cluster.local/ns/monitoring/sa/monitoring-monitoring-kube-prometheus
-        - cluster.local/ns/monitoring/sa/monitoring-monitoring-kube-state-metrics
-        - cluster.local/ns/monitoring/sa/monitoring-monitoring-prometheus-node-exporter
-    customServiceEntries: []
-  neuvector:
-    enabled: true
-    annotations: {}
-    labels: {}
-    gateways:
-      - istio-system/main
-      #- istio-gateway/public-ingressgateway
-    hosts:
-      - neuvector.{{ .Values.domain }}
-  # -- Default neuvector peer authentication
-  mtls:
-    # -- STRICT = Allow only mutual TLS traffic,
-    # PERMISSIVE = Allow both plain text and mutual TLS traffic
-    mode: STRICT
 
+  # Mutual TLS configuration
+  mtls:
+    mode: STRICT  # STRICT, PERMISSIVE, or DISABLE
+
+  # Sidecar configuration for outbound traffic control
+  sidecar:
+    enabled: true
+    outboundTrafficPolicyMode: REGISTRY_ONLY  # REGISTRY_ONLY or ALLOW_ANY
+
+  # Custom AuthorizationPolicies
+  authorizationPolicies:
+    enabled: false
+    generateFromNetpol: true
+
+# bb-common routes configuration
+routes:
+  inbound:
+    # NeuVector web UI route
+    neuvector:
+      enabled: true
+      gateways:
+        - istio-system/public
+      hosts:
+        - neuvector.{{ .Values.domain }}
+      service: neuvector-service-webui
+      port: 8443
+      selector:
+        app: neuvector-manager-pod
+
+# bb-common network policies configuration
 networkPolicies:
   enabled: false
-  ingressLabels:
-    app: public-ingressgateway
-    istio: ingressgateway
-  istioNamespaceSelector:
-    ingress: istio-gateway
-    egress: istio-gateway
-  controlPlaneCidr: 0.0.0.0/0
-  vpcCidr: 0.0.0.0/0
-  additionalPolicies: []
+
+  egress:
+    from:
+      # Controller egress to Kubernetes API
+      controller:
+        podSelector:
+          matchLabels:
+            app: neuvector-controller-pod
+        to:
+          definition:
+            kubeAPI: true
+
+      # Updater egress to Kubernetes API
+      updater:
+        podSelector:
+          matchLabels:
+            app: neuvector-updater-pod
+        to:
+          definition:
+            kubeAPI: true
+
+      # Cert upgrader egress to Kubernetes API
+      cert-upgrader:
+        podSelector:
+          matchLabels:
+            app: neuvector-cert-upgrader-pod
+        to:
+          definition:
+            kubeAPI: true
+
+      # Enforcer egress to Kubernetes API
+      enforcer:
+        podSelector:
+          matchLabels:
+            app: neuvector-enforcer-pod
+        to:
+          definition:
+            kubeAPI: true
+
+      # Scanner egress to Kubernetes API
+      scanner:
+        podSelector:
+          matchLabels:
+            app: neuvector-scanner-pod
+        to:
+          definition:
+            kubeAPI: true
+
+  # Ingress policies
+  ingress:
+    to:
+      # Prometheus exporter ingress from monitoring on port 8068
+      exporter:8068:
+        podSelector:
+          matchLabels:
+            app: neuvector-prometheus-exporter-pod
+        from:
+          k8s:
+            monitoring/prometheus: true
 
 monitoring:
   enabled: false

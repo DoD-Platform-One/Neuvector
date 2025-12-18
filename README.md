@@ -1,7 +1,7 @@
 <!-- Warning: Do not manually edit this file. See notes on gluon + helm-docs at the end of this file for more information. -->
 # neuvector
 
-![Version: 2.8.9-bb.0](https://img.shields.io/badge/Version-2.8.9--bb.0-informational?style=flat-square) ![AppVersion: 5.4.7](https://img.shields.io/badge/AppVersion-5.4.7-informational?style=flat-square) ![Maintenance Track: bb_integrated](https://img.shields.io/badge/Maintenance_Track-bb_integrated-green?style=flat-square)
+![Version: 2.8.9-bb.1](https://img.shields.io/badge/Version-2.8.9--bb.1-informational?style=flat-square) ![AppVersion: 5.4.7](https://img.shields.io/badge/AppVersion-5.4.7-informational?style=flat-square) ![Maintenance Track: bb_integrated](https://img.shields.io/badge/Maintenance_Track-bb_integrated-green?style=flat-square)
 
 Helm chart for NeuVector's core services
 
@@ -27,7 +27,7 @@ Helm chart for NeuVector's core services
 
 Install Helm
 
-<https://helm.sh/docs/intro/install/>
+https://helm.sh/docs/intro/install/
 
 ## Deployment
 
@@ -43,35 +43,32 @@ helm install neuvector chart/
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | domain | string | `"dev.bigbang.mil"` |  |
-| istio.enabled | bool | `false` |  |
+| istio.enabled | bool | `true` |  |
 | istio.injection | string | `"enabled"` |  |
-| istio.hardened.enabled | bool | `false` |  |
-| istio.hardened.customAuthorizationPolicies | list | `[]` |  |
-| istio.hardened.outboundTrafficPolicyMode | string | `"REGISTRY_ONLY"` |  |
-| istio.hardened.monitoring.enabled | bool | `true` |  |
-| istio.hardened.monitoring.namespaces[0] | string | `"monitoring"` |  |
-| istio.hardened.monitoring.principals[0] | string | `"cluster.local/ns/monitoring/sa/monitoring-grafana"` |  |
-| istio.hardened.monitoring.principals[1] | string | `"cluster.local/ns/monitoring/sa/monitoring-monitoring-kube-alertmanager"` |  |
-| istio.hardened.monitoring.principals[2] | string | `"cluster.local/ns/monitoring/sa/monitoring-monitoring-kube-operator"` |  |
-| istio.hardened.monitoring.principals[3] | string | `"cluster.local/ns/monitoring/sa/monitoring-monitoring-kube-prometheus"` |  |
-| istio.hardened.monitoring.principals[4] | string | `"cluster.local/ns/monitoring/sa/monitoring-monitoring-kube-state-metrics"` |  |
-| istio.hardened.monitoring.principals[5] | string | `"cluster.local/ns/monitoring/sa/monitoring-monitoring-prometheus-node-exporter"` |  |
-| istio.hardened.customServiceEntries | list | `[]` |  |
-| istio.neuvector.enabled | bool | `true` |  |
-| istio.neuvector.annotations | object | `{}` |  |
-| istio.neuvector.labels | object | `{}` |  |
-| istio.neuvector.gateways[0] | string | `"istio-system/main"` |  |
-| istio.neuvector.hosts[0] | string | `"neuvector.{{ .Values.domain }}"` |  |
-| istio.mtls | object | `{"mode":"STRICT"}` | Default neuvector peer authentication |
-| istio.mtls.mode | string | `"STRICT"` | STRICT = Allow only mutual TLS traffic, PERMISSIVE = Allow both plain text and mutual TLS traffic |
+| istio.mtls.mode | string | `"STRICT"` |  |
+| istio.sidecar.enabled | bool | `true` |  |
+| istio.sidecar.outboundTrafficPolicyMode | string | `"REGISTRY_ONLY"` |  |
+| istio.authorizationPolicies.enabled | bool | `true` |  |
+| istio.authorizationPolicies.generateFromNetpol | bool | `true` |  |
+| routes.inbound.neuvector.enabled | bool | `true` |  |
+| routes.inbound.neuvector.gateways[0] | string | `"istio-system/public"` |  |
+| routes.inbound.neuvector.hosts[0] | string | `"neuvector.{{ .Values.domain }}"` |  |
+| routes.inbound.neuvector.service | string | `"neuvector-service-webui"` |  |
+| routes.inbound.neuvector.port | int | `8443` |  |
+| routes.inbound.neuvector.selector.app | string | `"neuvector-manager-pod"` |  |
 | networkPolicies.enabled | bool | `false` |  |
-| networkPolicies.ingressLabels.app | string | `"public-ingressgateway"` |  |
-| networkPolicies.ingressLabels.istio | string | `"ingressgateway"` |  |
-| networkPolicies.istioNamespaceSelector.ingress | string | `"istio-gateway"` |  |
-| networkPolicies.istioNamespaceSelector.egress | string | `"istio-gateway"` |  |
-| networkPolicies.controlPlaneCidr | string | `"0.0.0.0/0"` |  |
-| networkPolicies.vpcCidr | string | `"0.0.0.0/0"` |  |
-| networkPolicies.additionalPolicies | list | `[]` |  |
+| networkPolicies.egress.from.controller.podSelector.matchLabels.app | string | `"neuvector-controller-pod"` |  |
+| networkPolicies.egress.from.controller.to.definition.kubeAPI | bool | `true` |  |
+| networkPolicies.egress.from.updater.podSelector.matchLabels.app | string | `"neuvector-updater-pod"` |  |
+| networkPolicies.egress.from.updater.to.definition.kubeAPI | bool | `true` |  |
+| networkPolicies.egress.from.cert-upgrader.podSelector.matchLabels.app | string | `"neuvector-cert-upgrader-pod"` |  |
+| networkPolicies.egress.from.cert-upgrader.to.definition.kubeAPI | bool | `true` |  |
+| networkPolicies.egress.from.enforcer.podSelector.matchLabels.app | string | `"neuvector-enforcer-pod"` |  |
+| networkPolicies.egress.from.enforcer.to.definition.kubeAPI | bool | `true` |  |
+| networkPolicies.egress.from.scanner.podSelector.matchLabels.app | string | `"neuvector-scanner-pod"` |  |
+| networkPolicies.egress.from.scanner.to.definition.kubeAPI | bool | `true` |  |
+| networkPolicies.ingress.to.exporter:8068.podSelector.matchLabels.app | string | `"neuvector-prometheus-exporter-pod"` |  |
+| networkPolicies.ingress.to.exporter:8068.from.k8s.monitoring/prometheus | bool | `true` |  |
 | monitoring.enabled | bool | `false` |  |
 | monitoring.namespace | string | `"monitoring"` |  |
 | bbtests.enabled | bool | `false` |  |
@@ -118,3 +115,4 @@ Please see the [contributing guide](./CONTRIBUTING.md) if you are interested in 
 ---
 
 _This file is programatically generated using `helm-docs` and some BigBang-specific templates. The `gluon` repository has [instructions for regenerating package READMEs](https://repo1.dso.mil/big-bang/product/packages/gluon/-/blob/master/docs/bb-package-readme.md)._
+
