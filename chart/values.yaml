@@ -150,7 +150,7 @@ upstream:
 
   openshift: false
   registry: registry1.dso.mil
-  tag: 5.4.7
+  tag: 5.4.8
   imagePullSecrets: private-registry
   crdwebhook:
     enabled: false
@@ -195,7 +195,7 @@ upstream:
       enabled: false
       image:
         repository: neuvector/compliance-config
-        tag: 5.4.7
+        tag: 5.4.8
 
   enforcer:
     enabled: true
