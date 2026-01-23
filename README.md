@@ -1,7 +1,7 @@
 <!-- Warning: Do not manually edit this file. See notes on gluon + helm-docs at the end of this file for more information. -->
 # neuvector
 
-![Version: 2.8.10-bb.0](https://img.shields.io/badge/Version-2.8.10--bb.0-informational?style=flat-square) ![AppVersion: 5.4.8](https://img.shields.io/badge/AppVersion-5.4.8-informational?style=flat-square) ![Maintenance Track: bb_integrated](https://img.shields.io/badge/Maintenance_Track-bb_integrated-green?style=flat-square)
+![Version: 2.8.10-bb.1](https://img.shields.io/badge/Version-2.8.10--bb.1-informational?style=flat-square) ![AppVersion: 5.4.8](https://img.shields.io/badge/AppVersion-5.4.8-informational?style=flat-square) ![Maintenance Track: bb_integrated](https://img.shields.io/badge/Maintenance_Track-bb_integrated-green?style=flat-square)
 
 Helm chart for NeuVector's core services
 
@@ -43,12 +43,12 @@ helm install neuvector chart/
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | domain | string | `"dev.bigbang.mil"` |  |
-| istio.enabled | bool | `true` |  |
+| istio.enabled | bool | `false` |  |
 | istio.injection | string | `"enabled"` |  |
 | istio.mtls.mode | string | `"STRICT"` |  |
 | istio.sidecar.enabled | bool | `true` |  |
 | istio.sidecar.outboundTrafficPolicyMode | string | `"REGISTRY_ONLY"` |  |
-| istio.authorizationPolicies.enabled | bool | `true` |  |
+| istio.authorizationPolicies.enabled | bool | `false` |  |
 | istio.authorizationPolicies.generateFromNetpol | bool | `true` |  |
 | routes.inbound.neuvector.enabled | bool | `true` |  |
 | routes.inbound.neuvector.gateways[0] | string | `"istio-system/public"` |  |
@@ -115,5 +115,4 @@ Please see the [contributing guide](./CONTRIBUTING.md) if you are interested in 
 ---
 
 _This file is programatically generated using `helm-docs` and some BigBang-specific templates. The `gluon` repository has [instructions for regenerating package READMEs](https://repo1.dso.mil/big-bang/product/packages/gluon/-/blob/master/docs/bb-package-readme.md)._
-
 
