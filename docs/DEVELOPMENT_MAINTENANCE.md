@@ -3,7 +3,7 @@
 BigBang makes modifications to the upstream helm chart. The full list of changes is at the end of this document.
 
 1. Renovate should have made a `renovate/ironbank` branch with all necessary version updates. Checkout this branch locally.
-1. From the root of the repo run `kpt pkg update chart@<version> --strategy alpha-git-patch` replacing `<version>` with the latest version tag from the [upstream repo](https://github.com/neuvector/neuvector-helm) that has matching image versions. You may be prompted to resolve some conflicts - choose what makes sense (if there are BB additions/changes keep them, if there are upstream additions/changes keep them). You may want to use an alternative strategy with `kpt` (like `force-delete-replace`), and then restore the BB changes as needed.
+1. Verify the updated image tag with the latest version tag from the [upstream repo](https://github.com/neuvector/neuvector-helm) that has matching image versions. 
 1. Update `chart/Chart.yaml` to the appropriate versions. The annotation version should match the `appVersion`. If we have moved to a new chart version reset the `bb.X` version to `bb.0`.
 
    ```yaml
@@ -64,8 +64,8 @@ monitoring:
 ## Testing NeuVector
 
 1. Validate all pods successfully go to "Running".
-1. Validate you are able to hit the UI, which should be exposed at `neuvector.bigbang.dev` (make sure this is in your `/etc/hosts` file).
-1. Login with the default admin user (username: `admin`, password: `admin`)
+1. Validate you are able to hit the UI, which should be exposed at `neuvector.dev.bigbang.mil` (make sure this is in your `/etc/hosts` file).
+1. Login with the default admin user (username: `admin`, password: `changeme$!`)
 1. Validate pages show information. Key pages to check:
 
 - Main dashboard should be populated with details in most/all panels
@@ -205,7 +205,7 @@ This policy revokes access to the K8s API for Pods utilizing said ServiceAccount
 
 ## Monitor chart
 
-In `2.8.5-bb.0`, the monitor chart from upstream was added as a dependency instead of being bundled directly. This simplies the chart management.
+In `2.8.5-bb.0`, the monitor chart from upstream was added as a dependency instead of being bundled directly. This simplifies the chart management.
 
 
 ## Excluding healthchecks from Istio Mesh
