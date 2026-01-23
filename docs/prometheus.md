@@ -14,7 +14,7 @@ The Neuvector Metrics Exporter needs authentication configured to be able to pro
 
 ## Creating a read-only metrics user
 
-Neuvector comes configured with a default `admin` user, but it is highly encouraged to create a new user with limited permission. A new user can be created manually in the UI via <https://neuvector.bigbang.dev/#/settings/users> or be created as part of the built in user initialization, which uses `/etc/config/userinitcfg.yaml`.  
+Neuvector comes configured with a default `admin` user, but it is highly encouraged to create a new user with limited permission. A new user can be created manually in the UI via `https://neuvector.dev.bigbang.mil/#/settings/users` or be created as part of the built in user initialization, which uses `/etc/config/userinitcfg.yaml`.  
 
 The following example shows creation of a new `metrics` user with the built in `reader` role and the corresponding configuration to ensure the `CTRL_USERNAME` and `CTRL_PASSWORD` are configured to utilize the new user.
 

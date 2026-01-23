@@ -10,8 +10,8 @@ This document outlines how to set up a Keycloak client for use with Neuvector an
 - Change the following configuration items
   - Enable client authentication (confidential access type)
   - Direct Access Grants Enabled: Off
-  - Valid Redirect URIs: <https://neuvector.${DOMAIN}/openId_auth>
-  - Base URL: <https://neuvector.${DOMAIN}>
+  - Valid Redirect URIs: `https://neuvector.${DOMAIN}/openId_auth`
+  - Base URL: `https://neuvector.${DOMAIN}`
 - Take note of the client secret in the credentials
 
 ### Configure Neuvector Role Mapper
@@ -61,7 +61,7 @@ neuvector:
     client_id: neuvector
     client_secret: <client secret>
     default_role: null
-    issuer: https://keycloak.bigbang.dev/auth/realms/baby-yoda
+    issuer: https://keycloak.dev.bigbang.mil/auth/realms/baby-yoda
 
   # additional mapping required to map Keycloak roles/groups to Neuvector groups 
   values:
