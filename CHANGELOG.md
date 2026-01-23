@@ -4,6 +4,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
+## [2.8.10-bb.1] (2026-01-15)
+
+### Changed
+
+- Update renovate.json to combine MRs on images and helm chart updates
+
 ## [2.8.10-bb.0] (2026-01-08)
 
 ### Changed
