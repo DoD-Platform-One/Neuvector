@@ -4,6 +4,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
+## [2.8.10-bb.2] (2026-01-26)
+
+### Changed
+
+- update bb-common 0.11.1 -> 0.13.0
+- update core 2.8.9 -> 2.8.10
+- update crd  2.8.9 -> 2.8.10
+- update gluon 0.9.6 -> 0.9.7
+- update monitor 2.8.9 -> 2.8.10
+
 ## [2.8.10-bb.1] (2026-01-15)
 
 ### Changed

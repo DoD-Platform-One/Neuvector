@@ -1,7 +1,7 @@
 <!-- Warning: Do not manually edit this file. See notes on gluon + helm-docs at the end of this file for more information. -->
 # neuvector
 
-![Version: 2.8.10-bb.1](https://img.shields.io/badge/Version-2.8.10--bb.1-informational?style=flat-square) ![AppVersion: 5.4.8](https://img.shields.io/badge/AppVersion-5.4.8-informational?style=flat-square) ![Maintenance Track: bb_integrated](https://img.shields.io/badge/Maintenance_Track-bb_integrated-green?style=flat-square)
+![Version: 2.8.10-bb.2](https://img.shields.io/badge/Version-2.8.10--bb.2-informational?style=flat-square) ![AppVersion: 5.4.8](https://img.shields.io/badge/AppVersion-5.4.8-informational?style=flat-square) ![Maintenance Track: bb_integrated](https://img.shields.io/badge/Maintenance_Track-bb_integrated-green?style=flat-square)
 
 Helm chart for NeuVector's core services
 
@@ -27,7 +27,7 @@ Helm chart for NeuVector's core services
 
 Install Helm
 
-https://helm.sh/docs/intro/install/
+<https://helm.sh/docs/intro/install/>
 
 ## Deployment
 
@@ -84,13 +84,13 @@ helm install neuvector chart/
 | global.images.neuvector_csp_pod.image | string | `"neuvector-billing-azure-by-suse-llc"` |  |
 | global.images.neuvector_csp_pod.registry | string | `"registry.suse.de/suse/sle-15-sp5/update/pubclouds/images"` |  |
 | global.images.neuvector_csp_pod.imagePullPolicy | string | `"Always"` |  |
-| global.images.controller.tag | string | `"5.4.7"` |  |
+| global.images.controller.tag | string | `"5.4.8"` |  |
 | global.images.controller.image | string | `"controller"` |  |
 | global.images.controller.registry | string | `"registry1.dso.mil/ironbank/neuvector/neuvector"` |  |
-| global.images.manager.tag | string | `"5.4.7"` |  |
+| global.images.manager.tag | string | `"5.4.8"` |  |
 | global.images.manager.image | string | `"manager"` |  |
 | global.images.manager.registry | string | `"registry1.dso.mil/ironbank/neuvector/neuvector"` |  |
-| global.images.enforcer.tag | string | `"5.4.7"` |  |
+| global.images.enforcer.tag | string | `"5.4.8"` |  |
 | global.images.enforcer.image | string | `"enforcer"` |  |
 | global.images.enforcer.registry | string | `"registry1.dso.mil/ironbank/neuvector/neuvector"` |  |
 | upstream | object | Upstream chart values for Neuvector core | Values to pass to [the upstream NeuVector core subchart](https://github.com/neuvector/neuvector-helm/blob/master/charts/core/values.yaml) |
@@ -115,4 +115,3 @@ Please see the [contributing guide](./CONTRIBUTING.md) if you are interested in 
 ---
 
 _This file is programatically generated using `helm-docs` and some BigBang-specific templates. The `gluon` repository has [instructions for regenerating package READMEs](https://repo1.dso.mil/big-bang/product/packages/gluon/-/blob/master/docs/bb-package-readme.md)._
-
