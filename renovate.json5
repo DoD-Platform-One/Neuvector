@@ -35,7 +35,20 @@
         "digest"
       ],
       "groupName": "neuvector-all-dependencies",
-      "description": "Group all Iron Bank and Core updates into one MR"
+      "description": "Group all Iron Bank and Core updates into one MR",
+      // Use bump-chart-yaml because neuvector has independent versioning:
+      // upstream chart version (2.8.x) differs from appVersion (5.4.x).
+      // - appVersion change → bumps chart minor, resets -bb.0
+      // - deps-only change  → increments -bb.N suffix
+      // See: https://repo1.dso.mil/big-bang/bigbang/-/issues/3123
+      "postUpgradeTasks": {
+        "commands": [
+          "bump-chart-yaml",
+          "bump-changelog '{{#each upgrades}}- {{depName}} {{currentVersion}} -> {{newVersion}}\\n{{/each}}'",
+          "regenerate-helm-docs"
+        ],
+        "fileFilters": ["chart/Chart.yaml", "README.md", "CHANGELOG.md"]
+      }
     }
   ],
   "customManagers": [
