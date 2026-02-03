@@ -1,19 +1,39 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "baseBranches": ["main"],
+  "baseBranches": [
+    "main"
+  ],
   "dependencyDashboard": true,
   "dependencyDashboardTitle": "Renovate: Upgrade NeuVector Package Dependencies",
   "draftPR": true,
-  "enabledManagers": ["helmv3", "custom.regex"],
-  "ignorePaths": ["chart/charts/**"],
-  "labels": ["neuvector", "Package Sustainment", "kind::maintenance"],
+  "enabledManagers": [
+    "helmv3",
+    "custom.regex"
+  ],
+  "ignorePaths": [
+    "chart/charts/**"
+  ],
+  "labels": [
+    "neuvector",
+    "Package Sustainment",
+    "kind::maintenance"
+  ],
   "commitMessagePrefix": "SKIP UPDATE CHECK",
   "separateMajorMinor": false,
-  "postUpdateOptions": ["helmUpdateSubChartArchives"],
-  "ignoreDeps": ["neuvector/compliance-config"],
+  "postUpdateOptions": [
+    "helmUpdateSubChartArchives"
+  ],
+  "ignoreDeps": [
+    "neuvector/compliance-config"
+  ],
   "packageRules": [
     {
-      "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
+      "matchUpdateTypes": [
+        "minor",
+        "patch",
+        "pin",
+        "digest"
+      ],
       "groupName": "neuvector-all-dependencies",
       "description": "Group all Iron Bank and Core updates into one MR"
     }
@@ -22,16 +42,24 @@
     {
       "customType": "regex",
       "description": "NeuVector appVersion in Chart.yaml",
-      "fileMatch": ["^chart/Chart\\.yaml$"],
-      "matchStrings": ["appVersion:\\s+[\"']?(?<currentValue>[^\\s\\n\"']+)[\"']?"],
+      "managerFilePatterns": [
+        "/^chart/Chart\\.yaml$/"
+      ],
+      "matchStrings": [
+        "appVersion:\\s+[\"']?(?<currentValue>[^\\s\\n\"']+)[\"']?"
+      ],
       "depNameTemplate": "registry1.dso.mil/ironbank/neuvector/neuvector/controller",
       "datasourceTemplate": "docker"
     },
     {
       "customType": "regex",
       "description": "Upstream NeuVector Core Chart dependency",
-      "fileMatch": ["^chart/Chart\\.yaml$"],
-      "matchStrings": ["name: core\\s+version: (?<currentValue>.+)"],
+      "managerFilePatterns": [
+        "/^chart/Chart\\.yaml$/"
+      ],
+      "matchStrings": [
+        "name: core\\s+version: (?<currentValue>.+)"
+      ],
       "depNameTemplate": "core",
       "datasourceTemplate": "helm",
       "registryUrlTemplate": "https://neuvector.github.io/neuvector-helm/"
@@ -39,15 +67,21 @@
     {
       "customType": "regex",
       "description": "NeuVector App Version Annotation",
-      "fileMatch": ["^chart/Chart\\.yaml$"],
-      "matchStrings": ["- NeuVector:\\s+(?<currentValue>[^\\s\\n]+)"],
+      "managerFilePatterns": [
+        "/^chart/Chart\\.yaml$/"
+      ],
+      "matchStrings": [
+        "- NeuVector:\\s+(?<currentValue>[^\\s\\n]+)"
+      ],
       "depNameTemplate": "registry1.dso.mil/ironbank/neuvector/neuvector/controller",
       "datasourceTemplate": "docker"
     },
     {
       "customType": "regex",
       "description": "Iron Bank Images in Annotations",
-      "fileMatch": ["^chart/Chart\\.yaml$"],
+      "managerFilePatterns": [
+        "/^chart/Chart\\.yaml$/"
+      ],
       "matchStrings": [
         "image:\\s+[\"']?(?<depName>registry1\\.dso\\.mil/[^:]+):(?<currentValue>[^\\s\\n\"']+)[\"']?"
       ],
@@ -56,15 +90,21 @@
     {
       "customType": "regex",
       "description": "General NeuVector tag in values.yaml",
-      "fileMatch": ["^chart/values\\.yaml$"],
-      "matchStrings": ["registry:\\s+registry1\\.dso\\.mil\\s+tag:\\s+(?<currentValue>[^\\s\\n\"']+)"],
+      "managerFilePatterns": [
+        "/^chart/values\\.yaml$/"
+      ],
+      "matchStrings": [
+        "registry:\\s+registry1\\.dso\\.mil\\s+tag:\\s+(?<currentValue>[^\\s\\n\"']+)"
+      ],
       "depNameTemplate": "registry1.dso.mil/ironbank/neuvector/neuvector/controller",
       "datasourceTemplate": "docker"
     },
     {
       "customType": "regex",
       "description": "Specific images in values.yaml",
-      "fileMatch": ["^chart/values\\.yaml$"],
+      "managerFilePatterns": [
+        "/^chart/values\\.yaml$/"
+      ],
       "matchStrings": [
         "repository:\\s+(?<depName>[^\\s\\n]+)\\s+tag:\\s+(?<currentValue>[^\\s\\n\"']+)"
       ],
@@ -74,7 +114,9 @@
     {
       "customType": "regex",
       "description": "Iron Bank images from values.yaml using comments",
-      "fileMatch": ["^chart/values\\.yaml$"],
+      "managerFilePatterns": [
+        "/^chart/values\\.yaml$/"
+      ],
       "matchStrings": [
         "datasource=(?<datasource>.*?) depName=(?<depName>.*?)( registryUrl=(?<registryUrl>.*?))?\\s.*?tag: (?<currentValue>.*)\\s"
       ],
@@ -84,8 +126,12 @@
     {
       "customType": "regex",
       "description": "Test images in txt file",
-      "fileMatch": ["^tests/images\\.txt$"],
-      "matchStrings": ["(?<depName>.+):(?<currentValue>.+)"],
+      "managerFilePatterns": [
+        "/^tests/images\\.txt$/"
+      ],
+      "matchStrings": [
+        "(?<depName>.+):(?<currentValue>.+)"
+      ],
       "datasourceTemplate": "docker"
     }
   ]
