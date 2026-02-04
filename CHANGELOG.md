@@ -3,6 +3,13 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
+## [2.8.10-bb.3] (2026-02-04)
+
+### Changed
+
+- Fixed an invalid reference to iron bank's registry-adapter image.
+- Added a netpol to allow registry-adapter to communicate with kube-api.
+- Fixed registry-adapter's pod annotations to allow cert-upgrader to communicate with its healthz endpoint.
 
 ## [2.8.10-bb.2] (2026-01-26)
 
