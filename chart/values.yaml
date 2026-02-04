@@ -49,6 +49,15 @@ networkPolicies:
           definition:
             kubeAPI: true
 
+      # Adapter egress to Kubernetes API
+      adapter:
+        podSelector:
+          matchLabels:
+            app: neuvector-registry-adapter-pod
+        to:
+          definition:
+            kubeAPI: true
+
       # Updater egress to Kubernetes API
       updater:
         podSelector:
@@ -237,8 +246,9 @@ upstream:
     adapter:
       enabled: false
       image:
-        repository: neuvector/registry-adapter
-        tag: 0.2.2
+        repository: ironbank/opensource/neuvector/registry-adapter
+        tag: v0.2.2
+      podAnnotations:
         traffic.sidecar.istio.io/excludeInboundPorts: "18500"
       securityContext:
         runAsUser: 1000
