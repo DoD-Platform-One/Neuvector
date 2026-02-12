@@ -3,6 +3,12 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
+## [2.8.10-bb.4] (2026-02-12)
+### Changed
+- bb-common 0.13.0 -> 0.14.0
+- gluon 0.9.7 -> 0.9.8
+- Migrated Cypress tests from Cypress.env() to cy.env() for Cypress 15.10.0 compatibility
+
 ## [2.8.10-bb.3] (2026-02-04)
 
 ### Changed
