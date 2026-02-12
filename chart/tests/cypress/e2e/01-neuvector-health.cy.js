@@ -4,6 +4,8 @@ Cypress.on('uncaught:exception', (err, runnable) => {
   return false
 })
 
+let changedPassword = null
+
 function resetPasswordIfPrompted() {
   cy.get('body').then($body => {
     const hasResetModal = $body.find('mat-dialog-container app-reset-password-modal').length > 0
@@ -29,7 +31,7 @@ function resetPasswordIfPrompted() {
     cy.get('mat-dialog-container', { timeout: 20000 }).should('not.exist')
 
     // Persist the new credential for the rest of this run
-    Cypress.env('password', newPwd)
+    changedPassword = newPwd
   })
 }
 
@@ -41,47 +43,47 @@ beforeEach(function () {
 
   cy.viewport(1920, 1080)
 
-  const url = Cypress.env('url')
-  const passPrimary = Cypress.env('password') || 'changeme$!'
-  const passFallback = 'cypressPwd!1' // fallback password
+  cy.env(['url', 'password']).then(({ url, password }) => {
+    const passPrimary = changedPassword || password || 'changeme$!'
+    const passFallback = 'cypressPwd!1' // fallback password
 
-  function attemptLogin(username, password) {
-    cy.visit(url)
-    cy.title().should('contain', 'NeuVector')
+    function attemptLogin(username, pwd) {
+      cy.visit(url)
+      cy.title().should('contain', 'NeuVector')
 
-    cy.get('input[id="Email1"]').clear().type(username)
-    cy.get('input[id="password1"]').clear().type(password)
+      cy.get('input[id="Email1"]').clear().type(username)
+      cy.get('input[id="password1"]').clear().type(pwd)
 
-    cy.get('body').then($body => {
-      if ($body.find('#mat-checkbox-1').length == 0) {
-        cy.get('button[type="submit"]').click({ force: true })
-      } else {
-        cy.get('#mat-checkbox-1').find('input').click({ force: true })
-        cy.get('button[type="submit"]').click({ force: true })
-      }
-    })
+      cy.get('body').then($body => {
+        if ($body.find('#mat-checkbox-1').length == 0) {
+          cy.get('button[type="submit"]').click({ force: true })
+        } else {
+          cy.get('#mat-checkbox-1').find('input').click({ force: true })
+          cy.get('button[type="submit"]').click({ force: true })
+        }
+      })
 
-    cy.wait(2000)
-    resetPasswordIfPrompted()
+      cy.wait(2000)
+      resetPasswordIfPrompted()
 
-    // Check if dashboard element exists to confirm login success
-    return cy.get('body').then($b => {
-      if ($b.find('app-exposure-chart').length > 0) {
-        return true
-      } else {
-        return false
-      }
-    })
-  }
-
-  // Try first login, then fallback if needed
-  attemptLogin('admin', passPrimary).then(success => {
-    if (!success) {
-      cy.log('Primary login failed, trying fallback (admin/cypressPwd!1)')
-      attemptLogin('admin', passFallback)
+      // Check if dashboard element exists to confirm login success
+      return cy.get('body').then($b => {
+        if ($b.find('app-exposure-chart').length > 0) {
+          return true
+        } else {
+          return false
+        }
+      })
     }
-  })
 
+    // Try first login, then fallback if needed
+    attemptLogin('admin', passPrimary).then(success => {
+      if (!success) {
+        cy.log('Primary login failed, trying fallback (admin/cypressPwd!1)')
+        attemptLogin('admin', passFallback)
+      }
+    })
+  })
 })
 
 // Basic test that validates Dashboard panels exist
