@@ -1,7 +1,7 @@
 <!-- Warning: Do not manually edit this file. See notes on gluon + helm-docs at the end of this file for more information. -->
 # neuvector
 
-![Version: 2.8.10-bb.4](https://img.shields.io/badge/Version-2.8.10--bb.4-informational?style=flat-square) ![AppVersion: 5.4.8](https://img.shields.io/badge/AppVersion-5.4.8-informational?style=flat-square) ![Maintenance Track: bb_integrated](https://img.shields.io/badge/Maintenance_Track-bb_integrated-green?style=flat-square)
+![Version: 2.8.11-bb.0](https://img.shields.io/badge/Version-2.8.11--bb.0-informational?style=flat-square) ![AppVersion: 5.4.9](https://img.shields.io/badge/AppVersion-5.4.9-informational?style=flat-square) ![Maintenance Track: bb_integrated](https://img.shields.io/badge/Maintenance_Track-bb_integrated-green?style=flat-square)
 
 Helm chart for NeuVector's core services
 
@@ -86,13 +86,13 @@ helm install neuvector chart/
 | global.images.neuvector_csp_pod.image | string | `"neuvector-billing-azure-by-suse-llc"` |  |
 | global.images.neuvector_csp_pod.registry | string | `"registry.suse.de/suse/sle-15-sp5/update/pubclouds/images"` |  |
 | global.images.neuvector_csp_pod.imagePullPolicy | string | `"Always"` |  |
-| global.images.controller.tag | string | `"5.4.8"` |  |
+| global.images.controller.tag | string | `"5.4.9"` |  |
 | global.images.controller.image | string | `"controller"` |  |
 | global.images.controller.registry | string | `"registry1.dso.mil/ironbank/neuvector/neuvector"` |  |
-| global.images.manager.tag | string | `"5.4.8"` |  |
+| global.images.manager.tag | string | `"5.4.9"` |  |
 | global.images.manager.image | string | `"manager"` |  |
 | global.images.manager.registry | string | `"registry1.dso.mil/ironbank/neuvector/neuvector"` |  |
-| global.images.enforcer.tag | string | `"5.4.8"` |  |
+| global.images.enforcer.tag | string | `"5.4.9"` |  |
 | global.images.enforcer.image | string | `"enforcer"` |  |
 | global.images.enforcer.registry | string | `"registry1.dso.mil/ironbank/neuvector/neuvector"` |  |
 | upstream | object | Upstream chart values for Neuvector core | Values to pass to [the upstream NeuVector core subchart](https://github.com/neuvector/neuvector-helm/blob/master/charts/core/values.yaml) |
