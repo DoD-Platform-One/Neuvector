@@ -3,6 +3,16 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
+## [2.8.11-bb.0] (2026-02-13)
+### Changed
+- core 2.8.10 -> 2.8.11
+- crd 2.8.10 -> 2.8.11
+- monitor 2.8.10 -> 2.8.11
+- registry1.dso.mil/ironbank/neuvector/neuvector/controller 5.4.8 -> 5.4.9
+- registry1.dso.mil/ironbank/neuvector/neuvector/enforcer 5.4.8 -> 5.4.9
+- registry1.dso.mil/ironbank/neuvector/neuvector/manager 5.4.8 -> 5.4.9
+- registry1.dso.mil/ironbank/opensource/neuvector/registry-adapter v0.2.2 -> v0.2.3
+
 ## [2.8.10-bb.4] (2026-02-12)
 ### Changed
 - bb-common 0.13.0 -> 0.14.0

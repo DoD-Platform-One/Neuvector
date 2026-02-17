@@ -137,15 +137,15 @@ global: # required for rancher authentication (https://<Rancher_URL>/)
         registry: registry.suse.de/suse/sle-15-sp5/update/pubclouds/images
         imagePullPolicy: Always
       controller:
-        tag: 5.4.8
+        tag: 5.4.9
         image: controller
         registry: registry1.dso.mil/ironbank/neuvector/neuvector
       manager:
-        tag: 5.4.8
+        tag: 5.4.9
         image: manager
         registry: registry1.dso.mil/ironbank/neuvector/neuvector
       enforcer:
-        tag: 5.4.8
+        tag: 5.4.9
         image: enforcer
         registry: registry1.dso.mil/ironbank/neuvector/neuvector
 
@@ -159,7 +159,7 @@ upstream:
 
   openshift: false
   registry: registry1.dso.mil
-  tag: 5.4.8
+  tag: 5.4.9
   imagePullSecrets: private-registry
   crdwebhook:
     enabled: false
@@ -247,7 +247,7 @@ upstream:
       enabled: false
       image:
         repository: ironbank/opensource/neuvector/registry-adapter
-        tag: v0.2.2
+        tag: v0.2.3
       podAnnotations:
         traffic.sidecar.istio.io/excludeInboundPorts: "18500"
       securityContext:
