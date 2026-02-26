@@ -4,86 +4,68 @@
     "main"
   ],
   "dependencyDashboard": true,
-  "dependencyDashboardTitle": "Renovate: Upgrade NeuVector Package Dependencies",
+  "dependencyDashboardTitle": "Renovate: Update NeuVector Package Dependencies",
   "draftPR": true,
+  "labels": [
+    "neuvector",
+    "renovate",
+    "Package Sustainment",
+    "kind::maintenance"
+  ],
   "enabledManagers": [
     "helmv3",
     "custom.regex"
   ],
-  "ignorePaths": [
-    "chart/charts/**"
-  ],
-  "labels": [
-    "neuvector",
-    "Package Sustainment",
-    "kind::maintenance"
-  ],
-  "commitMessagePrefix": "SKIP UPDATE CHECK",
   "separateMajorMinor": false,
   "postUpdateOptions": [
     "helmUpdateSubChartArchives"
   ],
-  "ignoreDeps": [
-    "neuvector/compliance-config"
-  ],
   "packageRules": [
     {
-      "matchUpdateTypes": [
-        "minor",
-        "patch",
-        "pin",
-        "digest"
+      "matchDatasources": [
+        "docker",
+        "helm"
       ],
-      "groupName": "neuvector-all-dependencies",
+      "groupName": "neuvector",
       "description": "Group all Iron Bank and Core updates into one MR",
-      // Use bump-chart-yaml because neuvector has independent versioning:
-      // upstream chart version (2.8.x) differs from appVersion (5.4.x).
-      // - appVersion change → bumps chart minor, resets -bb.0
-      // - deps-only change  → increments -bb.N suffix
-      // See: https://repo1.dso.mil/big-bang/bigbang/-/issues/3123
       "postUpgradeTasks": {
         "commands": [
           "bump-chart-yaml",
           "bump-changelog '{{#each upgrades}}- {{depName}} {{currentVersion}} -> {{newVersion}}\\n{{/each}}'",
           "regenerate-helm-docs"
         ],
-        "fileFilters": ["chart/Chart.yaml", "README.md", "CHANGELOG.md"]
+        "fileFilters": [
+          "chart/Chart.yaml",
+          "README.md",
+          "CHANGELOG.md"
+        ],
+        "executionMode": "branch"
       }
     }
   ],
   "customManagers": [
     {
       "customType": "regex",
-      "description": "NeuVector appVersion in Chart.yaml",
+      "description": "Update helm chart version in Chart.yaml",
       "managerFilePatterns": [
         "/^chart/Chart\\.yaml$/"
       ],
       "matchStrings": [
-        "appVersion:\\s+[\"']?(?<currentValue>[^\\s\\n\"']+)[\"']?"
+        "version:\\s+(?<currentValue>.+)-bb\\.\\d+"
       ],
-      "depNameTemplate": "registry1.dso.mil/ironbank/neuvector/neuvector/controller",
-      "datasourceTemplate": "docker"
-    },
-    {
-      "customType": "regex",
-      "description": "Upstream NeuVector Core Chart dependency",
-      "managerFilePatterns": [
-        "/^chart/Chart\\.yaml$/"
-      ],
-      "matchStrings": [
-        "name: core\\s+version: (?<currentValue>.+)"
-      ],
+      "autoReplaceStringTemplate": "version: {{{newValue}}}-bb.0",
       "depNameTemplate": "core",
       "datasourceTemplate": "helm",
       "registryUrlTemplate": "https://neuvector.github.io/neuvector-helm/"
     },
     {
       "customType": "regex",
-      "description": "NeuVector App Version Annotation",
+      "description": "Update app version in Chart.yaml",
       "managerFilePatterns": [
         "/^chart/Chart\\.yaml$/"
       ],
       "matchStrings": [
+        "appVersion:\\s+[\"']?(?<currentValue>[^\\s\\n\"']+)[\"']?",
         "- NeuVector:\\s+(?<currentValue>[^\\s\\n]+)"
       ],
       "depNameTemplate": "registry1.dso.mil/ironbank/neuvector/neuvector/controller",
@@ -91,50 +73,50 @@
     },
     {
       "customType": "regex",
-      "description": "Iron Bank Images in Annotations",
+      "description": "Update images list in Chart.yaml",
       "managerFilePatterns": [
         "/^chart/Chart\\.yaml$/"
       ],
       "matchStrings": [
-        "image:\\s+[\"']?(?<depName>registry1\\.dso\\.mil/[^:]+):(?<currentValue>[^\\s\\n\"']+)[\"']?"
+        "image:[^\\S\\r\\n]+(?<depName>.+):(?<currentValue>.+)"
       ],
       "datasourceTemplate": "docker"
     },
     {
       "customType": "regex",
-      "description": "General NeuVector tag in values.yaml",
+      "description": "Update upstream tag in values.yaml",
       "managerFilePatterns": [
         "/^chart/values\\.yaml$/"
       ],
       "matchStrings": [
-        "registry:\\s+registry1\\.dso\\.mil\\s+tag:\\s+(?<currentValue>[^\\s\\n\"']+)"
+        "upstream:\\s+[\\s\\S]*?registry:\\s+registry1\\.dso\\.mil\\s+tag:\\s+(?<currentValue>[^\\s\"']+)"
       ],
       "depNameTemplate": "registry1.dso.mil/ironbank/neuvector/neuvector/controller",
       "datasourceTemplate": "docker"
     },
     {
       "customType": "regex",
-      "description": "Specific images in values.yaml",
+      "description": "Update global images in values.yaml",
       "managerFilePatterns": [
         "/^chart/values\\.yaml$/"
       ],
       "matchStrings": [
-        "repository:\\s+(?<depName>[^\\s\\n]+)\\s+tag:\\s+(?<currentValue>[^\\s\\n\"']+)"
+        "(?:controller|manager|enforcer):\\s+tag:\\s+(?<currentValue>[^\\s\"']+)\\s+image:\\s+(?<imageName>[^\\s\"']+)\\s+registry:\\s+(?<registryPath>registry1\\.dso\\.mil[^\\s\"']*)"
       ],
-      "datasourceTemplate": "docker",
-      "registryUrlTemplate": "https://registry1.dso.mil"
+      "depNameTemplate": "{{{registryPath}}}/{{{imageName}}}",
+      "datasourceTemplate": "docker"
     },
     {
       "customType": "regex",
-      "description": "Iron Bank images from values.yaml using comments",
+      "description": "Update images in values.yaml",
       "managerFilePatterns": [
         "/^chart/values\\.yaml$/"
       ],
       "matchStrings": [
-        "datasource=(?<datasource>.*?) depName=(?<depName>.*?)( registryUrl=(?<registryUrl>.*?))?\\s.*?tag: (?<currentValue>.*)\\s"
+        "repository:\\s+(?<depName>[^\\s\"']+)\\s+tag:\\s+[\"']?(?<currentValue>[^\\s\"']+)[\"']?"
       ],
-      "datasourceTemplate": "docker",
-      "registryUrlTemplate": "https://registry1.dso.mil"
+      "depNameTemplate": "registry1.dso.mil/{{{depName}}}",
+      "datasourceTemplate": "docker"
     },
     {
       "customType": "regex",

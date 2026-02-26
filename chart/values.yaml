@@ -262,8 +262,8 @@ upstream:
       image:
         registry: "registry1.dso.mil"
         repository: ironbank/big-bang/base
-        imagePullPolicy: Always
         tag: 2.1.0
+        imagePullPolicy: Always
       podAnnotations:
         traffic.sidecar.istio.io/excludeInboundPorts: "18500"
       securityContext:
@@ -282,8 +282,8 @@ upstream:
       enabled: true
       image:
         repository: ironbank/neuvector/neuvector/scanner
-        imagePullPolicy: Always
         tag: "6"
+        imagePullPolicy: Always
       podAnnotations:
         traffic.sidecar.istio.io/excludeInboundPorts: "18500"
       runAsUser:
