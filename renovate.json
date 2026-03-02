@@ -41,6 +41,11 @@
         ],
         "executionMode": "branch"
       }
+    },
+    {
+      "matchPackageNames": ["registry1.dso.mil/neuvector/compliance-config"],
+      "enabled": false,
+      "description": "Do not update compliance-config image. See https://repo1.dso.mil/big-bang/product/packages/neuvector/-/issues/186#note_3570441."
     }
   ],
   "customManagers": [
