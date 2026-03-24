@@ -53,10 +53,8 @@ neuvector:
       enabled: true
   sourceType: "git"
   git:
-    repo: https://repo1.dso.mil/big-bang/product/packages/neuvector.git
-    path: chart
-    tag: null
-    branch: "replace-me-with-your-branch-name"
+    tag: ""
+    branch: "renovate/neuvector"
 monitoring:
   enabled: true
 ```
