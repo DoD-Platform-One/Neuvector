@@ -55,10 +55,10 @@ beforeEach(function () {
       cy.get('input[id="password1"]').clear().type(pwd)
 
       cy.get('body').then($body => {
-        if ($body.find('#mat-checkbox-1').length == 0) {
+        if ($body.find('div.mdc-checkbox').length == 0) {
           cy.get('button[type="submit"]').click({ force: true })
         } else {
-          cy.get('#mat-checkbox-1').find('input').click({ force: true })
+          cy.get('div.mdc-checkbox').find('input').click({ force: true })
           cy.get('button[type="submit"]').click({ force: true })
         }
       })
